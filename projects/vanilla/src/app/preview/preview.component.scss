@@ -1,0 +1,12 @@
+.overflow-y-scroll {
+    overflow-y: auto;
+}
+
+.preview-bg {
+    background-color: #efefef;
+}
+
+:host-context(.dark)
+.preview-bg {
+  background-color: black;
+}
