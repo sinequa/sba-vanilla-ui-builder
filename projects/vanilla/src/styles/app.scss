@@ -20,6 +20,8 @@ $container-max-widths: (
 // Bootstrap styles
 @import "~bootstrap/scss/bootstrap";
 
+@import "~ngx-ui-builder/src/ui-builder";
+
 // Fontawesome
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
