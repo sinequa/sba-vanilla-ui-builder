@@ -81,19 +81,69 @@ export class SearchComponent implements OnInit {
         })
       );
     
-    const facetConfig = [] as ComponentConfig[];
-    facetConfig.push({
+    const config = [] as ComponentConfig[];
+    // Initialize list of facets
+    config.push({
       id: 'facets',
       type: 'container',
       items: this.facets.map(f => f.name),
       classes: 'flex-column'
     });
-    this.facets.forEach(f => facetConfig.push({
+    this.facets.forEach(f => config.push({
       ...f,
       id: f.name,
       type: `facet-${f.type}`,
     }))
-    this.configService.init(facetConfig);
+
+    // Initialize result list
+    config.push({
+      id: 'results',
+      type: 'container',
+      items: ['result-left-side', 'result-thumbnail'],
+      classes: 'record'
+    },
+    {
+      id: 'result-left-side',
+      type: 'container',
+      items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
+      classes: 'flex-grow-1 overflow-hidden flex-column'
+    },
+    {
+      id: 'result-title-container',
+      type: 'container',
+      items: ['result-selector', 'result-title'],
+      classes: 'align-items-center'
+    },
+    {
+      id: 'result-metas',
+      type: 'container',
+      items: ['result-labels-public', 'result-labels-private']
+    },
+    {
+      id: 'result-labels-public',
+      type: 'result-labels',
+      public: true
+    },
+    {
+      id: 'result-labels-private',
+      type: 'result-labels',
+      public: false
+    },
+    {
+      id: 'result-source',
+      type: 'result-source',
+      displayTreepath: true,
+      displayUrl: true
+    },
+    {
+      id: 'result-thumbnail',
+      type: 'result-thumbnail',
+      classes: 'align-self-center ms-3',
+      thumbnailColumn: 'sourcevarchar4',
+      linkBehavior: 'action'
+    })
+
+    this.configService.init(config);
   }
 
   /**

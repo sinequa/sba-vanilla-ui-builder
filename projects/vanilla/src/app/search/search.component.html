@@ -107,25 +107,42 @@
             <sq-sponsored-results [query]="searchService.query"></sq-sponsored-results>
 
             <!-- List of documents (for loop) -->
-            <div *ngFor="let record of results.records" class="record d-flex"
-                (click)="onDocumentClicked(record, $event)"
-                [ngClass]="{'selected': record.$selected || record === openedDoc}">
-                <div class="flex-grow-1 overflow-hidden">
-                    <div class="d-flex align-items-center">
-                        <sq-result-selector *ngIf="ui.screenSizeIsGreaterOrEqual('md')" [record]="record" class="ms-1"></sq-result-selector>
-                        <sq-result-title [record]="record" (titleClicked)="openPreviewIfNoUrl(record, $event)"></sq-result-title>
-                    </div>
-                    <sq-result-source [record]="record" [displayTreepath]="true"></sq-result-source>
-                    <sq-result-extracts [record]="record"></sq-result-extracts>
+            <uib-zone id="results" [data]="results.records">
+
+                <ng-template uib-template="result-selector" let-config let-record="data">
+                    <sq-result-selector [record]="record"></sq-result-selector>
+                </ng-template>
+
+                <ng-template uib-template="result-title" let-config let-record="data">
+                    <sq-result-title [record]="record" (titleClicked)="openPreviewIfNoUrl(record, $event)"></sq-result-title>
+                </ng-template>
+
+                <ng-template uib-template="result-source" let-config let-record="data">
+                    <sq-result-source [record]="record" [displayTreepath]="config.displayTreepath" [displayUrl]="config.displayUrl" [displayTreepathMinLevel]="config.displayTreepathMinLevel" [displayTreepathMaxLevel]="config.displayTreepathMaxLevel"></sq-result-source>
+                </ng-template>
+
+                <ng-template uib-template="result-extracts" let-config let-record="data">
+                    <sq-result-extracts [record]="record" [showLongExtracts]="config.showLongExtracts" [hideDate]="config.hideDate" [maxLongExtracts]="config.maxLongExtracts"></sq-result-extracts>
+                </ng-template>
+
+                <ng-template uib-template="result-icon" let-config let-record="data">
+                    <sq-result-icon [record]="record" [size]="config.size">
+                    </sq-result-icon>
+                </ng-template>
+
+                <ng-template uib-template="result-missing-terms" let-config let-record="data">
                     <sq-result-missing-terms [record]="record"></sq-result-missing-terms>
-                    
-                    <sq-labels [record]="record" [public]="true"></sq-labels>
-                    <sq-labels [record]="record" [public]="false"></sq-labels>
-                </div>
-                <sq-result-thumbnail [record]="record" [thumbnailColumn]="'sourcevarchar4'" [linkBehavior]="'action'"
-                    *ngIf="ui.screenSizeIsGreater('xs')" class="align-self-center">
-                </sq-result-thumbnail>
-            </div>
+                </ng-template>
+
+                <ng-template uib-template="result-labels" let-config let-record="data">
+                    <sq-labels [record]="record" [public]="config.public" [enableDelete]="config.enableDelete"></sq-labels>
+                </ng-template>
+
+                <ng-template uib-template="result-thumbnail" let-config let-record="data">
+                    <sq-result-thumbnail [record]="record" [thumbnailColumn]="config.thumbnailColumn" [linkBehavior]="config.linkBehavior" [defaultThumbnail]="config.defaultThumbnail">
+                    </sq-result-thumbnail>
+                </ng-template>
+            </uib-zone>
 
             <!-- Infinite scroll -->
             <sq-scroller></sq-scroller>
@@ -171,11 +188,61 @@
       <ng-template uib-template="facet-tree" let-context>
         <sq-facet-configurator [context]="context" [isTreeFacet]="true"></sq-facet-configurator>
       </ng-template>
+
+      <ng-template uib-template="result-source" let-context>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="displayTreepath" [(ngModel)]="!!context.config.displayTreepath" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="displayTreepath">Display Treepath</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="displayUrl" [(ngModel)]="!!context.config.displayUrl" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="displayUrl">Display URL</label>
+        </div>
+      </ng-template>
   
-      <ng-template uib-template="container" let-context>
-  
-        <uib-palette [context]="context.context" [configurators]="context.configurators"></uib-palette>
-  
+      <ng-template uib-template="result-extracts" let-context>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="showLongExtracts" [(ngModel)]="!!context.config.showLongExtracts" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="showLongExtracts">Show long extracts</label>
+        </div>
+        <label for="maxLongExtracts">Max long extracts</label>
+        <input type="text" class="form-control mb-1" id="maxLongExtracts" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.maxLongExtracts" (ngModelChange)="context.configChanged()">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="hideDate" [(ngModel)]="!!context.config.hideDate" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="hideDate">Hide date</label>
+        </div>
+      </ng-template>
+
+      <ng-template uib-template="result-icon" let-context>
+        <label for="size">Size</label>
+        <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChange)="context.configChanged()">
+      </ng-template>
+
+      <ng-template uib-template="result-labels" let-context>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="public" [(ngModel)]="!!context.config.public" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="public">Public Labels</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="enableDelete" [(ngModel)]="!!context.config.enableDelete" (ngModelChange)="context.configChanged()">
+          <label class="form-check-label" for="enableDelete">Enable Delete</label>
+        </div>
+      </ng-template>
+
+      <ng-template uib-template="result-thumbnail" let-context>
+        <label for="thumbnailColumn">Custom thumbnail column</label>
+        <input type="text" class="form-control mb-1" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChange)="context.configChanged()">
+        <label for="defaultThumbnail">Default thumbnail URL</label>
+        <input type="text" class="form-control mb-1" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChange)="context.configChanged()">
+        <label for="linkBehavior">Click behavior</label>
+        <select id="linkBehavior" class="form-select mb-1" [(ngModel)]="context.config.linkBehavior" (ngModelChange)="context.configChanged()">
+            <option [ngValue]="'open'">Open original document</option>
+            <option [ngValue]="'action'">Custom action (or none)</option>
+        </select>
+      </ng-template>
+
+      <ng-template uib-template="container" let-context>  
+        <uib-palette [context]="context.context" [configurators]="context.configurators"></uib-palette>  
       </ng-template>
     </uib-configurator>
   </div>
