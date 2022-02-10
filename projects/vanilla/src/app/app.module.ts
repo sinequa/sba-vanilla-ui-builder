@@ -45,6 +45,10 @@ import { AutocompleteExtended } from './search-form/autocomplete-extended.direct
 // Environment
 import { environment } from "../environments/environment";
 
+// UI Builder
+import { DynamicViewsModule, ConfiguratorModule } from "ngx-ui-builder";
+import { ConfiguratorsModule } from "./configurators/configurators.module";
+
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
@@ -137,7 +141,12 @@ export const breakpoints = {
         BsPreviewModule,
         MetadataModule,
         BsSelectionModule,
-        BsAdvancedModule
+        BsAdvancedModule,
+
+        // UI Builder
+        DynamicViewsModule,
+        ConfiguratorModule,
+        ConfiguratorsModule
     ],
     declarations: [
         AppComponent,

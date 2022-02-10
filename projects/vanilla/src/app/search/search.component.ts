@@ -13,6 +13,7 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
+import { ConfigService, ComponentConfig } from "ngx-ui-builder";
 
 @Component({
   selector: 'app-search',
@@ -20,10 +21,6 @@ import { FACETS, FEATURES, METADATA } from '../../config';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
-  // Dynamic display of facets titles/icons in the multi-facet component
-  public multiFacetIcon? = "fas fa-filter fa-fw";
-  public multiFacetTitle = "msg#facet.filters.title";
 
   // Document "opened" via a click (opens the preview facet)
   public openedDoc?: Record;
@@ -48,6 +45,7 @@ export class SearchComponent implements OnInit {
     public loginService: LoginService,
     public auditService: AuditWebService,
     public ui: UIService,
+    public configService: ConfigService
   ) {
 
     // Initialize the facet preview action (opens the preview route)
@@ -82,6 +80,20 @@ export class SearchComponent implements OnInit {
           }
         })
       );
+    
+    const facetConfig = [] as ComponentConfig[];
+    facetConfig.push({
+      id: 'facets',
+      type: 'container',
+      items: this.facets.map(f => f.name),
+      classes: 'flex-column'
+    });
+    this.facets.forEach(f => facetConfig.push({
+      ...f,
+      id: f.name,
+      type: `facet-${f.type}`,
+    }))
+    this.configService.init(facetConfig);
   }
 
   /**
@@ -109,21 +121,6 @@ export class SearchComponent implements OnInit {
    */
   public get metadata(): string[] {
     return this.appService.app?.data?.metadata as string[] || METADATA;
-  }
-
-  /**
-   * Responds to a change of facet in the multi facet
-   * @param facet
-   */
-  facetChanged(facet: FacetConfig){
-    if(!facet) {
-      this.multiFacetIcon = "fas fa-filter fa-fw";
-      this.multiFacetTitle = "msg#facet.filters.title";
-    }
-    else {
-      this.multiFacetIcon = facet.icon;
-      this.multiFacetTitle = facet.title;
-    }
   }
 
   /**

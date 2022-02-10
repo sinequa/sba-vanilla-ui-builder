@@ -65,7 +65,13 @@
     "vis-data": "^6.5.1",
     "vis-timeline": "7.3.4",
     "vis-util": "4.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    
+    "@ngneat/elf": "1.0.2",
+    "@ngneat/elf-entities": "3.0.0",
+    "@ngneat/elf-state-history": "1.0.1",
+    "ngx-drag-drop": "^2.0.0",
+    "ngx-ui-builder": "file:../ngx-ui-builder/dist/lib"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.2",
