@@ -8,7 +8,7 @@ import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
 import { UIService } from '@sinequa/components/utils';
-import { AppService } from '@sinequa/core/app-utils';
+import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
     {
       id: 'result-metas',
       type: 'container',
-      items: ['result-labels-public', 'result-labels-private']
+      items: ['result-person', 'result-labels-public', 'result-labels-private']
     },
     {
       id: 'result-labels-public',
@@ -141,6 +141,12 @@ export class SearchComponent implements OnInit {
       classes: 'align-self-center ms-3',
       thumbnailColumn: 'sourcevarchar4',
       linkBehavior: 'action'
+    },
+    {
+      id: 'result-person',
+      type: 'result-metadata',
+      item: 'person',
+      clickable: true
     })
 
     this.configService.init(config);
@@ -295,5 +301,10 @@ export class SearchComponent implements OnInit {
    */
   isDark(): boolean {
     return document.body.classList.contains("dark");
+  }
+
+  onMetadataSelect(item: string, valueItem: ValueItem) {    
+    this.searchService.addFieldSelect(item, valueItem);
+    this.searchService.search();
   }
 }

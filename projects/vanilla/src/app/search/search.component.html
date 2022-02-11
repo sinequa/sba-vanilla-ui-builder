@@ -142,6 +142,10 @@
                     <sq-result-thumbnail [record]="record" [thumbnailColumn]="config.thumbnailColumn" [linkBehavior]="config.linkBehavior" [defaultThumbnail]="config.defaultThumbnail">
                     </sq-result-thumbnail>
                 </ng-template>
+
+                <ng-template uib-template="result-metadata" let-config let-record="data">
+                    <sq-metadata-item [record]="record" [item]="config.item" [showTitle]="config.showTitle" [showIcon]="config.showIcon" [showCounts]="config.showCounts" [showEntityTooltip]="config.showEntityTooltip" [clickable]="config.clickable" (select)="onMetadataSelect(config.item, $event)"></sq-metadata-item>
+                </ng-template>
             </uib-zone>
 
             <!-- Infinite scroll -->
@@ -239,6 +243,10 @@
             <option [ngValue]="'open'">Open original document</option>
             <option [ngValue]="'action'">Custom action (or none)</option>
         </select>
+      </ng-template>
+
+      <ng-template uib-template="result-metadata" let-context>
+          <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
       </ng-template>
 
       <ng-template uib-template="container" let-context>  
