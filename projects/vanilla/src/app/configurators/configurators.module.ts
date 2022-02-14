@@ -5,6 +5,7 @@ import { IntlModule } from "@sinequa/core/intl";
 import { CheckboxControlComponent } from "./checkbox-control.component";
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { MetadataConfiguratorComponent } from "./metadata-configurator.component";
+import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
 
 @NgModule({
     imports: [
@@ -15,12 +16,14 @@ import { MetadataConfiguratorComponent } from "./metadata-configurator.component
     declarations: [
         FacetConfiguratorComponent,
         MetadataConfiguratorComponent,
-        CheckboxControlComponent
+        CheckboxControlComponent,
+        SearchFormConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
         MetadataConfiguratorComponent,
-        CheckboxControlComponent
+        CheckboxControlComponent,
+        SearchFormConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

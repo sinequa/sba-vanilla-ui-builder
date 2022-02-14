@@ -1,43 +1,54 @@
 <div class="nav-wrapper">
     <!-- Navbar with app icon, search form, and menus -->
     <nav class="navbar navbar-expand-sm" [ngClass]="{'navbar-light bg-light': !isDark(), 'navbar-dark bg-dark': isDark()}">
-        <div class="container-xl">
-
+        <uib-zone id="navbar" class="container-xl">
             <!-- Application logo -->
-            <a [routerLink]="['/home']" title="Home">
-                <img id="logo" src="assets/sinequa-logo-light-lg.png" alt="sinequa logo" width="160px" *ngIf="!isDark() && ui.screenSizeIsGreater('md')">
-                <img id="logo" src="assets/sinequa-logo-light-sm.png" alt="sinequa logo" width="40px" *ngIf="!isDark() && ui.screenSizeIsLessOrEqual('md')">
-                <img id="logo" src="assets/sinequa-logo-dark-lg.png" alt="sinequa logo" width="160px" *ngIf="isDark() && ui.screenSizeIsGreater('md')">
-                <img id="logo" src="assets/sinequa-logo-dark-sm.png" alt="sinequa logo" width="40px" *ngIf="isDark() && ui.screenSizeIsLessOrEqual('md')">
-            </a>
-
-            <!-- Button to toggle the visibility of facets on small screens -->
-            <button *ngIf="ui.screenSizeIsLessOrEqual('md')" class="ms-2 btn btn-lg btn-light" title="{{ 'msg#search.showFilters' | sqMessage }}"
-                (click)="toggleFilters()">
-                <i class="fas fa-filter text-muted"></i>
-            </button>
+            <ng-template uib-template="logo">
+                <a [routerLink]="['/home']" title="Home">
+                    <img id="logo" src="assets/sinequa-logo-light-lg.png" alt="sinequa logo" width="160px" *ngIf="!isDark() && ui.screenSizeIsGreater('md')">
+                    <img id="logo" src="assets/sinequa-logo-light-sm.png" alt="sinequa logo" width="40px" *ngIf="!isDark() && ui.screenSizeIsLessOrEqual('md')">
+                    <img id="logo" src="assets/sinequa-logo-dark-lg.png" alt="sinequa logo" width="160px" *ngIf="isDark() && ui.screenSizeIsGreater('md')">
+                    <img id="logo" src="assets/sinequa-logo-dark-sm.png" alt="sinequa logo" width="40px" *ngIf="isDark() && ui.screenSizeIsLessOrEqual('md')">
+                </a>
+            </ng-template>
 
             <!-- Search form -->
-            <app-search-form class="flex-grow-1 flex-basis-0 mx-3" *ngIf="showForm"></app-search-form>
+            <ng-template uib-template="search-form" let-config>
+                <app-search-form
+                    [autocompleteSources]="config.autocompleteSources"
+                    [enableVoiceRecognition]="config.enableVoiceRecognition"
+                    [keepTab]="config.keepTab"
+                    [enableKeepFilters]="config.enableKeepFilters"
+                    [keepFilters]="config.keepFilters"
+                    [enableAdvancedForm]="config.enableAdvancedForm"
+                    [keepAdvancedSearchFilters]="config.keepAdvancedSearchFilters">
+                </app-search-form>
+            </ng-template>
 
-            <!-- User menu which visibility can be toggled with a button on small screens -->
-            <button *ngIf="ui.screenSizeIsLess('sm') && !showFilters" class="btn btn-lg btn-light" title="{{ 'msg#search.showMenu' | sqMessage }}"
-                (click)="toggleMenu()">
-                <i class="fas fa-bars text-muted"></i>
-            </button>
-            <ul class="navbar-nav navbar-right" *ngIf="showMenu" [ngClass]="{'full-width': ui.screenSizeIsLess('sm')}">
-                <ng-container *ngFor="let feature of features" [ngSwitch]="feature">
-                    <sq-baskets-menu *ngSwitchCase="'baskets'" [icon]="'fas fa-inbox'"></sq-baskets-menu>
-                    <sq-saved-queries-menu *ngSwitchCase="'saved-queries'"></sq-saved-queries-menu>
-                    <sq-alerts-menu *ngSwitchCase="'alerts'"></sq-alerts-menu>
-                    <sq-labels-menu *ngSwitchCase="'labels'" [results]="results$ | async"></sq-labels-menu>
-                </ng-container>
+            <ng-template uib-template="baskets-menu">
+                <sq-baskets-menu [icon]="'fas fa-inbox'"></sq-baskets-menu>
+            </ng-template>
+
+            <ng-template uib-template="saved-queries-menu">
+                <sq-saved-queries-menu></sq-saved-queries-menu>
+            </ng-template>
+            
+            <ng-template uib-template="alerts-menu">
+                <sq-alerts-menu></sq-alerts-menu>
+            </ng-template>
+            
+            <ng-template uib-template="labels-menu">
+                <sq-labels-menu [results]="results$ | async"></sq-labels-menu>
+            </ng-template>
+
+            <ng-template uib-template="user-menu">
                 <sq-user-menu></sq-user-menu>
-            </ul>
+            </ng-template>
 
-            <sq-feedback-menu [style]="'primary'" [rightAligned]="true" class="ms-1" *ngIf="loginService.complete"></sq-feedback-menu>
-
-        </div>
+            <ng-template uib-template="feedback-menu">
+                <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
+            </ng-template>
+        </uib-zone>
     </nav>
 
     <!-- Loading bar (Manages its own state and visibility via the search service) -->
@@ -247,6 +258,10 @@
       
       <ng-template uib-template="my-search" let-context>
         <sq-checkbox [context]="context" property="allowDeletion" label="Allow delete"></sq-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="search-form" let-context>
+        <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
       </ng-template>
 
       <ng-template uib-template="container" let-context>  
