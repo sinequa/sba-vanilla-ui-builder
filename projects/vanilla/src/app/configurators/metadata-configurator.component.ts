@@ -12,32 +12,14 @@ import { METADATA } from "../../config";
         <option *ngFor="let a of items" [ngValue]="a">{{a}}</option>
     </select>
     
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="clickable" [(ngModel)]="!!config.clickable" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="clickable">Clickable</label>
-    </div>
-
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="showTitle" [(ngModel)]="!!config.showTitle" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="showTitle">Show title</label>
-    </div>
-    
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="showIcon" [(ngModel)]="!!config.showIcon" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="showIcon">Show icon</label>
-    </div>
+    <sq-checkbox [context]="context" property="clickable" label="Clickable"></sq-checkbox>
+    <sq-checkbox [context]="context" property="showTitle" label="Show title"></sq-checkbox>
+    <sq-checkbox [context]="context" property="showIcon" label="Show icon"></sq-checkbox>
     
     <div *ngIf="isEntity">
         Entity options:
-        <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="showCounts" [(ngModel)]="!!config.showCounts" (ngModelChange)="configChanged()">
-            <label class="custom-control-label" for="showCounts">Show counts</label>
-        </div>
-
-        <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="showEntityTooltip" [(ngModel)]="!!config.showEntityTooltip" (ngModelChange)="configChanged()">
-            <label class="custom-control-label" for="showEntityTooltip">Show tooltip</label>
-        </div>
+        <sq-checkbox [context]="context" property="showCounts" label="Show counts"></sq-checkbox>
+        <sq-checkbox [context]="context" property="showEntityTooltip" label="Show tooltip"></sq-checkbox>
     </div>
 </div>
     `
