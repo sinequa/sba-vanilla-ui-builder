@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit {
       ...f,
       id: f.name,
       type: `facet-${f.type}`,
-    }))
+    }));
 
     // Initialize result list
     config.push({
@@ -147,6 +147,30 @@ export class SearchComponent implements OnInit {
       type: 'result-metadata',
       item: 'person',
       clickable: true
+    });
+
+    // Initialize toolbar
+    config.push({
+      id: 'results-header',
+      type: 'container',
+      items: ['tabs','toolbar','did-you-mean','sponsored-results'],
+      classes: 'flex-column'
+    },
+    {
+      id: 'toolbar',
+      type: 'container',
+      items: ['my-search','result-counter','sort-selector']
+    },
+    {
+      id: 'my-search',
+      type: 'my-search',
+      classes: 'flex-grow-1',
+      allowDeletion: true
+    },
+    {
+      id: 'sort-selector',
+      type: 'sort-selector',
+      rightAligned: true
     })
 
     this.configService.init(config);
