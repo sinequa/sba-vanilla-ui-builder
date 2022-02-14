@@ -171,7 +171,52 @@ export class SearchComponent implements OnInit {
       id: 'sort-selector',
       type: 'sort-selector',
       rightAligned: true
-    })
+    });
+
+    // Initialize navbar
+    config.push({
+      id: 'navbar',
+      type: 'container',
+      items: ['logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
+      classes: 'flex-grow-1 align-items-center'
+    },
+    {
+      id: 'search-form',
+      type: 'search-form',
+      classes: 'flex-grow-1 flex-basis-0 mx-3',
+      autocompleteSources: ['suggests','baskets','recent-documents','recent-queries','saved-queries'],
+      enableVoiceRecognition: true,
+      keepTab: true,
+      enableKeepFilters: true,
+      keepFilters: true,
+      enableAdvancedForm: true,
+      keepAdvancedSearchFilters: true
+    },
+    {
+      id: 'baskets-menu',
+      type: 'baskets-menu',
+      classes: 'navbar-nav navbar-right'
+    },
+    {
+      id: 'saved-queries-menu',
+      type: 'saved-queries-menu',
+      classes: 'navbar-nav navbar-right'
+    },
+    {
+      id: 'labels-menu',
+      type: 'labels-menu',
+      classes: 'navbar-nav navbar-right'
+    },
+    {
+      id: 'alerts-menu',
+      type: 'alerts-menu',
+      classes: 'navbar-nav navbar-right'
+    },
+    {
+      id: 'user-menu',
+      type: 'baskets-menu',
+      classes: 'navbar-nav navbar-right'
+    });
 
     this.configService.init(config);
   }

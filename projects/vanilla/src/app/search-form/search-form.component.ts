@@ -1,10 +1,9 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef, DoCheck} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, ElementRef, DoCheck, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl} from "@angular/forms";
 import {SearchService} from '@sinequa/components/search';
 import {LoginService} from '@sinequa/core/login';
 import {AppService} from '@sinequa/core/app-utils';
 import {Subscription} from 'rxjs';
-import {FEATURES} from '../../config';
 import {ParseResult} from '@sinequa/components/autocomplete';
 import {AutocompleteExtended} from './autocomplete-extended.directive';
 import {UserPreferences} from '@sinequa/components/user-settings';
@@ -20,6 +19,9 @@ import {VoiceRecognitionService} from '@sinequa/components/utils';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
+
+  @Input() autocompleteSources: string[];
+
   searchControl: FormControl;
   form: FormGroup;
   autofocus = 0;
@@ -38,24 +40,31 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
   // Advanced search flags
   showAdvancedSearch: boolean;
   initAdvanced: boolean;
+
+  @Input()
   enableAdvancedForm = false; // Show the advanced form button or not
 
   /** Define if a filter, NOT belonging to fielded & advanced search, is currently applied to the searchService.query */
   isFiltering = false;
 
   /** Specify if already applied filters should be kept or not while chaining searches */
+  @Input()
   keepFilters = false;
   keepFiltersTitle = 'msg#searchForm.notKeepFilters';
+  @Input()
   enableKeepFilters = false; // Show the "keep filters" button or not
 
   /** USED ALONG WITH keepFilters context, to optionally reset the advanced-search or not */
+  @Input()
   keepAdvancedSearchFilters = false;
 
   /** Define if should stay on the same tab even after a new search */
+  @Input()
   keepTab = false;
 
   /** Voice recognition */
   voiceRecognitionState = false;
+  @Input()
   enableVoiceRecognition = false; // Show the voice recognition button or not
 
   hasScroll = false;
@@ -122,17 +131,6 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
       }
     }));
 
-    // Initialize the search form options (either now, or when login is complete)
-    if(this.appService.app) {
-      this.setOptions();
-    }
-    else {
-      this.subscriptions.push(this.loginService.events.subscribe(event => {
-        if(this.appService.app) {
-          this.setOptions();
-        }
-      }));
-    }
   }
 
   ngDoCheck() {
@@ -142,26 +140,6 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.map(item => item.unsubscribe());
-  }
-
-  setOptions() {
-    const features = this.appService.app?.data?.features as string[] || FEATURES;
-    features.forEach(feature =>{
-      switch(feature){
-        case "advanced-form": this.enableAdvancedForm = true; break;
-        case "keep-advanced-form-filters": this.keepAdvancedSearchFilters = true; break;
-        case "keep-tab": this.keepTab = true; break;
-        case "keep-filters": {
-          // Initialize keep filter flag, if not already in preferences
-          if(typeof this.prefs.get('keep-filters-state') === 'undefined') {
-            this.keepFilters = true;
-          }
-          break;
-        }
-        case "toggle-keep-filters": this.enableKeepFilters = true; break;
-        case "voice-recognition": this.enableVoiceRecognition = true; break;
-      }
-    });
   }
 
   /**
@@ -294,13 +272,6 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
       case "saved-query": return "far fa-save fa-fw";
     }
     return "far fa-lightbulb fa-fw";
-  }
-
-  /**
-   * Retrieve autocomplete sources, which include the standard
-   */
-  get autocompleteSources(): string[] {
-    return this.appService.app?.data?.features as string[] || FEATURES;
   }
 
   /**
