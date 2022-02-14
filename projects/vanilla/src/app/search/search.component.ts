@@ -8,7 +8,7 @@ import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
 import { UIService } from '@sinequa/components/utils';
-import { AppService } from '@sinequa/core/app-utils';
+import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit {
       ...f,
       id: f.name,
       type: `facet-${f.type}`,
-    }))
+    }));
 
     // Initialize result list
     config.push({
@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
     {
       id: 'result-metas',
       type: 'container',
-      items: ['result-labels-public', 'result-labels-private']
+      items: ['result-person', 'result-labels-public', 'result-labels-private']
     },
     {
       id: 'result-labels-public',
@@ -141,6 +141,36 @@ export class SearchComponent implements OnInit {
       classes: 'align-self-center ms-3',
       thumbnailColumn: 'sourcevarchar4',
       linkBehavior: 'action'
+    },
+    {
+      id: 'result-person',
+      type: 'result-metadata',
+      item: 'person',
+      clickable: true
+    });
+
+    // Initialize toolbar
+    config.push({
+      id: 'results-header',
+      type: 'container',
+      items: ['tabs','toolbar','did-you-mean','sponsored-results'],
+      classes: 'flex-column'
+    },
+    {
+      id: 'toolbar',
+      type: 'container',
+      items: ['my-search','result-counter','sort-selector']
+    },
+    {
+      id: 'my-search',
+      type: 'my-search',
+      classes: 'flex-grow-1',
+      allowDeletion: true
+    },
+    {
+      id: 'sort-selector',
+      type: 'sort-selector',
+      rightAligned: true
     })
 
     this.configService.init(config);
@@ -295,5 +325,10 @@ export class SearchComponent implements OnInit {
    */
   isDark(): boolean {
     return document.body.classList.contains("dark");
+  }
+
+  onMetadataSelect(item: string, valueItem: ValueItem) {    
+    this.searchService.addFieldSelect(item, valueItem);
+    this.searchService.search();
   }
 }

@@ -90,21 +90,31 @@
         <!-- Results -->
         <div class="col-lg-5" [ngClass]="{'col-md-7': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
 
-            <!-- Tabs -->
-            <sq-tabs [results]="results"></sq-tabs>
+            <uib-zone id="results-header">
+                <ng-template uib-template="tabs">
+                    <sq-tabs [results]="results"></sq-tabs>
+                </ng-template>
 
-            <!-- Toolbar -->
-            <div class="d-flex">
-                <sq-facet-mysearch [results]="results" [allowDeletion]="true" class="flex-grow-1 flex-basis-0"></sq-facet-mysearch>
-                <sq-results-counter [rowCount]="searchService.rowCount" class="mx-2"></sq-results-counter>
-                <sq-sort-selector [results]="results" [rightAligned]="true"></sq-sort-selector>
-            </div>
+                <ng-template uib-template="my-search" let-config>
+                    <sq-facet-mysearch [results]="results" [allowDeletion]="config.allowDeletion"></sq-facet-mysearch>
+                </ng-template>
 
-            <!-- Did you mean -->
-            <sq-did-you-mean [results]="results"></sq-did-you-mean>
+                <ng-template uib-template="result-counter">
+                    <sq-results-counter [rowCount]="searchService.rowCount"></sq-results-counter>
+                </ng-template>
 
-            <!-- Sponsored links -->
-            <sq-sponsored-results [query]="searchService.query"></sq-sponsored-results>
+                <ng-template uib-template="sort-selector" let-config>
+                    <sq-sort-selector [results]="results" [rightAligned]="config.rightAligned"></sq-sort-selector>
+                </ng-template>
+
+                <ng-template uib-template="did-you-mean">
+                    <sq-did-you-mean [results]="results"></sq-did-you-mean>
+                </ng-template>
+
+                <ng-template uib-template="sponsored-results">
+                    <sq-sponsored-results [query]="searchService.query"></sq-sponsored-results>
+                </ng-template>
+            </uib-zone>
 
             <!-- List of documents (for loop) -->
             <uib-zone id="results" [data]="results.records">
@@ -141,6 +151,10 @@
                 <ng-template uib-template="result-thumbnail" let-config let-record="data">
                     <sq-result-thumbnail [record]="record" [thumbnailColumn]="config.thumbnailColumn" [linkBehavior]="config.linkBehavior" [defaultThumbnail]="config.defaultThumbnail">
                     </sq-result-thumbnail>
+                </ng-template>
+
+                <ng-template uib-template="result-metadata" let-config let-record="data">
+                    <sq-metadata-item [record]="record" [item]="config.item" [showTitle]="config.showTitle" [showIcon]="config.showIcon" [showCounts]="config.showCounts" [showEntityTooltip]="config.showEntityTooltip" [clickable]="config.clickable" (select)="onMetadataSelect(config.item, $event)"></sq-metadata-item>
                 </ng-template>
             </uib-zone>
 
@@ -190,27 +204,15 @@
       </ng-template>
 
       <ng-template uib-template="result-source" let-context>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="displayTreepath" [(ngModel)]="!!context.config.displayTreepath" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="displayTreepath">Display Treepath</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="displayUrl" [(ngModel)]="!!context.config.displayUrl" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="displayUrl">Display URL</label>
-        </div>
+        <sq-checkbox [context]="context" property="displayTreepath" label="Display Treepath"></sq-checkbox>
+        <sq-checkbox [context]="context" property="displayUrl" label="Display URL"></sq-checkbox>
       </ng-template>
   
       <ng-template uib-template="result-extracts" let-context>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="showLongExtracts" [(ngModel)]="!!context.config.showLongExtracts" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="showLongExtracts">Show long extracts</label>
-        </div>
+        <sq-checkbox [context]="context" property="showLongExtracts" label="Show long extracts"></sq-checkbox>
         <label for="maxLongExtracts">Max long extracts</label>
         <input type="text" class="form-control mb-1" id="maxLongExtracts" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.maxLongExtracts" (ngModelChange)="context.configChanged()">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="hideDate" [(ngModel)]="!!context.config.hideDate" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="hideDate">Hide date</label>
-        </div>
+        <sq-checkbox [context]="context" property="hideDate" label="Hide date"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="result-icon" let-context>
@@ -219,14 +221,8 @@
       </ng-template>
 
       <ng-template uib-template="result-labels" let-context>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="public" [(ngModel)]="!!context.config.public" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="public">Public Labels</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="enableDelete" [(ngModel)]="!!context.config.enableDelete" (ngModelChange)="context.configChanged()">
-          <label class="form-check-label" for="enableDelete">Enable Delete</label>
-        </div>
+        <sq-checkbox [context]="context" property="public" label="Public labels"></sq-checkbox>
+        <sq-checkbox [context]="context" property="enableDelete" label="Enable delete"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="result-thumbnail" let-context>
@@ -239,6 +235,18 @@
             <option [ngValue]="'open'">Open original document</option>
             <option [ngValue]="'action'">Custom action (or none)</option>
         </select>
+      </ng-template>
+
+      <ng-template uib-template="result-metadata" let-context>
+          <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
+      </ng-template>
+      
+      <ng-template uib-template="sort-selector" let-context>
+        <sq-checkbox [context]="context" property="rightAligned" label="Right aligned"></sq-checkbox>
+      </ng-template>
+      
+      <ng-template uib-template="my-search" let-context>
+        <sq-checkbox [context]="context" property="allowDeletion" label="Allow delete"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="container" let-context>  

@@ -19,31 +19,12 @@ import { ConfiguratorContext, ComponentConfig } from "ngx-ui-builder";
     <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.aggregation" (ngModelChange)="configChanged()">
         <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
     </select>
-
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="showCount" [(ngModel)]="!!config.showCount" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="showCount">Show counts</label>
-    </div>
     
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="searchable" [(ngModel)]="!!config.searchable" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="searchable">Searchable</label>
-    </div>
-
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="allowOr" [(ngModel)]="!!config.allowOr" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="allowOr">Allow Multi-selecting with OR</label>
-    </div>
-    
-    <div class="form-check mb-2" *ngIf="!isTreeFacet">
-        <input type="checkbox" class="form-check-input" id="allowAnd" [(ngModel)]="!!config.allowAnd" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="allowAnd">Allow Multi-selecting with AND</label>
-    </div>
-
-    <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="allowExclude" [(ngModel)]="!!config.allowExclude" (ngModelChange)="configChanged()">
-        <label class="custom-control-label" for="allowExclude">Allow Excluding Items</label>
-    </div>
+    <sq-checkbox [context]="context" property="showCount" label="Show counts"></sq-checkbox>
+    <sq-checkbox [context]="context" property="searchable" label="Searchable"></sq-checkbox>
+    <sq-checkbox [context]="context" property="allowOr" label="Allow Multi-selecting with OR"></sq-checkbox>
+    <sq-checkbox [context]="context" property="allowAnd" label="Allow Multi-selecting with AND" *ngIf="!isTreeFacet"></sq-checkbox>
+    <sq-checkbox [context]="context" property="allowExclude" label="Allow Excluding Items"></sq-checkbox>
 </div>    
 `
 })

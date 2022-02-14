@@ -141,5 +141,5 @@ export const FACETS: FacetConfig[] = [
 ];
 
 export const METADATA: string[] = [
-    "authors", "docformat", "modified", "size", "treepath", "filename"
+    "authors", "docformat", "modified", "size", "treepath", "filename", "person", "company", "geo"
 ];
