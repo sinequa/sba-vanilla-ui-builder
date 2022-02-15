@@ -13,6 +13,7 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
+import { ComponentConfig } from 'ngx-ui-builder';
 
 @Component({
   selector: 'app-search',
@@ -20,6 +21,9 @@ import { FACETS, FEATURES, METADATA } from '../../config';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+  // Dynamic display of facets titles/icons in the multi-facet component
+  public multiFacetMap = new Map<string, {icon: string, title: string}>();
 
   // Document "opened" via a click (opens the preview facet)
   public openedDoc?: Record;
@@ -105,6 +109,27 @@ export class SearchComponent implements OnInit {
    */
   public get metadata(): string[] {
     return this.appService.app?.data?.metadata as string[] || METADATA;
+  }
+
+  getMultiFacetIcon(config: ComponentConfig) {
+    return this.multiFacetMap.get(config.id)?.icon ?? config.icon;
+  }
+
+  getMultiFacetTitle(config: ComponentConfig) {
+    return this.multiFacetMap.get(config.id)?.title ?? config.title;
+  }
+
+  /**
+   * Responds to a change of facet in the multi facet
+   * @param facet
+   */
+  facetChanged(id: string, facet: FacetConfig){
+    if(!facet) {
+      this.multiFacetMap.delete(id);
+    }
+    else {
+      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title});
+    }
   }
 
   /**

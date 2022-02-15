@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { IntlModule } from "@sinequa/core/intl";
 import { CheckboxControlComponent } from "./checkbox-control.component";
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
+import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
 import { MetadataConfiguratorComponent } from "./metadata-configurator.component";
 import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
 
@@ -15,12 +16,14 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
     ],
     declarations: [
         FacetConfiguratorComponent,
+        FacetMultiConfiguratorComponent,
         MetadataConfiguratorComponent,
         CheckboxControlComponent,
         SearchFormConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
+        FacetMultiConfiguratorComponent,
         MetadataConfiguratorComponent,
         CheckboxControlComponent,
         SearchFormConfiguratorComponent
