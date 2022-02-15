@@ -13,6 +13,7 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
+import { ComponentConfig } from 'ngx-ui-builder';
 
 @Component({
   selector: 'app-search',
@@ -22,10 +23,7 @@ import { FACETS, FEATURES, METADATA } from '../../config';
 export class SearchComponent implements OnInit {
 
   // Dynamic display of facets titles/icons in the multi-facet component
-  public multiFacetIcon? = "fas fa-filter fa-fw";
-  public multiFacetTitle = "msg#facet.filters.title";
-  public multiFacetIconMap = new Map<string, string>();
-  public multiFacetTitleMap = new Map<string, string>();
+  public multiFacetMap = new Map<string, {icon: string, title: string}>();
 
   // Document "opened" via a click (opens the preview facet)
   public openedDoc?: Record;
@@ -113,12 +111,12 @@ export class SearchComponent implements OnInit {
     return this.appService.app?.data?.metadata as string[] || METADATA;
   }
 
-  getMultiFacetIcon(id: string) {
-    return this.multiFacetIconMap.get(id) ?? this.multiFacetIcon;
+  getMultiFacetIcon(config: ComponentConfig) {
+    return this.multiFacetMap.get(config.id)?.icon ?? config.icon;
   }
 
-  getMultiFacetTitle(id: string) {
-    return this.multiFacetTitleMap.get(id) ?? this.multiFacetTitle;
+  getMultiFacetTitle(config: ComponentConfig) {
+    return this.multiFacetMap.get(config.id)?.title ?? config.title;
   }
 
   /**
@@ -127,12 +125,10 @@ export class SearchComponent implements OnInit {
    */
   facetChanged(id: string, facet: FacetConfig){
     if(!facet) {
-      this.multiFacetIconMap.delete(id);
-      this.multiFacetTitleMap.delete(id);
+      this.multiFacetMap.delete(id);
     }
     else {
-      this.multiFacetIconMap.set(id, facet.icon || '');
-      this.multiFacetTitleMap.set(id, facet.title);
+      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title});
     }
   }
 
