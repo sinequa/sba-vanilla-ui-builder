@@ -10,6 +10,7 @@ import { SelectionService } from '@sinequa/components/selection';
 import { AppService } from '@sinequa/core/app-utils';
 import { FEATURES } from '../config';
 import { AuditWebService } from "@sinequa/core/web-services";
+import { AppConfigService } from "./app-config.service";
 
 @Component({
     selector: "app",
@@ -38,8 +39,9 @@ export class AppComponent extends ComponentWithLogin {
         public appService: AppService,
 
         public router: Router,
-        public auditWebService: AuditWebService
-        ){
+        public auditWebService: AuditWebService,
+        public appConfigService: AppConfigService
+    ){
         super(loginService, cdRef);
 
     }

@@ -1,7 +1,7 @@
 <div class="nav-wrapper">
     <!-- Navbar with app icon, search form, and menus -->
     <nav class="navbar navbar-expand-sm" [ngClass]="{'navbar-light bg-light': !isDark(), 'navbar-dark bg-dark': isDark()}">
-        <uib-zone id="navbar" class="container-xl">
+        <uib-zone id="navbar" class="container-xl" *ngIf="loginService.complete">
             <!-- Application logo -->
             <ng-template uib-template="logo">
                 <a [routerLink]="['/home']" title="Home">

@@ -13,7 +13,6 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
-import { ConfigService, ComponentConfig } from "ngx-ui-builder";
 
 @Component({
   selector: 'app-search',
@@ -44,8 +43,7 @@ export class SearchComponent implements OnInit {
     public selectionService: SelectionService,
     public loginService: LoginService,
     public auditService: AuditWebService,
-    public ui: UIService,
-    public configService: ConfigService
+    public ui: UIService
   ) {
 
     // Initialize the facet preview action (opens the preview route)
@@ -80,145 +78,6 @@ export class SearchComponent implements OnInit {
           }
         })
       );
-    
-    const config = [] as ComponentConfig[];
-    // Initialize list of facets
-    config.push({
-      id: 'facets',
-      type: 'container',
-      items: this.facets.map(f => f.name),
-      classes: 'flex-column'
-    });
-    this.facets.forEach(f => config.push({
-      ...f,
-      id: f.name,
-      type: `facet-${f.type}`,
-    }));
-
-    // Initialize result list
-    config.push({
-      id: 'results',
-      type: 'container',
-      items: ['result-left-side', 'result-thumbnail'],
-      classes: 'record'
-    },
-    {
-      id: 'result-left-side',
-      type: 'container',
-      items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
-      classes: 'flex-grow-1 overflow-hidden flex-column'
-    },
-    {
-      id: 'result-title-container',
-      type: 'container',
-      items: ['result-selector', 'result-title'],
-      classes: 'align-items-center'
-    },
-    {
-      id: 'result-metas',
-      type: 'container',
-      items: ['result-person', 'result-labels-public', 'result-labels-private']
-    },
-    {
-      id: 'result-labels-public',
-      type: 'result-labels',
-      public: true
-    },
-    {
-      id: 'result-labels-private',
-      type: 'result-labels',
-      public: false
-    },
-    {
-      id: 'result-source',
-      type: 'result-source',
-      displayTreepath: true,
-      displayUrl: true
-    },
-    {
-      id: 'result-thumbnail',
-      type: 'result-thumbnail',
-      classes: 'align-self-center ms-3',
-      thumbnailColumn: 'sourcevarchar4',
-      linkBehavior: 'action'
-    },
-    {
-      id: 'result-person',
-      type: 'result-metadata',
-      item: 'person',
-      clickable: true
-    });
-
-    // Initialize toolbar
-    config.push({
-      id: 'results-header',
-      type: 'container',
-      items: ['tabs','toolbar','did-you-mean','sponsored-results'],
-      classes: 'flex-column'
-    },
-    {
-      id: 'toolbar',
-      type: 'container',
-      items: ['my-search','result-counter','sort-selector']
-    },
-    {
-      id: 'my-search',
-      type: 'my-search',
-      classes: 'flex-grow-1',
-      allowDeletion: true
-    },
-    {
-      id: 'sort-selector',
-      type: 'sort-selector',
-      rightAligned: true
-    });
-
-    // Initialize navbar
-    config.push({
-      id: 'navbar',
-      type: 'container',
-      items: ['logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
-      classes: 'flex-grow-1 align-items-center'
-    },
-    {
-      id: 'search-form',
-      type: 'search-form',
-      classes: 'flex-grow-1 flex-basis-0 mx-3',
-      autocompleteSources: ['suggests','baskets','recent-documents','recent-queries','saved-queries'],
-      enableVoiceRecognition: true,
-      keepTab: true,
-      enableKeepFilters: true,
-      keepFilters: true,
-      enableAdvancedForm: true,
-      keepAdvancedSearchFilters: true
-    },
-    {
-      id: 'baskets-menu',
-      type: 'baskets-menu',
-      classes: 'navbar-nav navbar-right'
-    },
-    {
-      id: 'saved-queries-menu',
-      type: 'saved-queries-menu',
-      classes: 'navbar-nav navbar-right'
-    },
-    {
-      id: 'labels-menu',
-      type: 'labels-menu',
-      classes: 'navbar-nav navbar-right'
-    },
-    {
-      id: 'alerts-menu',
-      type: 'alerts-menu',
-      classes: 'navbar-nav navbar-right'
-    },
-    {
-      id: 'user-menu',
-      type: 'baskets-menu',
-      classes: 'navbar-nav navbar-right'
-    });
-
-    this.configService.init(config);
   }
 
   /**
