@@ -88,6 +88,17 @@
                         ></sq-facet-tree>
                     </sq-facet-card>
                 </ng-template>
+                
+                <ng-template uib-template="facet-multi" let-config>
+                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id)" [icon]="getMultiFacetIcon(config.id)" [collapsible]="false">
+                        <sq-facet-multi #facet
+                            [results]="results"
+                            [facets]="config.facets"
+                            [showProgressBar]="false"
+                            (events)="facetChanged(config.id, $event)"
+                        ></sq-facet-multi>
+                    </sq-facet-card>
+                </ng-template>
             </uib-zone>
         </div>
 
@@ -212,6 +223,10 @@
       
       <ng-template uib-template="facet-tree" let-context>
         <sq-facet-configurator [context]="context" [isTreeFacet]="true"></sq-facet-configurator>
+      </ng-template>
+      
+      <ng-template uib-template="facet-multi" let-context>
+        <sq-facet-multi-configurator [context]="context"></sq-facet-multi-configurator>
       </ng-template>
 
       <ng-template uib-template="result-source" let-context>

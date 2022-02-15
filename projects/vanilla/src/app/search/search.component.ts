@@ -21,6 +21,12 @@ import { FACETS, FEATURES, METADATA } from '../../config';
 })
 export class SearchComponent implements OnInit {
 
+  // Dynamic display of facets titles/icons in the multi-facet component
+  public multiFacetIcon? = "fas fa-filter fa-fw";
+  public multiFacetTitle = "msg#facet.filters.title";
+  public multiFacetIconMap = new Map<string, string>();
+  public multiFacetTitleMap = new Map<string, string>();
+
   // Document "opened" via a click (opens the preview facet)
   public openedDoc?: Record;
 
@@ -105,6 +111,29 @@ export class SearchComponent implements OnInit {
    */
   public get metadata(): string[] {
     return this.appService.app?.data?.metadata as string[] || METADATA;
+  }
+
+  getMultiFacetIcon(id: string) {
+    return this.multiFacetIconMap.get(id) ?? this.multiFacetIcon;
+  }
+
+  getMultiFacetTitle(id: string) {
+    return this.multiFacetTitleMap.get(id) ?? this.multiFacetTitle;
+  }
+
+  /**
+   * Responds to a change of facet in the multi facet
+   * @param facet
+   */
+  facetChanged(id: string, facet: FacetConfig){
+    if(!facet) {
+      this.multiFacetIconMap.delete(id);
+      this.multiFacetTitleMap.delete(id);
+    }
+    else {
+      this.multiFacetIconMap.set(id, facet.icon || '');
+      this.multiFacetTitleMap.set(id, facet.title);
+    }
   }
 
   /**
