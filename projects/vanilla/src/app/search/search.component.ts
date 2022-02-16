@@ -197,7 +197,7 @@ export class SearchComponent implements OnInit {
     return event.type !== 'click' ||
       target.tagName === "A" ||
       target.tagName === "INPUT" ||
-      target.matches("sq-result-selector *, .sq-result-title, sq-result-source *, sq-labels *");
+      target.matches("sq-result-selector *, .sq-result-title, sq-result-source *, .sq-metadata-item-values *, sq-labels *");
   }
 
 

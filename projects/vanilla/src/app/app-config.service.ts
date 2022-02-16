@@ -54,58 +54,7 @@ export class AppConfigService {
     }));
 
     // Initialize result list
-    config.push({
-      id: 'results',
-      type: 'container',
-      items: ['result-left-side', 'result-thumbnail'],
-      classes: 'record'
-    },
-    {
-      id: 'result-left-side',
-      type: 'container',
-      items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
-      classes: 'flex-grow-1 overflow-hidden flex-column'
-    },
-    {
-      id: 'result-title-container',
-      type: 'container',
-      items: ['result-selector', 'result-title'],
-      classes: 'align-items-center'
-    },
-    {
-      id: 'result-metas',
-      type: 'container',
-      items: ['result-person', 'result-labels-public', 'result-labels-private']
-    },
-    {
-      id: 'result-labels-public',
-      type: 'result-labels',
-      public: true
-    },
-    {
-      id: 'result-labels-private',
-      type: 'result-labels',
-      public: false
-    },
-    {
-      id: 'result-source',
-      type: 'result-source',
-      displayTreepath: true,
-      displayUrl: true
-    },
-    {
-      id: 'result-thumbnail',
-      type: 'result-thumbnail',
-      classes: 'align-self-center ms-3',
-      thumbnailColumn: 'sourcevarchar4',
-      linkBehavior: 'action'
-    },
-    {
-      id: 'result-person',
-      type: 'result-metadata',
-      item: 'person',
-      clickable: true
-    });
+    config.push(...this.predefinedResultsViews[0].config);
 
     // Initialize toolbar
     config.push({
@@ -178,5 +127,98 @@ export class AppConfigService {
 
     return config;
   }
+
+  predefinedResultsViews = [
+    {
+      name: 'List',
+      icon: 'fas fa-list',
+      config: [{
+        id: 'results',
+        type: 'container',
+        items: ['result-left-side', 'result-thumbnail'],
+        classes: 'record list-view'
+      },
+      {
+        id: 'result-left-side',
+        type: 'container',
+        items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
+        classes: 'flex-grow-1 overflow-hidden flex-column' // Overflow hidden is important for truncating long URLs
+      },
+      {
+        id: 'result-title-container',
+        type: 'container',
+        items: ['result-selector', 'result-title'],
+        classes: 'align-items-center'
+      },
+      {
+        id: 'result-title',
+        type: 'result-title',
+        classes: 'overflow-hidden'
+      },
+      {
+        id: 'result-metas',
+        type: 'container',
+        items: ['result-person', 'result-labels-public', 'result-labels-private']
+      },
+      {
+        id: 'result-labels-public',
+        type: 'result-labels',
+        public: true
+      },
+      {
+        id: 'result-labels-private',
+        type: 'result-labels',
+        public: false
+      },
+      {
+        id: 'result-source',
+        type: 'result-source',
+        displayTreepath: true,
+        displayUrl: true
+      },
+      {
+        id: 'result-thumbnail',
+        type: 'result-thumbnail',
+        classes: 'align-self-center ms-3',
+        thumbnailColumn: 'sourcevarchar4',
+        linkBehavior: 'action'
+      },
+      {
+        id: 'result-person',
+        type: 'result-metadata',
+        item: 'person',
+        clickable: true
+      }]
+    },
+    {
+      name: 'Tiles',
+      icon: 'fas fa-th-large',
+      config: [{
+        id: 'results',
+        type: 'container',
+        items: ['result-title-container', 'result-source', 'result-thumbnail', 'result-missing-terms'],
+        classes: 'record tile-view flex-column align-items-stretch overflow-hidden'
+      },
+      {
+        id: 'result-title-container',
+        type: 'container',
+        items: ['result-selector', 'result-title'],
+        classes: 'align-items-center justify-content-center'
+      },
+      {
+        id: 'result-source',
+        type: 'result-source',
+        displayTreepath: true,
+        displayUrl: true
+      },
+      {
+        id: 'result-thumbnail',
+        type: 'result-thumbnail',
+        classes: 'mt-2',
+        thumbnailColumn: 'sourcevarchar4',
+        linkBehavior: 'action'
+      }]
+    }
+  ];
 
 }

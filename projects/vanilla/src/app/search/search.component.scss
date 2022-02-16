@@ -2,25 +2,9 @@
     height: 40px;
 }
 
-// Styling of the result items
-::ng-deep .record {
-
-    &:hover {
-        background-color: rgb(0,0,0,0.03);
-    }
-
-    &.selected {
-        background-color: rgb(0,0,0,0.05);
-    }
-
-    padding: 0.5em 15px;
-    margin: 0 -15px;
-    cursor: pointer;
-
-}
-
-.full-width {
-    flex-basis: 100%;
+.result-list {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .nav-wrapper {
@@ -29,6 +13,9 @@
     left: 0;
     right: 0;
     z-index: 2;
+    & > .navbar {
+        min-height: 50px;
+    }
 }
 
 .main {
