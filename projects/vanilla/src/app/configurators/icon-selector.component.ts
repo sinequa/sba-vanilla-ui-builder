@@ -17,8 +17,8 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
     spellcheck="off"
     [(ngModel)]="config.icon"
     (ngModelChange)="iconChanged()"
-    (focus)="onFocus($event)"
-    (blur)="onFocus()">
+    (focus)="onFocus()"
+    (blur)="onBlur()">
 <div class="position-relative">
     <div class="card list-group list-group-flush position-absolute" *ngIf="suggests?.length">
         <div *ngFor="let suggest of suggests" class="list-group-item-action px-2 py-1" (click)="select(suggest)">
@@ -43,13 +43,12 @@ export class IconSelectorComponent {
 
     suggests?: string[];
 
-    onFocus(event?: Event) {
-        if(!event) {
-            setTimeout(() => this.suggests = undefined);
-        }
-        else {
-            this.updateSuggests();
-        }
+    onFocus() {
+        this.updateSuggests();
+    }
+
+    onBlur() {
+        setTimeout(() => this.suggests = undefined);
     }
 
     iconChanged() {
