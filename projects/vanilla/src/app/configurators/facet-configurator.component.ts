@@ -12,8 +12,7 @@ import { ConfiguratorContext, ComponentConfig } from "ngx-ui-builder";
     <label for="title">Title <span *ngIf="config.title!.startsWith('msg#')">("{{config.title | sqMessage}}")</span></label>
     <input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="config.title" (ngModelChange)="configChanged()">
 
-    <label for="icon">Icon <span *ngIf="config.icon">(<i [ngClass]="config.icon"></i>)</span></label>
-    <input type="text" class="form-control mb-2" id="icon" autocomplete="off" spellcheck="off" [(ngModel)]="config.icon" (ngModelChange)="configChanged()">
+    <sq-icon-selector [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
 
     <label for="aggregation">Aggregation</label>
     <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.aggregation" (ngModelChange)="configChanged()">

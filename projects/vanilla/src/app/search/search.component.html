@@ -139,7 +139,7 @@
             </uib-zone>
 
             <!-- List of documents (for loop) -->
-            <uib-zone id="results" [data]="results.records">
+            <uib-zone id="results" [data]="results.records" (itemClicked)="onDocumentClicked($event.data, $event.event)" class="result-list">
 
                 <ng-template uib-template="result-selector" let-config let-record="data">
                     <sq-result-selector [record]="record"></sq-result-selector>
@@ -176,7 +176,7 @@
                 </ng-template>
 
                 <ng-template uib-template="result-metadata" let-config let-record="data">
-                    <sq-metadata-item [record]="record" [item]="config.item" [showTitle]="config.showTitle" [showIcon]="config.showIcon" [showCounts]="config.showCounts" [showEntityTooltip]="config.showEntityTooltip" [clickable]="config.clickable" (select)="onMetadataSelect(config.item, $event)"></sq-metadata-item>
+                    <sq-metadata-item [record]="record" [item]="config.item" [showTitle]="config.showTitle" [showIcon]="config.showIcon" [showCounts]="config.showCounts" [showEntityTooltip]="config.showEntityTooltip" [clickable]="config.clickable" (select)="onMetadataSelect($event.item, $event.valueItem)"></sq-metadata-item>
                 </ng-template>
             </uib-zone>
 
@@ -279,7 +279,8 @@
         <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
       </ng-template>
 
-      <ng-template uib-template="container" let-context>  
+      <ng-template uib-template="container" let-context>
+        <sq-predefined-results-layouts *ngIf="context.context.id === 'results'" class="d-block mb-3"></sq-predefined-results-layouts>
         <uib-palette [context]="context.context" [configurators]="context.configurators"></uib-palette>  
       </ng-template>
     </uib-configurator>

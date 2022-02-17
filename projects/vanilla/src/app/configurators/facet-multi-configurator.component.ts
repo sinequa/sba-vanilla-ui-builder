@@ -10,8 +10,7 @@ import { map } from "rxjs/operators";
 <label for="title">Title <span *ngIf="context.config.title!.startsWith('msg#')">("{{context.config.title | sqMessage}}")</span></label>
 <input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.title" (ngModelChange)="context.configChanged()">
 
-<label for="icon">Icon <span *ngIf="context.config.icon">(<i [ngClass]="context.config.icon"></i>)</span></label>
-<input type="text" class="form-control mb-2" id="icon" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.icon" (ngModelChange)="context.configChanged()">
+<sq-icon-selector [config]="context.config" (configChanged)="context.configChanged()"></sq-icon-selector>
 
 Select the facets to display:
 <select class="form-select mb-2" multiple [(ngModel)]="context.config.facets" [compareWith]="compareIds" (ngModelChange)="context.configChanged()">
