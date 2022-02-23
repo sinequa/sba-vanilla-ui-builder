@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { ComponentConfig } from "ngx-ui-builder";
 import faIcons from './fontawesomeicons.json';
 
@@ -19,8 +19,8 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
     (ngModelChange)="iconChanged()"
     (focus)="onFocus()"
     (blur)="onBlur()">
-<div class="position-relative">
-    <div class="card list-group list-group-flush position-absolute" *ngIf="suggests?.length">
+<div class="position-relative" *ngIf="suggests?.length">
+    <div class="card list-group list-group-flush position-absolute">
         <div *ngFor="let suggest of suggests" class="list-group-item-action px-2 py-1" (click)="select(suggest)">
             <i class="fa-fw" [ngClass]="suggest"></i> {{suggest}}
         </div>
@@ -38,17 +38,24 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconSelectorComponent {
-    @Input() config: ComponentConfig;
+    @Input() config: ComponentWithIconConfig;
     @Output() configChanged = new EventEmitter();
 
     suggests?: string[];
+
+    constructor(
+        public cdref: ChangeDetectorRef
+    ){}
 
     onFocus() {
         this.updateSuggests();
     }
 
     onBlur() {
-        setTimeout(() => this.suggests = undefined);
+        setTimeout(() => { // Set timeout is necessary because onBlur() is called before select() upon a click
+            this.suggests = undefined;
+            this.cdref.markForCheck();
+        });
     }
 
     iconChanged() {
@@ -57,7 +64,7 @@ export class IconSelectorComponent {
     }
 
     updateSuggests() {
-        const value = this.config['icon'] as string || '';
+        const value = this.config.icon || '';
         const faPattern = /\bfa-([\w-]+)/g;
         const match = faPattern.exec(value);
         const token = match?.[1];
@@ -72,7 +79,7 @@ export class IconSelectorComponent {
     }
 
     select(suggest: string) {
-        this.config['icon'] = suggest;
+        this.config.icon = suggest;
         this.configChanged.next();
     }
 }
