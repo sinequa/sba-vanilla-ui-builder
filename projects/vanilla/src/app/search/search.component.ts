@@ -13,7 +13,7 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
-import { ComponentConfig, ConfigService } from 'ngx-ui-builder';
+import { ConfigService } from 'ngx-ui-builder';
 
 @Component({
   selector: 'app-search',
@@ -114,12 +114,12 @@ export class SearchComponent implements OnInit {
     return this.appService.app?.data?.metadata as string[] || METADATA;
   }
 
-  getMultiFacetIcon(config: ComponentConfig) {
-    return this.multiFacetMap.get(config.id)?.icon ?? config.icon;
+  getMultiFacetIcon(id: string, def: string) {
+    return this.multiFacetMap.get(id)?.icon ?? def;
   }
 
-  getMultiFacetTitle(config: ComponentConfig) {
-    return this.multiFacetMap.get(config.id)?.title ?? config.title;
+  getMultiFacetTitle(id: string, def: string) {
+    return this.multiFacetMap.get(id)?.title ?? def;
   }
 
   /**

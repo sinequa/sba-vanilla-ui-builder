@@ -90,7 +90,7 @@
                 </ng-template>
                 
                 <ng-template uib-template="facet-multi" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config)" [icon]="getMultiFacetIcon(config)" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="false">
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"
