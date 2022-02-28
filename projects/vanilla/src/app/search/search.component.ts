@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
 import { FacetConfig } from '@sinequa/components/facet';
 import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
@@ -11,9 +11,9 @@ import { UIService } from '@sinequa/components/utils';
 import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
-import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
+import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
-import { ComponentConfig } from 'ngx-ui-builder';
+import { ComponentConfig, ConfigService } from 'ngx-ui-builder';
 
 @Component({
   selector: 'app-search',
@@ -47,7 +47,10 @@ export class SearchComponent implements OnInit {
     public selectionService: SelectionService,
     public loginService: LoginService,
     public auditService: AuditWebService,
-    public ui: UIService
+    public ui: UIService,
+    public pluginService: JsonMethodPluginService,
+    public downloadService: DownloadWebService,
+    public configService: ConfigService
   ) {
 
     // Initialize the facet preview action (opens the preview route)
@@ -259,5 +262,27 @@ export class SearchComponent implements OnInit {
   onMetadataSelect(item: string, valueItem: ValueItem) {    
     this.searchService.addFieldSelect(item, valueItem);
     this.searchService.search();
+  }
+
+  exportInProgress: boolean;
+  exportApp() {
+    if(this.exportInProgress) return;
+    this.exportInProgress = true;
+    const workspaceName = this.appService.app?.workspaceApp.split('/')[2]; // '/_sba/ws11.5.1.69/projects/vanilla-search/'
+    if(workspaceName) {
+      const config = this.configService.getAllConfig();
+      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName,config})
+        .pipe(
+          switchMap(value => {
+            const zipName = value?.zipName;
+            if(zipName) {
+              return this.pluginService.post("DownloadExportedWorkspace", {workspaceName, zipName}, {observe: 'response', responseType: 'blob'});
+            }
+            throw "Missing Zip file name from response";
+          }),
+          finalize(() => this.exportInProgress = false)
+        );
+      this.downloadService.download(download$).subscribe();
+    }
   }
 }
