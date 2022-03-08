@@ -18,7 +18,7 @@ export class AppConfigService {
   ){
     this.userSettingsService.events.subscribe(_ => {
       let config: ComponentConfig[];
-      if(this.userSettingsService.userSettings?.['ui-builder']) {
+      if(this.userSettingsService.userSettings?.['ui-builder']?.find(c => c.type === '_container')) {
         config = this.userSettingsService.userSettings?.['ui-builder'];
       }
       else {
@@ -43,7 +43,7 @@ export class AppConfigService {
     // Initialize list of facets
     config.push({
       id: 'facets',
-      type: 'container',
+      type: '_container',
       items: FACETS.map(f => f.name),
       classes: 'flex-column'
     });
@@ -59,13 +59,13 @@ export class AppConfigService {
     // Initialize toolbar
     config.push({
       id: 'results-header',
-      type: 'container',
+      type: '_container',
       items: ['tabs','toolbar','did-you-mean','sponsored-results'],
       classes: 'flex-column'
     },
     {
       id: 'toolbar',
-      type: 'container',
+      type: '_container',
       items: ['my-search','result-counter','sort-selector']
     },
     {
@@ -83,7 +83,7 @@ export class AppConfigService {
     // Initialize navbar
     config.push({
       id: 'navbar',
-      type: 'container',
+      type: '_container',
       items: ['logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
       classes: 'flex-grow-1 align-items-center'
     },
@@ -134,19 +134,19 @@ export class AppConfigService {
       icon: 'fas fa-list',
       config: [{
         id: 'results',
-        type: 'container',
+        type: '_container',
         items: ['result-left-side', 'result-thumbnail'],
         classes: 'record list-view'
       },
       {
         id: 'result-left-side',
-        type: 'container',
+        type: '_container',
         items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
         classes: 'flex-grow-1 overflow-hidden flex-column' // Overflow hidden is important for truncating long URLs
       },
       {
         id: 'result-title-container',
-        type: 'container',
+        type: '_container',
         items: ['result-selector', 'result-title'],
         classes: 'align-items-center'
       },
@@ -157,7 +157,7 @@ export class AppConfigService {
       },
       {
         id: 'result-metas',
-        type: 'container',
+        type: '_container',
         items: ['result-person', 'result-labels-public', 'result-labels-private']
       },
       {
@@ -195,13 +195,13 @@ export class AppConfigService {
       icon: 'fas fa-th-large',
       config: [{
         id: 'results',
-        type: 'container',
+        type: '_container',
         items: ['result-title-container', 'result-source', 'result-thumbnail', 'result-missing-terms'],
         classes: 'record tile-view flex-column align-items-stretch overflow-hidden'
       },
       {
         id: 'result-title-container',
-        type: 'container',
+        type: '_container',
         items: ['result-selector', 'result-title'],
         classes: 'align-items-center justify-content-center'
       },

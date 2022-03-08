@@ -90,7 +90,7 @@
                 </ng-template>
                 
                 <ng-template uib-template="facet-multi" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config)" [icon]="getMultiFacetIcon(config)" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="false">
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"
@@ -212,7 +212,11 @@
 <div class="uib-bootstrap" *ngIf="loginService.complete">
     <!-- bootstrap classes are now allowed here -->
     
-    <uib-toolbar></uib-toolbar>
+    <uib-toolbar>
+        <button class="btn btn-primary" (click)="exportApp()" uib-tooltip="Export as a static Angular application" placement="top" [disabled]="exportInProgress">
+            <i class="fas" [ngClass]="{'fa-download': !exportInProgress, 'fa-spinner fa-spin': exportInProgress}"></i>
+        </button>
+    </uib-toolbar>
   
     <!-- CONFIGURATOR -->
   
@@ -279,9 +283,8 @@
         <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
       </ng-template>
 
-      <ng-template uib-template="container" let-context>
+      <ng-template uib-template="_container" let-context>
         <sq-predefined-results-layouts *ngIf="context.context.id === 'results'" class="d-block mb-3"></sq-predefined-results-layouts>
-        <uib-palette [context]="context.context" [configurators]="context.configurators"></uib-palette>  
       </ng-template>
     </uib-configurator>
   </div>
