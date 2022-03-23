@@ -285,4 +285,27 @@ export class SearchComponent implements OnInit {
       this.downloadService.download(download$).subscribe();
     }
   }
+
+  exportConfig() {
+    const config = JSON.stringify(this.configService.getAllConfig(), null, 2);
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(config));
+    element.setAttribute('download', "config.json");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  importConfig(importConfigElement: HTMLInputElement) {
+    const file = importConfigElement.files?.[0];
+    if(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const config = JSON.parse(reader.result as string);
+        this.configService.set(config);
+      }
+      reader.readAsText(file, 'utf-8');
+    }
+  }
 }

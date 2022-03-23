@@ -211,10 +211,17 @@
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">
     <!-- bootstrap classes are now allowed here -->
-    
+        
     <uib-toolbar>
         <button class="btn btn-primary" (click)="exportApp()" uib-tooltip="Export as a static Angular application" placement="top" [disabled]="exportInProgress">
             <i class="fas" [ngClass]="{'fa-download': !exportInProgress, 'fa-spinner fa-spin': exportInProgress}"></i>
+        </button>
+        <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
+        <button class="btn btn-primary" (click)="importConfigElement.click()" uib-tooltip="Import configuration as JSON" placement="top">
+            <i class="fas fa-folder-open"></i>
+        </button>
+        <button class="btn btn-primary" (click)="exportConfig()" uib-tooltip="Download configuration as JSON" placement="top">
+            <i class="fas fa-save"></i>
         </button>
     </uib-toolbar>
   
