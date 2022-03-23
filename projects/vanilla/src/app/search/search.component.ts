@@ -38,6 +38,8 @@ export class SearchComponent implements OnInit {
 
   public results$: Observable<Results | undefined>;
 
+  conditionsData: any;
+
   constructor(
     private previewService: PreviewService,
     private titleService: Title,
@@ -77,7 +79,9 @@ export class SearchComponent implements OnInit {
     // consult RxJS documentation for additional functionality like combineLatest, etc.
     this.results$ = this.searchService.resultsStream
       .pipe(
-        tap(_ => {
+        tap(results => {
+          // Make it possible to display components conditionally based on the results (eg: tab) or query (eg: text)
+          this.conditionsData = {results, query: this.searchService.query};
           this.titleService.setTitle(this.intlService.formatMessage("msg#search.pageTitle", {search: this.searchService.query.text || ""}));
           if (!this.showResults) {
             this.openedDoc = undefined;
