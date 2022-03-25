@@ -12,7 +12,7 @@ import { ConfiguratorContext, ComponentConfig } from "ngx-ui-builder";
     <label for="title">Title <span *ngIf="config.title!.startsWith('msg#')">("{{config.title | sqMessage}}")</span></label>
     <input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="config.title" (ngModelChange)="configChanged()">
 
-    <sq-icon-selector [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
+    <sq-icon-selector class="d-block mb-2" [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
 
     <label for="aggregation">Aggregation</label>
     <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.aggregation" (ngModelChange)="configChanged()">

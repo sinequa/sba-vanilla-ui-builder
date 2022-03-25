@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IntlModule } from "@sinequa/core/intl";
+import { UtilsModule } from "ngx-ui-builder";
 import { CheckboxControlComponent } from "./checkbox-control.component";
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
@@ -14,7 +15,8 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
     imports: [
         CommonModule,
         FormsModule,
-        IntlModule
+        IntlModule,
+        UtilsModule
     ],
     declarations: [
         FacetConfiguratorComponent,
