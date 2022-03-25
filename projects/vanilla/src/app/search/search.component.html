@@ -213,16 +213,35 @@
     <!-- bootstrap classes are now allowed here -->
         
     <uib-toolbar>
-        <button class="btn btn-primary" (click)="exportApp()" uib-tooltip="Export as a static Angular application" placement="top" [disabled]="exportInProgress">
-            <i class="fas" [ngClass]="{'fa-download': !exportInProgress, 'fa-spinner fa-spin': exportInProgress}"></i>
+        <!-- Note the X offset of the dropdown, to fix the bad position probably due to the fixed position of the toolbar -->
+        <button [hidden]="exportInProgress" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-offset="47,0" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
         </button>
-        <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
-        <button class="btn btn-primary" (click)="importConfigElement.click()" uib-tooltip="Import configuration as JSON" placement="top">
-            <i class="fas fa-folder-open"></i>
+        <button *ngIf="exportInProgress" class="btn btn-primary dropdown-toggle-split" disabled>
+            <span class="fas fa-fw fa-spinner fa-spin"></span>
         </button>
-        <button class="btn btn-primary" (click)="exportConfig()" uib-tooltip="Download configuration as JSON" placement="top">
-            <i class="fas fa-save"></i>
-        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
+                <a class="dropdown-item" href="#" (click)="importConfigElement.click(); $event.preventDefault()">
+                    <i class="fas fa-fw fa-folder-open"></i>
+                    Open configuration as JSON
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#" (click)="exportConfig(); $event.preventDefault()">
+                    <i class="fas fa-fw fa-save"></i>
+                    Download configuration as JSON
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item" href="#" (click)="exportApp(); $event.preventDefault()">
+                    <i class="fas fa-fw fa-download"></i>
+                    Export as a static Angular application
+                </a>
+            </li>
+        </ul>
     </uib-toolbar>
   
     <!-- CONFIGURATOR -->
