@@ -3,12 +3,12 @@
     <nav class="navbar navbar-expand-sm" [ngClass]="{'navbar-light bg-light': !isDark(), 'navbar-dark bg-dark': isDark()}">
         <uib-zone id="navbar" class="container-xl" *ngIf="loginService.complete">
             <!-- Application logo -->
-            <ng-template uib-template="logo">
+            <ng-template uib-template="logo" let-config>
                 <a [routerLink]="['/home']" title="Home">
-                    <img id="logo" src="assets/sinequa-logo-light-lg.png" alt="sinequa logo" width="160px" *ngIf="!isDark() && ui.screenSizeIsGreater('md')">
-                    <img id="logo" src="assets/sinequa-logo-light-sm.png" alt="sinequa logo" width="40px" *ngIf="!isDark() && ui.screenSizeIsLessOrEqual('md')">
-                    <img id="logo" src="assets/sinequa-logo-dark-lg.png" alt="sinequa logo" width="160px" *ngIf="isDark() && ui.screenSizeIsGreater('md')">
-                    <img id="logo" src="assets/sinequa-logo-dark-sm.png" alt="sinequa logo" width="40px" *ngIf="isDark() && ui.screenSizeIsLessOrEqual('md')">
+                    <img id="logo" [src]="config.logoLightLg" alt="sinequa logo" *ngIf="config.logoLightLg && !isDark() && ui.screenSizeIsGreater('md')">
+                    <img id="logo" [src]="config.logoLightSm" alt="sinequa logo" *ngIf="config.logoLightSm && !isDark() && ui.screenSizeIsLessOrEqual('md')">
+                    <img id="logo" [src]="config.logoDarkLg" alt="sinequa logo" *ngIf="config.logoDarkLg && isDark() && ui.screenSizeIsGreater('md')">
+                    <img id="logo" [src]="config.logoDarkSm" alt="sinequa logo" *ngIf="config.logoDarkSm && isDark() && ui.screenSizeIsLessOrEqual('md')">
                 </a>
             </ng-template>
 
@@ -307,6 +307,13 @@
 
       <ng-template uib-template="search-form" let-context>
         <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
+      </ng-template>
+
+      <ng-template uib-template="logo" let-context>
+        <sq-img-selector [context]="context" param="logoLightLg" description="Large logo (light mode)" class="d-block mb-3"></sq-img-selector>
+        <sq-img-selector [context]="context" param="logoLightSm" description="Small logo (light mode)" class="d-block mb-3"></sq-img-selector>
+        <sq-img-selector [context]="context" param="logoDarkLg" description="Large logo (dark mode)" class="d-block mb-3"></sq-img-selector>
+        <sq-img-selector [context]="context" param="logoDarkSm" description="Small logo (dark mode)" class="d-block mb-3"></sq-img-selector>
       </ng-template>
 
       <ng-template uib-template="_container" let-context>
