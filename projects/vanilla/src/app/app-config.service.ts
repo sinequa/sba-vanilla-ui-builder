@@ -88,6 +88,14 @@ export class AppConfigService {
       classes: 'flex-grow-1 align-items-center'
     },
     {
+      id: "logo",
+      type: "logo",
+      logoLightLg: "assets/sinequa-logo-light-lg.png",
+      logoLightSm: "assets/sinequa-logo-light-sm.png",
+      logoDarkLg: "assets/sinequa-logo-dark-lg.png",
+      logoDarkSm: "assets/sinequa-logo-dark-sm.png",
+    },
+    {
       id: 'search-form',
       type: 'search-form',
       classes: 'flex-grow-1 flex-basis-0 mx-3',
