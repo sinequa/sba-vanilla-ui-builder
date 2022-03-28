@@ -8,7 +8,7 @@ import { map } from "rxjs/operators";
   selector: 'sq-facet-multi-configurator',
   template: `
 <label for="title">Title <span *ngIf="context.config.title!.startsWith('msg#')">("{{context.config.title | sqMessage}}")</span></label>
-<input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.title" (ngModelChange)="context.configChanged()">
+<input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.title" (ngModelChangeDebounced)="context.configChanged()">
 
 <sq-icon-selector [config]="context.config" (configChanged)="context.configChanged()"></sq-icon-selector>
 

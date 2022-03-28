@@ -267,13 +267,13 @@
       <ng-template uib-template="result-extracts" let-context>
         <sq-checkbox [context]="context" property="showLongExtracts" label="Show long extracts"></sq-checkbox>
         <label for="maxLongExtracts">Max long extracts</label>
-        <input type="text" class="form-control mb-1" id="maxLongExtracts" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.maxLongExtracts" (ngModelChange)="context.configChanged()">
+        <input type="text" class="form-control mb-1" id="maxLongExtracts" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.maxLongExtracts" (ngModelChangeDebounced)="context.configChanged()">
         <sq-checkbox [context]="context" property="hideDate" label="Hide date"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="result-icon" let-context>
         <label for="size">Size</label>
-        <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChange)="context.configChanged()">
+        <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChangeDebounced)="context.configChanged()">
       </ng-template>
 
       <ng-template uib-template="result-labels" let-context>
@@ -283,9 +283,9 @@
 
       <ng-template uib-template="result-thumbnail" let-context>
         <label for="thumbnailColumn">Custom thumbnail column</label>
-        <input type="text" class="form-control mb-1" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChange)="context.configChanged()">
+        <input type="text" class="form-control mb-1" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChangeDebounced)="context.configChanged()">
         <label for="defaultThumbnail">Default thumbnail URL</label>
-        <input type="text" class="form-control mb-1" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChange)="context.configChanged()">
+        <input type="text" class="form-control mb-1" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChangeDebounced)="context.configChanged()">
         <label for="linkBehavior">Click behavior</label>
         <select id="linkBehavior" class="form-select mb-1" [(ngModel)]="context.config.linkBehavior" (ngModelChange)="context.configChanged()">
             <option [ngValue]="'open'">Open original document</option>
