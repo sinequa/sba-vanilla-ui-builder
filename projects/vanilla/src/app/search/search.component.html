@@ -213,35 +213,36 @@
     <!-- bootstrap classes are now allowed here -->
         
     <uib-toolbar>
-        <!-- Note the X offset of the dropdown, to fix the bad position probably due to the fixed position of the toolbar -->
-        <button [hidden]="exportInProgress" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-offset="47,0" aria-expanded="false">
-            <span class="visually-hidden">Toggle Dropdown</span>
-        </button>
-        <button *ngIf="exportInProgress" class="btn btn-primary dropdown-toggle-split" disabled>
-            <span class="fas fa-fw fa-spinner fa-spin"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li>
-                <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
-                <a class="dropdown-item" href="#" (click)="importConfigElement.click(); $event.preventDefault()">
-                    <i class="fas fa-fw fa-folder-open"></i>
-                    Open configuration as JSON
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="#" (click)="exportConfig(); $event.preventDefault()">
-                    <i class="fas fa-fw fa-save"></i>
-                    Download configuration as JSON
-                </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <a class="dropdown-item" href="#" (click)="exportApp(); $event.preventDefault()">
-                    <i class="fas fa-fw fa-download"></i>
-                    Export as a static Angular application
-                </a>
-            </li>
-        </ul>
+        <ng-template>
+            <button [hidden]="exportInProgress" type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <button *ngIf="exportInProgress" class="btn btn-primary" disabled>
+                <span class="fas fa-fw fa-spinner fa-spin"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
+                    <a class="dropdown-item" href="#" (click)="importConfigElement.click(); $event.preventDefault()">
+                        <i class="fas fa-fw fa-folder-open"></i>
+                        Open configuration as JSON
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#" (click)="exportConfig(); $event.preventDefault()">
+                        <i class="fas fa-fw fa-save"></i>
+                        Download configuration as JSON
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="#" (click)="exportApp(); $event.preventDefault()">
+                        <i class="fas fa-fw fa-download"></i>
+                        Export as a static Angular application
+                    </a>
+                </li>
+            </ul>
+        </ng-template>
     </uib-toolbar>
   
     <!-- CONFIGURATOR -->
