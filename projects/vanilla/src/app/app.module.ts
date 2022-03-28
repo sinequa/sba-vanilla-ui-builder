@@ -23,7 +23,7 @@ import { BsActionModule } from "@sinequa/components/action";
 import { BsModalModule } from "@sinequa/components/modal";
 import { BsBasketsModule } from '@sinequa/components/baskets';
 import { BsAlertsModule } from '@sinequa/components/alerts';
-import { BsSavedQueriesModule } from '@sinequa/components/saved-queries';
+import { BsSavedQueriesModule, RecentDocumentsService, RecentQueriesService } from '@sinequa/components/saved-queries';
 import { UtilsModule, SCREEN_SIZE_RULES } from '@sinequa/components/utils';
 import { BsLabelsModule } from '@sinequa/components/labels';
 import { BsUserSettingsModule } from '@sinequa/components/user-settings';
@@ -48,6 +48,8 @@ import { environment } from "../environments/environment";
 // UI Builder
 import { DynamicViewsModule, ConfiguratorModule } from "ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
+
+import { AppConfigService } from "./app-config.service";
 
 
 // Initialization of @sinequa/core
@@ -180,11 +182,16 @@ export const breakpoints = {
         // member of the response body to any Sinequa web service requests.
         {provide: HTTP_INTERCEPTORS, useClass: NotificationsInterceptor, multi: true},
 
-        {provide: SCREEN_SIZE_RULES, useValue: breakpoints}
+        { provide: SCREEN_SIZE_RULES, useValue: breakpoints }
     ],
     bootstrap: [
         AppComponent
     ]
 })
 export class AppModule {
+    
+    constructor(
+        _recentQueriesService: RecentQueriesService,
+        _RecentDocumentsService: RecentDocumentsService,
+        _appConfigService: AppConfigService) {}
 }
