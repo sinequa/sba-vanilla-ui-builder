@@ -38,6 +38,10 @@ export class AppConfigService {
 
   }
 
+  reset() {
+    this.configService.set(this.getDefaultConfig());
+  }
+
   getDefaultConfig() {  
     const config = [] as ComponentConfig[];
     // Initialize list of facets
@@ -166,7 +170,7 @@ export class AppConfigService {
       {
         id: 'result-metas',
         type: '_container',
-        items: ['result-person', 'result-labels-public', 'result-labels-private']
+        items: ['result-labels-public', 'result-labels-private']
       },
       {
         id: 'result-labels-public',
@@ -190,12 +194,6 @@ export class AppConfigService {
         classes: 'align-self-center ms-3',
         thumbnailColumn: 'sourcevarchar4',
         linkBehavior: 'action'
-      },
-      {
-        id: 'result-person',
-        type: 'result-metadata',
-        item: 'person',
-        clickable: true
       }]
     },
     {

@@ -14,6 +14,7 @@ import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
 import { ConfigService } from 'ngx-ui-builder';
+import { AppConfigService } from '../app-config.service';
 
 @Component({
   selector: 'app-search',
@@ -52,7 +53,8 @@ export class SearchComponent implements OnInit {
     public ui: UIService,
     public pluginService: JsonMethodPluginService,
     public downloadService: DownloadWebService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    public appConfigService: AppConfigService
   ) {
 
     // Initialize the facet preview action (opens the preview route)
@@ -266,6 +268,11 @@ export class SearchComponent implements OnInit {
   onMetadataSelect(item: string, valueItem: ValueItem) {    
     this.searchService.addFieldSelect(item, valueItem);
     this.searchService.search();
+  }
+
+
+  resetConfig() {
+    this.appConfigService.reset();
   }
 
   exportInProgress: boolean;
