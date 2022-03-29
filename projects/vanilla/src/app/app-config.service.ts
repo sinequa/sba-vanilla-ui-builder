@@ -18,8 +18,10 @@ export class AppConfigService {
     // using userSettingsService.events observable don't works when we land in the home page first
     this.userSettingsService.events
       .subscribe(_ => {
-        this.setInitalConfiguration();
-        this.configServiceSubscription();
+        if (!this.sub) {
+          this.setInitalConfiguration();
+          this.configServiceSubscription();
+        }
       });
   }
 
@@ -35,7 +37,6 @@ export class AppConfigService {
   }
   
   private configServiceSubscription() {
-    this.sub?.unsubscribe();
     this.sub = this.configService
       .watchAllConfig()
       .pipe(
@@ -44,7 +45,7 @@ export class AppConfigService {
         switchMap((config) => this.userSettingsService.patch({ 'ui-builder': config }))
       )
       .subscribe(value => {
-        this.toastService.info('Saved');
+        this.toastService.info('UI configuration saved.');
       });
   }
   

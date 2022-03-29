@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, ElementRef, DoCheck, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl} from "@angular/forms";
 import {SearchService} from '@sinequa/components/search';
-import {LoginService} from '@sinequa/core/login';
+import {LoginService, SessionEvent} from '@sinequa/core/login';
 import {AppService} from '@sinequa/core/app-utils';
 import {Subscription} from 'rxjs';
 import {ParseResult} from '@sinequa/components/autocomplete';
@@ -9,9 +9,10 @@ import {AutocompleteExtended} from './autocomplete-extended.directive';
 import {UserPreferences} from '@sinequa/components/user-settings';
 import {FirstPageService} from '@sinequa/components/search';
 import {AdvancedService} from '@sinequa/components/advanced';
-import {take} from 'rxjs/operators';
+import {filter, take} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {VoiceRecognitionService} from '@sinequa/components/utils';
+import { FEATURES } from '../../config';
 
 @Component({
   selector: 'app-search-form',
@@ -94,6 +95,19 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
         this.searchControl.setValue(value);
       })
     ]);
+    
+    
+    loginService.events.pipe(
+      filter((event: SessionEvent) => event.type === "session-start")
+    ).subscribe(_ => {
+      this.autocompleteSources = this.appService.app?.data?.features as string[] || FEATURES;
+
+      // Check user preferences regarding keeping filters
+      if (typeof this.prefs.get('keep-filters-state') !== 'undefined') {
+        this.keepFilters = this.prefs.get('keep-filters-state');
+        this.keepFiltersTitle = this.keepFilters ? 'msg#searchForm.keepFilters' : 'msg#searchForm.notKeepFilters';
+      }
+    });
 
   }
 
@@ -123,14 +137,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
 
       // Update the filtering status
       this._updateFilteringStatus();
-
-      // Check user preferences regarding keeping filters
-      if(typeof this.prefs.get('keep-filters-state') !== 'undefined') {
-        this.keepFilters = this.prefs.get('keep-filters-state');
-        this.keepFiltersTitle = this.keepFilters ? 'msg#searchForm.keepFilters' : 'msg#searchForm.notKeepFilters';
-      }
     }));
-
   }
 
   ngDoCheck() {
@@ -289,6 +296,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
    * preferences
    */
   getMode(): "off" | "selects" | "text" {
+    if (!this.loginService.complete) return "selects";
     return this.prefs.get('field-search-mode') || "selects";
   }
 
