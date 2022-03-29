@@ -1,43 +1,54 @@
-import { Injectable } from "@angular/core";
-import { NotificationsService } from "@sinequa/core/notification";
-import { UserSettingsWebService } from "@sinequa/core/web-services";
-import { ComponentConfig, ConfigService } from "ngx-ui-builder";
-import { Subscription } from "rxjs";
-import { debounceTime, skip, switchMap } from "rxjs/operators";
-import { FACETS } from "../config";
+import { Injectable } from '@angular/core';
+import { UserSettingsWebService } from '@sinequa/core/web-services';
+import { ComponentConfig, ConfigService, ToastService } from 'ngx-ui-builder';
+import { Subscription } from 'rxjs';
+import { debounceTime, skip, switchMap } from 'rxjs/operators';
+import { FACETS } from '../config';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AppConfigService {
-
   sub?: Subscription;
 
   constructor(
     public userSettingsService: UserSettingsWebService,
     public configService: ConfigService,
-    public notificationsService: NotificationsService
-  ){
-    this.userSettingsService.events.subscribe(_ => {
-      let config: ComponentConfig[];
-      if(this.userSettingsService.userSettings?.['ui-builder']?.find(c => c.type === '_container')) {
-        config = this.userSettingsService.userSettings?.['ui-builder'];
-      }
-      else {
-        config = this.getDefaultConfig();
-      }
-      this.configService.init(config);
-      
-      // Prevent double-subscribtion in case of login/logout
-      if(!this.sub) {
-        this.sub = this.configService.watchAllConfig().pipe(
-          debounceTime(3000),
-          skip(1), // Skip the first save corresponding to initialization
-          switchMap(config => this.userSettingsService.patch({"ui-builder": config}))
-        ).subscribe(_ => this.notificationsService.success("Saved"));
-      }
-    });
-
+    public toastService: ToastService
+  ) {
+    
+    // using userSettingsService.events observable don't works when we land in the home page first
+    this.userSettingsService.events
+      .subscribe(_ => {
+        if (!this.sub) {
+          this.setInitalConfiguration();
+          this.configServiceSubscription();
+        }
+      });
   }
 
+  private setInitalConfiguration() {
+    let config: ComponentConfig[];
+    if(this.userSettingsService.userSettings?.['ui-builder']?.find(c => c.type === '_container')) {
+      config = this.userSettingsService.userSettings?.['ui-builder'];
+    }
+    else {
+      config = this.getDefaultConfig();
+    }
+    this.configService.init(config);  
+  }
+  
+  private configServiceSubscription() {
+    this.sub = this.configService
+      .watchAllConfig()
+      .pipe(
+        debounceTime(3000),
+        skip(1), // Skip the first save corresponding to initialization
+        switchMap((config) => this.userSettingsService.patch({ 'ui-builder': config }))
+      )
+      .subscribe(value => {
+        this.toastService.info('UI configuration saved.');
+      });
+  }
+  
   getDefaultConfig() {  
     const config = [] as ComponentConfig[];
     // Initialize list of facets
