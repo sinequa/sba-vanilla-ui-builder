@@ -12,7 +12,7 @@ import { ConfiguratorContext } from "ngx-ui-builder";
         autocomplete="off"
         spellcheck="off"
         [(ngModel)]="context.config[param]"
-        (ngModelChange)="context.configChanged()">
+        (ngModelChangeDebounced)="context.configChanged()">
     <input type="file" class="form-control-file" accept="image/png, image/jpeg" (change)="onImageLoaded($event)">
 </div>
     `

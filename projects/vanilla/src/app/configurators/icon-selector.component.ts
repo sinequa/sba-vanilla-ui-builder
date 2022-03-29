@@ -18,7 +18,7 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
     autocomplete="off"
     spellcheck="off"
     [(ngModel)]="config.icon"
-    (ngModelChange)="iconChanged()">
+    (ngModelChangeDebounced)="iconChanged()">
 <uib-autocomplete [inputElement]="inputElement" [suggestGenerator]="suggestGenerator" (select)="select($event)">
     <ng-template #itemTpl let-suggest><i class="fa-fw" [ngClass]="suggest"></i> {{suggest}}</ng-template>
 </uib-autocomplete>
