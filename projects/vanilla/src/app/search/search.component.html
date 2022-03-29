@@ -222,6 +222,13 @@
             </button>
             <ul class="dropdown-menu">
                 <li>
+                    <a class="dropdown-item" href="#" (click)="resetConfig(); $event.preventDefault()">
+                        <i class="fas fa-fw fa-trash-alt"></i>
+                        Reset configuration
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
                     <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
                     <a class="dropdown-item" href="#" (click)="importConfigElement.click(); $event.preventDefault()">
                         <i class="fas fa-fw fa-folder-open"></i>
