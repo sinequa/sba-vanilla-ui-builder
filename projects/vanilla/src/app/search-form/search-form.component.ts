@@ -12,7 +12,6 @@ import {AdvancedService} from '@sinequa/components/advanced';
 import {filter, take} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {VoiceRecognitionService} from '@sinequa/components/utils';
-import { FEATURES } from '../../config';
 
 @Component({
   selector: 'app-search-form',
@@ -97,17 +96,15 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
     ]);
     
     
-    loginService.events.pipe(
+    this.subscriptions.push(loginService.events.pipe(
       filter((event: SessionEvent) => event.type === "session-start")
     ).subscribe(_ => {
-      this.autocompleteSources = this.appService.app?.data?.features as string[] || FEATURES;
-
       // Check user preferences regarding keeping filters
       if (typeof this.prefs.get('keep-filters-state') !== 'undefined') {
         this.keepFilters = this.prefs.get('keep-filters-state');
         this.keepFiltersTitle = this.keepFilters ? 'msg#searchForm.keepFilters' : 'msg#searchForm.notKeepFilters';
       }
-    });
+    }));
 
   }
 
@@ -146,7 +143,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.map(item => item.unsubscribe());
+    this.subscriptions.forEach(item => item.unsubscribe());
   }
 
   /**
@@ -296,6 +293,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
    * preferences
    */
   getMode(): "off" | "selects" | "text" {
+    // while login not complete, return "selects" to avoid empty's usersettings creation
     if (!this.loginService.complete) return "selects";
     return this.prefs.get('field-search-mode') || "selects";
   }
