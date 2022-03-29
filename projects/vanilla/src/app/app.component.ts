@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { ComponentWithLogin, LoginService } from "@sinequa/core/login";
 import { BasketsService } from '@sinequa/components/baskets';
-import { SavedQueriesService, RecentQueriesService, RecentDocumentsService } from '@sinequa/components/saved-queries';
+import { SavedQueriesService } from '@sinequa/components/saved-queries';
 import { AlertsService } from '@sinequa/components/alerts';
 import { LabelsService } from '@sinequa/components/labels';
 import { UserPreferences } from '@sinequa/components/user-settings';
@@ -10,7 +10,6 @@ import { SelectionService } from '@sinequa/components/selection';
 import { AppService } from '@sinequa/core/app-utils';
 import { FEATURES } from '../config';
 import { AuditWebService } from "@sinequa/core/web-services";
-import { AppConfigService } from "./app-config.service";
 
 @Component({
     selector: "app",
@@ -33,14 +32,11 @@ export class AppComponent extends ComponentWithLogin {
         public basketsService: BasketsService,
         public alertsService: AlertsService,
         public labelsService: LabelsService,
-        recentQueriesService: RecentQueriesService,
-        RecentDocumentsService: RecentDocumentsService,
         public selectionService: SelectionService,
         public appService: AppService,
 
         public router: Router,
-        public auditWebService: AuditWebService,
-        public appConfigService: AppConfigService
+        public auditWebService: AuditWebService
     ){
         super(loginService, cdRef);
 
