@@ -1,4 +1,4 @@
-import { NgModule/*, APP_INITIALIZER*/ } from "@angular/core";
+import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule, Routes } from '@angular/router';
@@ -46,7 +46,7 @@ import { AutocompleteExtended } from './search-form/autocomplete-extended.direct
 import { environment } from "../environments/environment";
 
 // UI Builder
-import { DynamicViewsModule, ConfiguratorModule } from "ngx-ui-builder";
+import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
 
 import { AppConfigService } from "./app-config.service";
@@ -54,9 +54,7 @@ import { AppConfigService } from "./app-config.service";
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
-    app: "training",
     production: environment.production,
-    autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 
@@ -163,7 +161,7 @@ export const breakpoints = {
         // server automatically at startup using the application name specified in the URL (app[-debug]/<app-name>).
         // This allows an application to avoid hard-coding parameters in the StartConfig but requires that the application
         // be served from the an app[-debug]/<app name> URL.
-        // {provide: APP_INITIALIZER, useFactory: StartConfigInitializer, deps: [StartConfigWebService], multi: true},
+        {provide: APP_INITIALIZER, useFactory: StartConfigInitializer, deps: [StartConfigWebService], multi: true},
 
         // Provides the Angular LocationStrategy to be used for reading route state from the browser's URL. Currently
         // only the HashLocationStrategy is supported by Sinequa.

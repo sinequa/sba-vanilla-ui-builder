@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
-import { ComponentConfig } from "ngx-ui-builder";
+import { ComponentConfig } from "@sinequa/ngx-ui-builder";
 import { Observable, of } from "rxjs";
 import faIcons from './fontawesomeicons.json';
 

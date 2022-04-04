@@ -13,7 +13,7 @@ import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, Results } from '@sinequa/core/web-services';
 import { FACETS, FEATURES, METADATA } from '../../config';
-import { ConfigService } from 'ngx-ui-builder';
+import { ConfigService } from '@sinequa/ngx-ui-builder';
 import { AppConfigService } from '../app-config.service';
 
 @Component({

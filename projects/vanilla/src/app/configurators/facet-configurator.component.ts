@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { SearchService } from "@sinequa/components/search";
-import { ConfiguratorContext, ComponentConfig } from "ngx-ui-builder";
+import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
 
 @Component({
     selector: 'sq-facet-configurator',

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { AppService } from "@sinequa/core/app-utils";
-import { ComponentConfig, ConfiguratorContext } from "ngx-ui-builder";
+import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 import { METADATA } from "../../config";
 
 @Component({
