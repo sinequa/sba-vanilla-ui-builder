@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { Utils } from "@sinequa/core/base";
-import { ComponentConfig, ConfigService, ConfiguratorContext } from "ngx-ui-builder";
+import { ComponentConfig, ConfigService, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 

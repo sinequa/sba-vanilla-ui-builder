@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserSettingsWebService } from '@sinequa/core/web-services';
-import { ComponentConfig, ConfigService, ToastService } from 'ngx-ui-builder';
+import { ComponentConfig, ConfigService, ToastService } from '@sinequa/ngx-ui-builder';
 import { Subscription } from 'rxjs';
 import { debounceTime, skip, switchMap } from 'rxjs/operators';
 import { FACETS } from '../config';

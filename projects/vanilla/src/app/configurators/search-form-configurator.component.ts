@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ConfiguratorContext } from "ngx-ui-builder";
+import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
 @Component({
     selector: 'sq-search-form-configurator',

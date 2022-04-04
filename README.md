@@ -6,16 +6,9 @@ Vanilla Builder is designed to let Sinequa administrators quickly generate and c
 
 ## Getting started
 
-(Temporary) Installing **ngx-ui-builder**: The library is not yet deployed on [npm](https://www.npmjs.com/), so it needs to be installed manually:
-
-- Clone the [repository](https://github.com/sinequa/ngx-ui-builder)
-- Run `npm install`
-- Run `npm run build lib`
-
-Then, Vanilla Builder can be built and deployed like any regular SBA in Sinequa:
+Vanilla Builder can be built and deployed like any regular SBA in Sinequa:
 
 - Clone this repository
-- If needed, update the path to ngx-ui-builder in the package.json file (by default it points to `../ngx-ui-builder/dist/lib`)
 - Run `npm install`
 - Run `npm run build` (to build the app) or `npm run start` (to serve the app locally)
 

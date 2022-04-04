@@ -1,11 +1,10 @@
 {
   "name": "vanilla-builder",
-  "version": "1.0.0",
+  "version": "11.8.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -- --ssl=true --proxyConfig=./projects/vanilla/src/proxy.conf.json",
+    "start": "ng serve --ssl=true --serve-path=/app/training/ --proxyConfig=./projects/vanilla/src/proxy.conf.json",
     "build": "ng build",
-    "buildprod": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,6 +25,7 @@
     "@sinequa/analytics": "11.7.1",
     "@sinequa/components": "11.7.1",
     "@sinequa/core": "11.7.1",
+    "@sinequa/ngx-ui-builder": "^0.0.6",
     "@swimlane/ngx-charts": "^19.0.0",
     "ag-grid-angular": "^25.2.0",
     "ag-grid-community": "^25.2.0",
@@ -69,8 +69,7 @@
     "@ngneat/elf": "1.0.2",
     "@ngneat/elf-entities": "3.0.0",
     "@ngneat/elf-state-history": "1.0.1",
-    "ngx-drag-drop": "^2.0.0",
-    "ngx-ui-builder": "file:../ngx-ui-builder/dist/lib"
+    "ngx-drag-drop": "^2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.2",
@@ -82,6 +81,7 @@
     "@angular/cli": "12.2.4",
     "@angular/compiler-cli": "12.2.4",
     "@angular/language-service": "12.2.4",
+    "@angular/localize": "12.2.4",
     "@compodoc/compodoc": "^1.1.14",
     "@types/d3": "^5.7.2",
     "@types/estree": "^0.0.50",

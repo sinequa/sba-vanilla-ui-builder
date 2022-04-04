@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { ComponentConfig, ConfigService } from "ngx-ui-builder";
+import { ComponentConfig, ConfigService } from "@sinequa/ngx-ui-builder";
 import { AppConfigService } from "../app-config.service";
 
 @Component({
