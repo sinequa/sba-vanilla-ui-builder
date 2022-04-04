@@ -1,3 +1,5 @@
+[![CI](https://github.com/sinequa/sba-vanilla-ui-builder/actions/workflows/node.js.yml/badge.svg)](https://github.com/sinequa/sba-vanilla-ui-builder/actions/workflows/node.js.yml)
+
 # Vanilla Builder
 
 Vanilla Builder is an application based on [ngx-ui-builder](https://github.com/sinequa/ngx-ui-builder) and the [SBA framework](https://sinequa.github.io/sba-angular/).
