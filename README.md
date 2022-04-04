@@ -1,3 +1,5 @@
+test
+
 # Vanilla Builder
 
 Vanilla Builder is an application based on [ngx-ui-builder](https://github.com/sinequa/ngx-ui-builder) and the [SBA framework](https://sinequa.github.io/sba-angular/).
