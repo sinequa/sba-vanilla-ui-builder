@@ -32,11 +32,11 @@
             <ng-template uib-template="saved-queries-menu">
                 <sq-saved-queries-menu></sq-saved-queries-menu>
             </ng-template>
-            
+
             <ng-template uib-template="alerts-menu">
                 <sq-alerts-menu></sq-alerts-menu>
             </ng-template>
-            
+
             <ng-template uib-template="labels-menu">
                 <sq-labels-menu [results]="results$ | async"></sq-labels-menu>
             </ng-template>
@@ -75,7 +75,7 @@
                         ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>
-                
+
                 <ng-template uib-template="facet-tree" let-config>
                     <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="false">
                         <sq-facet-tree #facet
@@ -88,7 +88,7 @@
                         ></sq-facet-tree>
                     </sq-facet-card>
                 </ng-template>
-                
+
                 <ng-template uib-template="facet-multi" let-config>
                     <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="false">
                         <sq-facet-multi #facet
@@ -211,7 +211,7 @@
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">
     <!-- bootstrap classes are now allowed here -->
-        
+
     <uib-toolbar>
         <ng-template>
             <button [hidden]="exportInProgress" type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
@@ -251,18 +251,18 @@
             </ul>
         </ng-template>
     </uib-toolbar>
-  
+
     <!-- CONFIGURATOR -->
-  
+
     <uib-configurator>
       <ng-template uib-template="facet-list" let-context>
         <sq-facet-configurator [context]="context" [isTreeFacet]="false"></sq-facet-configurator>
       </ng-template>
-      
+
       <ng-template uib-template="facet-tree" let-context>
         <sq-facet-configurator [context]="context" [isTreeFacet]="true"></sq-facet-configurator>
       </ng-template>
-      
+
       <ng-template uib-template="facet-multi" let-context>
         <sq-facet-multi-configurator [context]="context"></sq-facet-multi-configurator>
       </ng-template>
@@ -271,7 +271,7 @@
         <sq-checkbox [context]="context" property="displayTreepath" label="Display Treepath"></sq-checkbox>
         <sq-checkbox [context]="context" property="displayUrl" label="Display URL"></sq-checkbox>
       </ng-template>
-  
+
       <ng-template uib-template="result-extracts" let-context>
         <sq-checkbox [context]="context" property="showLongExtracts" label="Show long extracts"></sq-checkbox>
         <label for="maxLongExtracts">Max long extracts</label>
@@ -304,11 +304,11 @@
       <ng-template uib-template="result-metadata" let-context>
           <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
       </ng-template>
-      
+
       <ng-template uib-template="sort-selector" let-context>
         <sq-checkbox [context]="context" property="rightAligned" label="Right aligned"></sq-checkbox>
       </ng-template>
-      
+
       <ng-template uib-template="my-search" let-context>
         <sq-checkbox [context]="context" property="allowDeletion" label="Allow delete"></sq-checkbox>
       </ng-template>
@@ -326,6 +326,26 @@
 
       <ng-template uib-template="_container" let-context>
         <sq-predefined-results-layouts *ngIf="context.context.id === 'results'" class="d-block mb-3"></sq-predefined-results-layouts>
+      </ng-template>
+
+      <ng-template uib-template="baskets-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="saved-queries-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="alerts-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="labels-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="user-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
       </ng-template>
     </uib-configurator>
   </div>
