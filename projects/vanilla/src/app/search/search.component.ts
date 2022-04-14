@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
-import { finalize, switchMap, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
 import { FacetConfig } from '@sinequa/components/facet';
 import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
@@ -15,6 +15,7 @@ import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, R
 import { FACETS, FEATURES, METADATA } from '../../config';
 import { ConfigService } from '@sinequa/ngx-ui-builder';
 import { AppConfigService } from '../app-config.service';
+import { NotificationsService } from '@sinequa/core/notification';
 
 @Component({
   selector: 'app-search',
@@ -54,7 +55,8 @@ export class SearchComponent implements OnInit {
     public pluginService: JsonMethodPluginService,
     public downloadService: DownloadWebService,
     public configService: ConfigService,
-    public appConfigService: AppConfigService
+    public appConfigService: AppConfigService,
+    public notificationsService: NotificationsService
   ) {
 
     // Initialize the facet preview action (opens the preview route)
@@ -265,7 +267,7 @@ export class SearchComponent implements OnInit {
     return document.body.classList.contains("dark");
   }
 
-  onMetadataSelect(item: string, valueItem: ValueItem) {    
+  onMetadataSelect(item: string, valueItem: ValueItem) {
     this.searchService.addFieldSelect(item, valueItem);
     this.searchService.search();
   }
@@ -282,8 +284,12 @@ export class SearchComponent implements OnInit {
     const workspaceName = this.appService.app?.workspaceApp.split('/')[2]; // '/_sba/ws11.5.1.69/projects/vanilla-search/'
     if(workspaceName) {
       const config = this.configService.getAllConfig();
-      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName,config})
+      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName, config}, {params: {noNotify: true}})
         .pipe(
+          catchError(err => {
+            this.notificationsService.error("Make sure you install the following JSON method plugin: https://github.com/sinequa/sba-vanilla-ui-builder/blob/develop/UiBuilderPlugin.cs")
+            return throwError(err);
+          }),
           switchMap(value => {
             const zipName = value?.zipName;
             if(zipName) {
