@@ -1,4 +1,5 @@
-import { FacetConfig } from '@sinequa/components/facet';
+import { FacetConfig, FacetListParams, FacetMySearchParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams, FacetTreeParams } from '@sinequa/components/facet';
+import { FacetDateParams } from "@sinequa/analytics/timeline";
 
 /**
  * This list is used by Vanilla Search to activate key features in the UI.
@@ -20,123 +21,143 @@ export const FEATURES: string[] = [
     //"voice-recognition",            // Display a button to trigger voice recognition (supported only on Chrome-based browsers and uses Google servers for processing)
 ];
 
-export const FACETS: FacetConfig[] = [
+export type FacetParams = FacetListParams | FacetTreeParams | FacetMySearchParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
+export const FACETS: FacetConfig<FacetParams>[] = [
     {
         name: "treepath",
         title: "msg#facet.treepath.title",
         type: "tree",
-        aggregation: "Treepath",
         icon: "fas fa-sitemap",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Treepath",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "geo",
         title: "msg#facet.geo.title",
         type: "list",
-        aggregation: "Geo",
         icon: "fas fa-globe-americas",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Geo",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "company",
         title: "msg#facet.company.title",
         type: "list",
-        aggregation: "Company",
         icon: "fas fa-building",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Company",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "person",
         title: "msg#facet.person.title",
         type: "list",
-        aggregation: "Person",
         icon: "fas fa-user",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Person",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "docformat",
         title: "msg#facet.docformat.title",
         type: "list",
-        aggregation: "DocFormat",
         icon: "far fa-file-word",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "DocFormat",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "modified",
         title: "msg#facet.modified.title",
-        type: "list",
-        aggregation: "Modified",
+        type: "date",
         icon: "fas fa-calendar-day",
-        showCount: true,
-        searchable: false,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Modified",
+            timelineAggregationName: "Timeline",
+            showCount: true,
+            allowPredefinedRange: true,
+            allowCustomRange: true,
+            showCustomRange: true,
+            replaceCurrent: true,
+            displayEmptyDistributionIntervals: true
+        }
     },
     {
         name: "size",
         title: "msg#facet.size.title",
         type: "list",
-        aggregation: "Size",
         icon: "fas fa-sort-amount-up-alt",
-        showCount: true,
-        searchable: false,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Size",
+            showCount: true,
+            searchable: false,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "documentlanguages",
         title: "msg#facet.documentlanguages.title",
         type: "list",
-        aggregation: "DocumentLanguages",
         icon: "far fa-comment",
-        showCount: true,
-        searchable: true,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "DocumentLanguages",
+            showCount: true,
+            searchable: true,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
     {
         name: "concepts",
         title: "msg#facet.concepts.title",
         type: "list",
-        aggregation: "Concepts",
         icon: "fas fa-comment-dots",
-        showCount: true,
-        searchable: false,
-        allowExclude: true,
-        allowOr: true,
-        allowAnd: false,
-        displayEmptyDistributionIntervals: false,
+        parameters: {
+            aggregation: "Concepts",
+            showCount: true,
+            searchable: false,
+            allowExclude: true,
+            allowOr: true,
+            allowAnd: false,
+            displayEmptyDistributionIntervals: false,
+        }
     },
 ];
 

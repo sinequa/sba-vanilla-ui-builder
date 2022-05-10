@@ -14,7 +14,7 @@ export class AppConfigService {
     public configService: ConfigService,
     public toastService: ToastService
   ) {
-    
+
     // using userSettingsService.events observable don't works when we land in the home page first
     this.userSettingsService.events
       .subscribe(_ => {
@@ -37,9 +37,9 @@ export class AppConfigService {
     else {
       config = this.getDefaultConfig();
     }
-    this.configService.init(config);  
+    this.configService.init(config);
   }
-  
+
   private configServiceSubscription() {
     this.sub = this.configService
       .watchAllConfig()
@@ -52,8 +52,8 @@ export class AppConfigService {
         this.toastService.info('UI configuration saved.');
       });
   }
-  
-  getDefaultConfig() {  
+
+  getDefaultConfig() {
     const config = [] as ComponentConfig[];
     // Initialize list of facets
     config.push({

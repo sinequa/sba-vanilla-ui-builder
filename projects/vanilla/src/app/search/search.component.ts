@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
-import { FacetConfig } from '@sinequa/components/facet';
+import { default_facet_components, FacetConfig } from '@sinequa/components/facet';
 import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
@@ -12,10 +12,11 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, DownloadWebService, JsonMethodPluginService, Record, Results } from '@sinequa/core/web-services';
-import { FACETS, FEATURES, METADATA } from '../../config';
+import { FacetParams, FACETS, FEATURES, METADATA } from '../../config';
 import { ConfigService } from '@sinequa/ngx-ui-builder';
 import { AppConfigService } from '../app-config.service';
 import { NotificationsService } from '@sinequa/core/notification';
+import { BsFacetDate } from '@sinequa/analytics/timeline';
 
 @Component({
   selector: 'app-search',
@@ -37,6 +38,11 @@ export class SearchComponent implements OnInit {
   public _showFilters = this.ui.screenSizeIsEqual('md');
   // Whether the menu is shown on small screens
   public _showMenu = false;
+
+  public readonly facetComponents = {
+    ...default_facet_components,
+    "date": BsFacetDate
+  }
 
   public results$: Observable<Results | undefined>;
 
@@ -100,8 +106,8 @@ export class SearchComponent implements OnInit {
    * The configuration from the config.ts file can be overriden by configuration from
    * the app configuration on the server
    */
-  public get facets(): FacetConfig[] {
-    return this.appService.app?.data?.facets as any as FacetConfig[] || FACETS;
+  public get facets(): FacetConfig<FacetParams>[] {
+    return this.appService.app?.data?.facets as any as FacetConfig<FacetParams>[] || FACETS;
   }
 
   /**
@@ -134,12 +140,12 @@ export class SearchComponent implements OnInit {
    * Responds to a change of facet in the multi facet
    * @param facet
    */
-  facetChanged(id: string, facet: FacetConfig){
+  facetChanged(id: string, facet: FacetConfig<FacetParams>){
     if(!facet) {
       this.multiFacetMap.delete(id);
     }
     else {
-      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title});
+      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title || facet.name || facet.parameters?.aggregation || ''});
     }
   }
 

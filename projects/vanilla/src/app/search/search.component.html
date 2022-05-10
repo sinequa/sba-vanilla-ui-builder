@@ -63,30 +63,46 @@
         <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 70, bottom: 80}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-list #facet [results]="results"
-                            [aggregation]="config.aggregation"
-                            [showCount]="config.showCount"
-                            [searchable]="config.searchable"
-                            [allowExclude]="config.allowExclude"
-                            [allowOr]="config.allowOr"
-                            [allowAnd]="config.allowAnd"
-                            [displayEmptyDistributionIntervals]="config.displayEmptyDistributionIntervals"
+                            [aggregation]="config.parameters.aggregation"
+                            [showCount]="config.parameters.showCount"
+                            [searchable]="config.parameters.searchable"
+                            [allowExclude]="config.parameters.allowExclude"
+                            [allowOr]="config.parameters.allowOr"
+                            [allowAnd]="config.parameters.allowAnd"
+                            [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
                         ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="facet-tree" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-tree #facet
                             [results]="results"
-                            [aggregation]="config.aggregation"
-                            [showCount]="config.showCount"
-                            [searchable]="config.searchable"
-                            [allowExclude]="config.allowExclude"
-                            [allowOr]="config.allowOr"
+                            [aggregation]="config.parameters.aggregation"
+                            [showCount]="config.parameters.showCount"
+                            [searchable]="config.parameters.searchable"
+                            [allowExclude]="config.parameters.allowExclude"
+                            [allowOr]="config.parameters.allowOr"
                         ></sq-facet-tree>
                     </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="facet-date" let-config>
+                  <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
+                      <sq-facet-date #facet
+                          [results]="results"
+                          [aggregation]="config.parameters.aggregation"
+                          [timelineAggregationName]="config.parameters.timelineAggregationName"
+                          [showCount]="config.parameters.showCount"
+                          [allowPredefinedRange]="config.parameters.allowPredefinedRange"
+                          [allowCustomRange]="config.parameters.allowCustomRange"
+                          [showCustomRange]="config.parameters.showCustomRange"
+                          [replaceCurrent]="config.parameters.replaceCurrent"
+                          [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
+                      ></sq-facet-date>
+                  </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="facet-multi" let-config>
@@ -94,7 +110,7 @@
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"
-                            [showProgressBar]="false"
+                            [facetComponents]="facetComponents"
                             (events)="facetChanged(config.id, $event)"
                         ></sq-facet-multi>
                     </sq-facet-card>
@@ -256,11 +272,15 @@
 
     <uib-configurator>
       <ng-template uib-template="facet-list" let-context>
-        <sq-facet-configurator [context]="context" [isTreeFacet]="false"></sq-facet-configurator>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
 
       <ng-template uib-template="facet-tree" let-context>
-        <sq-facet-configurator [context]="context" [isTreeFacet]="true"></sq-facet-configurator>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
+      </ng-template>
+
+      <ng-template uib-template="facet-date" let-context>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
 
       <ng-template uib-template="facet-multi" let-context>
