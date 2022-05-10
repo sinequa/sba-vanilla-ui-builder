@@ -33,6 +33,7 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+import { BsTimelineModule } from "@sinequa/analytics/timeline";
 
 // Components
 import { AppComponent } from "./app.component";
@@ -54,7 +55,9 @@ import { AppConfigService } from "./app-config.service";
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
+    app: "training",
     production: environment.production,
+    autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 
@@ -142,6 +145,7 @@ export const breakpoints = {
         MetadataModule,
         BsSelectionModule,
         BsAdvancedModule,
+        BsTimelineModule,
 
         // UI Builder
         DynamicViewsModule,
@@ -187,7 +191,7 @@ export const breakpoints = {
     ]
 })
 export class AppModule {
-    
+
     constructor(
         _recentQueriesService: RecentQueriesService,
         _RecentDocumentsService: RecentDocumentsService,
