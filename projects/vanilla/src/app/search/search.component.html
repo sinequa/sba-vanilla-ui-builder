@@ -94,7 +94,7 @@
                       <sq-facet-date #facet
                           [results]="results"
                           [aggregation]="config.parameters.aggregation"
-                          [timelineAggregationName]="config.parameters.timelineAggregationName"
+                          [timelineAggregation]="config.parameters.timelineAggregation"
                           [showCount]="config.parameters.showCount"
                           [allowPredefinedRange]="config.parameters.allowPredefinedRange"
                           [allowCustomRange]="config.parameters.allowCustomRange"
@@ -129,8 +129,8 @@
         <div class="col-lg-5" [ngClass]="{'col-md-7': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
-                <ng-template uib-template="tabs">
-                    <sq-tabs [results]="results"></sq-tabs>
+                <ng-template uib-template="tabs" let-config>
+                    <sq-tabs [results]="results" [showCounts]="!config.hideCounts"></sq-tabs>
                 </ng-template>
 
                 <ng-template uib-template="my-search" let-config>
@@ -323,6 +323,10 @@
 
       <ng-template uib-template="result-metadata" let-context>
           <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
+      </ng-template>
+
+      <ng-template uib-template="tabs" let-context>
+        <sq-checkbox [context]="context" property="hideCounts" label="Hide counts"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="sort-selector" let-context>

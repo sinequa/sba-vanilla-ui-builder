@@ -31,7 +31,7 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
 
     <ng-container *ngIf="config.type === 'facet-date'">
       <label for="timelineAggregation">Timeline Aggregation</label>
-      <select id="timelineAggregation" class="form-select mb-2" [(ngModel)]="config.parameters.timelineAggregationName" (ngModelChange)="configChanged()">
+      <select id="timelineAggregation" class="form-select mb-2" [(ngModel)]="config.parameters.timelineAggregation" (ngModelChange)="configChanged()">
           <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
       </select>
 
