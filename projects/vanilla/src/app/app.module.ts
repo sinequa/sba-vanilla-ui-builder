@@ -42,6 +42,7 @@ import { SearchComponent } from './search/search.component';
 import { PreviewComponent } from './preview/preview.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { AutocompleteExtended } from './search-form/autocomplete-extended.directive';
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 // Environment
 import { environment } from "../environments/environment";
@@ -158,7 +159,8 @@ export const breakpoints = {
         SearchComponent,
         PreviewComponent,
         SearchFormComponent,
-        AutocompleteExtended
+        AutocompleteExtended,
+        ToolbarComponent
     ],
     providers: [
         // Provides an APP_INITIALIZER which will fetch application configuration information from the Sinequa

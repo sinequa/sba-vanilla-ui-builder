@@ -148,6 +148,56 @@ export class AppConfigService {
       classes: 'navbar-nav navbar-right'
     });
 
+    config.push({
+      id: 'home',
+      type: '_container',
+      classes: 'home flex-column align-items-center justify-content-center',
+      items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets']
+    },
+    {
+      id: 'home-logo',
+      type: 'home-logo',
+      logoLight: 'assets/vanilla-logo.png',
+      logoDark: 'assets/vanilla-logo-dark.png'
+    },
+    {
+      id: 'home-title',
+      type: '_raw-html',
+      rawHtml: "<h1>Vanilla Builder</h1>"
+    },
+    {
+      id: 'search-form-wrapper',
+      type: '_container',
+      classes: 'my-2',
+      items: ['search-form']
+    },
+    {
+      id: 'home-facets',
+      type: '_container',
+      classes: 'flex-row sq-home-facet-bar container row justify-content-center mt-5',
+      items: ['recent-documents', 'recent-queries', 'saved-queries', 'baskets']
+    },
+    {
+      id: 'recent-documents',
+      type: 'recent-documents',
+      classes: 'col-md-5 col-lg-3 mb-3'
+    },
+    {
+      id: 'recent-queries',
+      type: 'recent-queries',
+      classes: 'col-md-5 col-lg-3 mb-3'
+    },
+    {
+      id: 'saved-queries',
+      type: 'saved-queries',
+      classes: 'col-md-5 col-lg-3 mb-3'
+    },
+    {
+      id: 'baskets',
+      type: 'baskets',
+      classes: 'col-md-5 col-lg-3 mb-3'
+    });
+
     return config;
   }
 
