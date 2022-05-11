@@ -49,6 +49,12 @@
                 <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
             </ng-template>
         </uib-zone>
+
+        <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
+          <div class="navbar-nav navbar-right">
+            <sq-user-menu></sq-user-menu>
+          </div>
+        </div>
     </nav>
 
     <!-- Loading bar (Manages its own state and visibility via the search service) -->
