@@ -230,7 +230,7 @@
 
     <uib-toolbar>
         <ng-template>
-            <button [hidden]="exportInProgress" type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+            <button [hidden]="exportInProgress" type="button" class="btn btn-primary" data-bs-toggle="dropdown" (show.bs.dropdown)="$event.preventDefault()" aria-expanded="false">
                 <i class="fas fa-ellipsis-v"></i>
             </button>
             <button *ngIf="exportInProgress" class="btn btn-primary" disabled>
