@@ -13,7 +13,10 @@ import { AuditWebService } from "@sinequa/core/web-services";
 
 @Component({
     selector: "app",
-    templateUrl: "./app.component.html"
+    templateUrl: "./app.component.html",
+    host: {
+      '(show.bs.dropdown)': '$event.preventDefault()'
+    }
 })
 export class AppComponent extends ComponentWithLogin {
 
