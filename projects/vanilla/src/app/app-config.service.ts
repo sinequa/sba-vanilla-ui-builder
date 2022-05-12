@@ -151,7 +151,7 @@ export class AppConfigService {
     config.push({
       id: 'home',
       type: '_container',
-      classes: 'home flex-column align-items-center justify-content-center',
+      classes: 'flex-column align-items-center',
       items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets']
     },
     {

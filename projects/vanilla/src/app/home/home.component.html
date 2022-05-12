@@ -1,4 +1,4 @@
-<uib-zone id="home" *ngIf="loginService.complete">
+<uib-zone id="home" *ngIf="loginService.complete" class="home">
 
     <ng-template uib-template="home-logo" let-config>
         <img id="logo" [src]="config.logoLight" *ngIf="config.logoLight && !isDark()">

@@ -82,10 +82,6 @@ a {
     color: #3434d6;
 }
 
-.home {
-    min-height: 100vh;
-}
-
 // large screens (> sm)
 @include media-breakpoint-up(sm) {
 
