@@ -1,70 +1,86 @@
-<div class="d-flex flex-column align-items-center justify-content-center home">
-    <!-- Home page logo -->
-    <img src="assets/vanilla-logo.png" id="logo" *ngIf="!isDark()">
-    <img src="assets/vanilla-logo-dark.png" id="logo" *ngIf="isDark()">
+<uib-zone id="home" *ngIf="loginService.complete" class="home">
 
-    <!-- Home page title -->
-    <h1>{{ 'msg#app.name' | sqMessage }}</h1>
+    <ng-template uib-template="home-logo" let-config>
+        <img id="logo" [src]="config.logoLight" *ngIf="config.logoLight && !isDark()">
+        <img id="logo" [src]="config.logoDark" *ngIf="config.logoDark && isDark()">
+    </ng-template>
 
-    <!-- Search Form (app/search-form) -->
-    <app-search-form [autocompleteSources]="features"></app-search-form>
+    <ng-template uib-template="search-form" let-config>
+        <app-search-form
+            [autocompleteSources]="config.autocompleteSources"
+            [enableVoiceRecognition]="config.enableVoiceRecognition"
+            [keepTab]="config.keepTab"
+            [enableKeepFilters]="config.enableKeepFilters"
+            [keepFilters]="config.keepFilters"
+            [enableAdvancedForm]="config.enableAdvancedForm"
+            [keepAdvancedSearchFilters]="config.keepAdvancedSearchFilters">
+        </app-search-form>
+    </ng-template>
 
-    <div class="d-flex align-items-center mt-2">
-        <!-- Login/Logout link -->    
+    <ng-template uib-template="home-actions">
+
+        <!-- Login/Logout link -->
         <button class="btn btn-link" (click)="toggleLogin()">{{ (loginService.complete ? 'msg#userMenu.logout' : 'msg#userMenu.login') | sqMessage}}</button>
-    
+
         <span> &bull; </span>
-    
-        <!-- Dark mode -->   
+
+        <!-- Dark mode -->
         <button class="btn btn-link" (click)="toggleDark()">{{ (isDark()? 'msg#home.lightMode' : 'msg#home.darkMode') | sqMessage}}</button>
-    
-    </div>
 
-    <!-- Home facets -->
-    <div class="sq-home-facet-bar container mt-5" *ngIf="homeFacets.length">
-        <div class="row" *ngIf="loginService.complete">
+    </ng-template>
 
-            <!-- For each activated facet -->
-            <ng-container *ngFor="let facet of homeFacets; let i = index" [ngSwitch]="facet">
+    <ng-template uib-template="recent-documents">
+        <sq-facet-card
+            [title]="'msg#recentDocuments.recentDocuments'"
+            [collapsible]="false"
+            [icon]="'fas fa-file-alt'">
+            <sq-facet-recent-documents #facet [maxDocuments]="5"></sq-facet-recent-documents>
+        </sq-facet-card>
+    </ng-template>
 
-                <!-- Recent documents -->
-                <sq-facet-card *ngSwitchCase="'recent-documents'"
-                                [title]="'msg#recentDocuments.recentDocuments'" 
-                                [collapsible]="false"
-                                [icon]="'fas fa-file-alt'"
-                                class="{{ facetSizing(i, homeFacets.length) }} mb-3">
-                    <sq-facet-recent-documents #facet [maxDocuments]="5"></sq-facet-recent-documents>
-                </sq-facet-card>
+    <ng-template uib-template="recent-queries">
+        <sq-facet-card
+            [title]="'msg#facet.recentQueries.title'"
+            [collapsible]="false"
+            [icon]="'fas fa-history'">
+            <sq-facet-recent-queries #facet [maxQueries]="5"></sq-facet-recent-queries>
+        </sq-facet-card>
+    </ng-template>
 
-                <!-- Recent queries -->
-                <sq-facet-card *ngSwitchCase="'recent-queries'"
-                                [title]="'msg#facet.recentQueries.title'" 
-                                [collapsible]="false"
-                                [icon]="'fas fa-history'"
-                                class="{{ facetSizing(i, homeFacets.length) }} mb-3">
-                    <sq-facet-recent-queries #facet [maxQueries]="5"></sq-facet-recent-queries>
-                </sq-facet-card>
+    <ng-template uib-template="saved-queries">
+        <sq-facet-card
+            [title]="'msg#savedQueries.savedQueries'"
+            [collapsible]="false"
+            [icon]="'fas fa-save'">
+            <sq-facet-saved-queries #facet [maxQueries]="5"></sq-facet-saved-queries>
+        </sq-facet-card>
+    </ng-template>
 
-                <!-- Saved queries -->
-                <sq-facet-card *ngSwitchCase="'saved-queries'"
-                                [title]="'msg#savedQueries.savedQueries'" 
-                                [collapsible]="false"
-                                [icon]="'fas fa-save'"
-                                class="{{ facetSizing(i, homeFacets.length) }} mb-3">
-                    <sq-facet-saved-queries #facet [maxQueries]="5"></sq-facet-saved-queries>
-                </sq-facet-card>
+    <ng-template uib-template="baskets">
+        <sq-facet-card
+            [title]="'msg#baskets.baskets'"
+            [collapsible]="false"
+            [icon]="'fas fa-inbox'">
+            <sq-facet-baskets #facet [maxBaskets]="5"></sq-facet-baskets>
+        </sq-facet-card>
+    </ng-template>
+</uib-zone>
 
-                <!-- Collections (baskets) -->
-                <sq-facet-card *ngSwitchCase="'baskets'"
-                                [title]="'msg#baskets.baskets'" 
-                                [collapsible]="false"
-                                [icon]="'fas fa-inbox'"
-                                class="{{ facetSizing(i, homeFacets.length) }} mb-3">
-                    <sq-facet-baskets #facet [maxBaskets]="5"></sq-facet-baskets>
-                </sq-facet-card>
+<div class="uib-bootstrap" *ngIf="loginService.complete">
+  <!-- bootstrap classes are now allowed here -->
+  <sq-ui-builder-toolbar></sq-ui-builder-toolbar>
 
-            </ng-container>
+  <!-- CONFIGURATOR -->
 
-        </div>
-    </div>
+  <uib-configurator>
+    <ng-template uib-template="home-logo" let-context>
+      <sq-img-selector [context]="context" param="logoLight" description="Logo (light mode)" class="d-block mb-3"></sq-img-selector>
+      <sq-img-selector [context]="context" param="logoDark" description="Logo (dark mode)" class="d-block mb-3"></sq-img-selector>
+    </ng-template>
+
+    <ng-template uib-template="search-form" let-context>
+      <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
+    </ng-template>
+
+  </uib-configurator>
 </div>

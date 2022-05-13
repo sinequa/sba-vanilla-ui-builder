@@ -33,6 +33,7 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+import { BsTimelineModule } from "@sinequa/analytics/timeline";
 
 // Components
 import { AppComponent } from "./app.component";
@@ -41,6 +42,7 @@ import { SearchComponent } from './search/search.component';
 import { PreviewComponent } from './preview/preview.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { AutocompleteExtended } from './search-form/autocomplete-extended.directive';
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 // Environment
 import { environment } from "../environments/environment";
@@ -54,7 +56,9 @@ import { AppConfigService } from "./app-config.service";
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
+    app: "training",
     production: environment.production,
+    autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 
@@ -142,6 +146,7 @@ export const breakpoints = {
         MetadataModule,
         BsSelectionModule,
         BsAdvancedModule,
+        BsTimelineModule,
 
         // UI Builder
         DynamicViewsModule,
@@ -154,7 +159,8 @@ export const breakpoints = {
         SearchComponent,
         PreviewComponent,
         SearchFormComponent,
-        AutocompleteExtended
+        AutocompleteExtended,
+        ToolbarComponent
     ],
     providers: [
         // Provides an APP_INITIALIZER which will fetch application configuration information from the Sinequa
@@ -187,7 +193,7 @@ export const breakpoints = {
     ]
 })
 export class AppModule {
-    
+
     constructor(
         _recentQueriesService: RecentQueriesService,
         _RecentDocumentsService: RecentDocumentsService,

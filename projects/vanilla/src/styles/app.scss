@@ -29,6 +29,18 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+// override btn-light and btn-light:hover's background-color as in Boostrap 5 is too lighter
+.btn-light {
+  &.active, &:hover {
+      --bg-color: 226, 230, 234;
+      background-color: rgb(var(--bg-color));
+      border-color: #dae0e5;
+  }
+  &.active:hover {
+      background-color: rgb(var(--bg-color), .6);
+  }
+}
+
 // CDK drag & drop
 .cdk-drag-preview {
     z-index: 2000 !important;
@@ -68,10 +80,6 @@ body {
 a {
     text-decoration: none;
     color: #3434d6;
-}
-
-.home {
-    min-height: 100vh;
 }
 
 // large screens (> sm)
@@ -151,7 +159,7 @@ sq-sponsored-results {
     & > div {
         min-width: 0; // Necessary to avoid overflow in the result list in special cases like duplicate record items
     }
-        
+
     .record {
 
         &:hover {
@@ -163,11 +171,11 @@ sq-sponsored-results {
         }
 
         cursor: pointer;
-        
+
         sq-result-title {
             display: block; // Added to force truncation of long titles with ellipsis
-            max-width: 100%; 
-            
+            max-width: 100%;
+
             .record .match-highlight {
                 font-weight: bold;
                 font-style: italic;
@@ -189,12 +197,12 @@ sq-sponsored-results {
         &.tile-view {
             padding: 0.5em;
             width: 50%;
-            
+
             sq-result-thumbnail img {
                 object-fit: cover;
                 object-position: center;
                 width: 100%;
-                height: 250px;            
+                height: 250px;
                 border-radius: 1em;
             }
         }

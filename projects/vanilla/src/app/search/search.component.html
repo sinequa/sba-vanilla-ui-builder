@@ -49,6 +49,12 @@
                 <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
             </ng-template>
         </uib-zone>
+
+        <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
+          <div class="navbar-nav navbar-right">
+            <sq-user-menu></sq-user-menu>
+          </div>
+        </div>
     </nav>
 
     <!-- Loading bar (Manages its own state and visibility via the search service) -->
@@ -63,30 +69,46 @@
         <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 70, bottom: 80}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-list #facet [results]="results"
-                            [aggregation]="config.aggregation"
-                            [showCount]="config.showCount"
-                            [searchable]="config.searchable"
-                            [allowExclude]="config.allowExclude"
-                            [allowOr]="config.allowOr"
-                            [allowAnd]="config.allowAnd"
-                            [displayEmptyDistributionIntervals]="config.displayEmptyDistributionIntervals"
+                            [aggregation]="config.parameters.aggregation"
+                            [showCount]="config.parameters.showCount"
+                            [searchable]="config.parameters.searchable"
+                            [allowExclude]="config.parameters.allowExclude"
+                            [allowOr]="config.parameters.allowOr"
+                            [allowAnd]="config.parameters.allowAnd"
+                            [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
                         ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="facet-tree" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-tree #facet
                             [results]="results"
-                            [aggregation]="config.aggregation"
-                            [showCount]="config.showCount"
-                            [searchable]="config.searchable"
-                            [allowExclude]="config.allowExclude"
-                            [allowOr]="config.allowOr"
+                            [aggregation]="config.parameters.aggregation"
+                            [showCount]="config.parameters.showCount"
+                            [searchable]="config.parameters.searchable"
+                            [allowExclude]="config.parameters.allowExclude"
+                            [allowOr]="config.parameters.allowOr"
                         ></sq-facet-tree>
                     </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="facet-date" let-config>
+                  <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
+                      <sq-facet-date #facet
+                          [results]="results"
+                          [aggregation]="config.parameters.aggregation"
+                          [timelineAggregation]="config.parameters.timelineAggregation"
+                          [showCount]="config.parameters.showCount"
+                          [allowPredefinedRange]="config.parameters.allowPredefinedRange"
+                          [allowCustomRange]="config.parameters.allowCustomRange"
+                          [showCustomRange]="config.parameters.showCustomRange"
+                          [replaceCurrent]="config.parameters.replaceCurrent"
+                          [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
+                      ></sq-facet-date>
+                  </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="facet-multi" let-config>
@@ -94,7 +116,7 @@
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"
-                            [showProgressBar]="false"
+                            [facetComponents]="facetComponents"
                             (events)="facetChanged(config.id, $event)"
                         ></sq-facet-multi>
                     </sq-facet-card>
@@ -113,8 +135,8 @@
         <div class="col-lg-5" [ngClass]="{'col-md-7': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
-                <ng-template uib-template="tabs">
-                    <sq-tabs [results]="results"></sq-tabs>
+                <ng-template uib-template="tabs" let-config>
+                    <sq-tabs [results]="results" [showCounts]="!config.hideCounts"></sq-tabs>
                 </ng-template>
 
                 <ng-template uib-template="my-search" let-config>
@@ -211,56 +233,21 @@
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">
     <!-- bootstrap classes are now allowed here -->
-
-    <uib-toolbar>
-        <ng-template>
-            <button [hidden]="exportInProgress" type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-            <button *ngIf="exportInProgress" class="btn btn-primary" disabled>
-                <span class="fas fa-fw fa-spinner fa-spin"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" href="#" (click)="resetConfig(); $event.preventDefault()">
-                        <i class="fas fa-fw fa-trash-alt"></i>
-                        Reset configuration
-                    </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                    <input #importConfigElement type="file" accept="application/JSON" (change)="importConfig(importConfigElement)" style="display:none;"/>
-                    <a class="dropdown-item" href="#" (click)="importConfigElement.click(); $event.preventDefault()">
-                        <i class="fas fa-fw fa-folder-open"></i>
-                        Open configuration as JSON
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#" (click)="exportConfig(); $event.preventDefault()">
-                        <i class="fas fa-fw fa-save"></i>
-                        Download configuration as JSON
-                    </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                    <a class="dropdown-item" href="#" (click)="exportApp(); $event.preventDefault()">
-                        <i class="fas fa-fw fa-download"></i>
-                        Export as a static Angular application
-                    </a>
-                </li>
-            </ul>
-        </ng-template>
-    </uib-toolbar>
+    <sq-ui-builder-toolbar></sq-ui-builder-toolbar>
 
     <!-- CONFIGURATOR -->
 
     <uib-configurator>
       <ng-template uib-template="facet-list" let-context>
-        <sq-facet-configurator [context]="context" [isTreeFacet]="false"></sq-facet-configurator>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
 
       <ng-template uib-template="facet-tree" let-context>
-        <sq-facet-configurator [context]="context" [isTreeFacet]="true"></sq-facet-configurator>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
+      </ng-template>
+
+      <ng-template uib-template="facet-date" let-context>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
 
       <ng-template uib-template="facet-multi" let-context>
@@ -303,6 +290,10 @@
 
       <ng-template uib-template="result-metadata" let-context>
           <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
+      </ng-template>
+
+      <ng-template uib-template="tabs" let-context>
+        <sq-checkbox [context]="context" property="hideCounts" label="Hide counts"></sq-checkbox>
       </ng-template>
 
       <ng-template uib-template="sort-selector" let-context>
@@ -348,4 +339,4 @@
         <sq-menu-configurator [context]="context"></sq-menu-configurator>
       </ng-template>
     </uib-configurator>
-  </div>
+</div>
