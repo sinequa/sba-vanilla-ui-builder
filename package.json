@@ -1,6 +1,6 @@
 {
   "name": "vanilla-builder",
-  "version": "11.8.0",
+  "version": "11.8.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl=true --proxyConfig=./projects/vanilla/src/proxy.conf.json",
@@ -23,9 +23,9 @@
     "@angular-slider/ngx-slider": "^2.0.4",
     "@formatjs/intl-relativetimeformat": "^4.5.12",
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "@sinequa/analytics": "11.8.0-DEV.8",
-    "@sinequa/components": "11.8.0-DEV.8",
-    "@sinequa/core": "11.8.0-DEV.8",
+    "@sinequa/analytics": "11.8.1-DEV.131",
+    "@sinequa/components": "11.8.1-DEV.131",
+    "@sinequa/core": "11.8.1-DEV.131",
     "@sinequa/ngx-ui-builder": "^0.0.6",
     "@swimlane/ngx-charts": "^19.0.0",
     "ag-grid-angular": "^25.2.0",
