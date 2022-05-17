@@ -29,39 +29,39 @@
 
     </ng-template>
 
-    <ng-template uib-template="recent-documents">
+    <ng-template uib-template="recent-documents" let-config>
         <sq-facet-card
             [title]="'msg#recentDocuments.recentDocuments'"
             [collapsible]="false"
             [icon]="'fas fa-file-alt'">
-            <sq-facet-recent-documents #facet [maxDocuments]="5"></sq-facet-recent-documents>
+            <sq-facet-recent-documents #facet [maxDocuments]="config.maxItems"></sq-facet-recent-documents>
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="recent-queries">
+    <ng-template uib-template="recent-queries" let-config>
         <sq-facet-card
             [title]="'msg#facet.recentQueries.title'"
             [collapsible]="false"
             [icon]="'fas fa-history'">
-            <sq-facet-recent-queries #facet [maxQueries]="5"></sq-facet-recent-queries>
+            <sq-facet-recent-queries #facet [maxQueries]="config.maxItems"></sq-facet-recent-queries>
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="saved-queries">
+    <ng-template uib-template="saved-queries" let-config>
         <sq-facet-card
             [title]="'msg#savedQueries.savedQueries'"
             [collapsible]="false"
             [icon]="'fas fa-save'">
-            <sq-facet-saved-queries #facet [maxQueries]="5"></sq-facet-saved-queries>
+            <sq-facet-saved-queries #facet [maxQueries]="config.maxItems"></sq-facet-saved-queries>
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="baskets">
+    <ng-template uib-template="baskets" let-config>
         <sq-facet-card
             [title]="'msg#baskets.baskets'"
             [collapsible]="false"
             [icon]="'fas fa-inbox'">
-            <sq-facet-baskets #facet [maxBaskets]="5"></sq-facet-baskets>
+            <sq-facet-baskets #facet [maxBaskets]="config.maxItems"></sq-facet-baskets>
         </sq-facet-card>
     </ng-template>
 </uib-zone>
@@ -82,5 +82,20 @@
       <sq-search-form-configurator [context]="context"></sq-search-form-configurator>
     </ng-template>
 
+    <ng-template uib-template="recent-documents" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="recent-queries" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="saved-queries" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="baskets" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
   </uib-configurator>
 </div>

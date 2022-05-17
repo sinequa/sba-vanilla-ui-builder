@@ -6,11 +6,13 @@ import { UtilsModule } from "@sinequa/ngx-ui-builder";
 import { CheckboxControlComponent } from "./checkbox-control.component";
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
+import { HomeFacetConfigurator } from "./home-facet-configurator.component";
 import { IconSelectorComponent } from "./icon-selector.component";
 import { ImgSelectorComponent } from "./img-selector.component";
 import { MenuConfiguratorComponent } from "./menu-configurator.component";
 import { MetadataConfiguratorComponent } from "./metadata-configurator.component";
 import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.component";
+import { PreviewConfiguratorComponent } from "./preview-configurator.component";
 import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
 
 @NgModule({
@@ -29,7 +31,9 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         PredefinedResultsLayoutComponent,
         IconSelectorComponent,
         ImgSelectorComponent,
-        MenuConfiguratorComponent
+        MenuConfiguratorComponent,
+        HomeFacetConfigurator,
+        PreviewConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
@@ -40,7 +44,9 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         PredefinedResultsLayoutComponent,
         IconSelectorComponent,
         ImgSelectorComponent,
-        MenuConfiguratorComponent
+        MenuConfiguratorComponent,
+        HomeFacetConfigurator,
+        PreviewConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

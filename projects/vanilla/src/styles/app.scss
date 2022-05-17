@@ -41,6 +41,10 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   }
 }
 
+.btn-link {
+  text-decoration: none;
+}
+
 // CDK drag & drop
 .cdk-drag-preview {
     z-index: 2000 !important;
@@ -156,11 +160,12 @@ sq-sponsored-results {
 .result-list {
     display: flex;
     flex-wrap: wrap;
-    & > div {
-        min-width: 0; // Necessary to avoid overflow in the result list in special cases like duplicate record items
-    }
 
     .record {
+
+        & > div.flex-grow-1 {
+          min-width: 0; // Important to force the flex item to shrink if needed
+        }
 
         &:hover {
             background-color: rgb(0,0,0,0.03);
