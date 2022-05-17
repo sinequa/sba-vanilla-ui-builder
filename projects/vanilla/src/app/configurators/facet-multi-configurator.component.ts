@@ -14,7 +14,7 @@ import { map } from "rxjs/operators";
 
 Select the facets to display:
 <select class="form-select mb-2" multiple [(ngModel)]="context.config.facets" [compareWith]="compareIds" (ngModelChange)="context.configChanged()">
-    <option *ngFor="let facet of (facets$ | async)" [ngValue]="facet">{{facet.id}}</option>
+    <option *ngFor="let facet of (facets$ | async)" [ngValue]="facet">{{facet.name}}</option>
 </select>
 `
 })

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ComponentConfig, ConfigService } from "@sinequa/ngx-ui-builder";
+import { RESULTS_VIEWS_CONFIG } from "../../config";
 import { AppConfigService } from "../app-config.service";
 
 @Component({
@@ -7,7 +8,7 @@ import { AppConfigService } from "../app-config.service";
     template: `
 <h6>Apply a predefined view:</h6>
 <div>
-    <button *ngFor="let view of views" 
+    <button *ngFor="let view of views"
         class="btn btn-outline-primary me-2"
         (click)="applyView(view.config)">
         <i [ngClass]="view.icon"></i> {{view.name}}
@@ -24,7 +25,7 @@ export class PredefinedResultsLayoutComponent {
     ){}
 
     get views() {
-        return this.appConfigService.predefinedResultsViews;
+        return RESULTS_VIEWS_CONFIG;
     }
 
     applyView(view: ComponentConfig[]) {

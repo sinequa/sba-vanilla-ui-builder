@@ -12,7 +12,7 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { AuditWebService, Record, Results } from '@sinequa/core/web-services';
-import { FacetParams, FACETS, FEATURES, METADATA } from '../../config';
+import { FacetParams } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 
 @Component({
@@ -41,15 +41,17 @@ export class SearchComponent implements OnInit {
     "date": BsFacetDate
   }
 
+  metadata: string[] = [];
+
   public results$: Observable<Results | undefined>;
 
   conditionsData: any;
 
   constructor(
-    private previewService: PreviewService,
-    private titleService: Title,
-    private intlService: IntlService,
-    private appService: AppService,
+    public appService: AppService,
+    public previewService: PreviewService,
+    public titleService: Title,
+    public intlService: IntlService,
     public searchService: SearchService,
     public selectionService: SelectionService,
     public loginService: LoginService,
@@ -69,6 +71,7 @@ export class SearchComponent implements OnInit {
     });
 
     this.previewCustomActions = [ expandPreviewAction ];
+
   }
 
   /**
@@ -82,6 +85,9 @@ export class SearchComponent implements OnInit {
     this.results$ = this.searchService.resultsStream
       .pipe(
         tap(results => {
+          if(results?.records) {
+            this.updateMetadata(results?.records);
+          }
           // Make it possible to display components conditionally based on the results (eg: tab) or query (eg: text)
           this.conditionsData = {results, query: this.searchService.query};
           this.titleService.setTitle(this.intlService.formatMessage("msg#search.pageTitle", {search: this.searchService.query.text || ""}));
@@ -91,33 +97,6 @@ export class SearchComponent implements OnInit {
           }
         })
       );
-  }
-
-  /**
-   * Returns the configuration of the facets displayed in the facet-multi component.
-   * The configuration from the config.ts file can be overriden by configuration from
-   * the app configuration on the server
-   */
-  public get facets(): FacetConfig<FacetParams>[] {
-    return this.appService.app?.data?.facets as any as FacetConfig<FacetParams>[] || FACETS;
-  }
-
-  /**
-   * Returns the list of features activated in the top right menus.
-   * The configuration from the config.ts file can be overriden by configuration from
-   * the app configuration on the server
-   */
-  public get features(): string[] {
-    return this.appService.app?.data?.features as string[] || FEATURES;
-  }
-
-  /**
-   * Returns the configuration of the metadata displayed in the facet-preview component.
-   * The configuration from the config.ts file can be overriden by configuration from
-   * the app configuration on the server
-   */
-  public get metadata(): string[] {
-    return this.appService.app?.data?.metadata as string[] || METADATA;
   }
 
   getMultiFacetIcon(id: string, def: string) {
@@ -263,6 +242,16 @@ export class SearchComponent implements OnInit {
    */
   isDark(): boolean {
     return document.body.classList.contains("dark");
+  }
+
+  updateMetadata(records: Record[]) {
+    const set = new Set(this.metadata);
+    records.forEach(r => {
+      Object.keys(r)
+        .filter(k => this.appService.getColumn(k))
+        .forEach(k => set.add(k));
+    });
+    this.metadata = [...set.values()]
   }
 
   onMetadataSelect(item: string, valueItem: ValueItem) {

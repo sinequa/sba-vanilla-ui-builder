@@ -212,20 +212,25 @@
         <!-- Right part-->
         <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 70, bottom: 30}">
 
-            <!-- Scaled-down preview -->
-            <sq-facet-card *ngIf="openedDoc" [collapsible]="false" class="d-block mb-3 facet-preview"
-                [actionsSize]="''">
-                <sq-facet-preview-2 #facet
-                    [record]="openedDoc"
-                    [query]="searchService.query"
-                    [height]="750"
-                    [metadata]="metadata"
-                    [expandModal]="false"
-                    [customActions]="previewCustomActions"
-                    (recordClosed)="closeDocument()"
-                    (previewLoaded)="previewReady($event)">
-                </sq-facet-preview-2>
-            </sq-facet-card>
+            <uib-zone id="preview" [conditionsData]="conditionsData" *ngIf="openedDoc">
+                <ng-template uib-template="preview" let-config>
+                    <!-- Scaled-down preview -->
+                    <sq-facet-card [collapsible]="false" class="d-block mb-3 facet-preview" [actionsSize]="''">
+                        <sq-facet-preview-2 #facet
+                            [record]="openedDoc"
+                            [query]="searchService.query"
+                            [height]="750"
+                            [metadata]="config.metadata"
+                            [expandModal]="false"
+                            [customActions]="previewCustomActions"
+                            [highlightActions]="config.highlightActions"
+                            [filters]="config.filters"
+                            (recordClosed)="closeDocument()"
+                            (previewLoaded)="previewReady($event)">
+                        </sq-facet-preview-2>
+                    </sq-facet-card>
+                </ng-template>
+            </uib-zone>
 
         </div>
     </div>
@@ -289,7 +294,7 @@
       </ng-template>
 
       <ng-template uib-template="result-metadata" let-context>
-          <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
+          <sq-metadata-configurator [context]="context" [metadata]="metadata"></sq-metadata-configurator>
       </ng-template>
 
       <ng-template uib-template="tabs" let-context>
@@ -337,6 +342,10 @@
 
       <ng-template uib-template="user-menu" let-context>
         <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="preview" let-context>
+        <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
       </ng-template>
     </uib-configurator>
 </div>
