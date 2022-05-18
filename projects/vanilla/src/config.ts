@@ -42,25 +42,25 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'recent-documents',
     type: 'recent-documents',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'recent-queries',
     type: 'recent-queries',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'saved-queries',
     type: 'saved-queries',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'baskets',
     type: 'baskets',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   }
 ];
