@@ -14,7 +14,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'home',
     type: '_container',
     classes: 'flex-column align-items-center',
-    items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets']
+    items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets', 'global']
   },
   {
     id: 'home-logo',
@@ -69,7 +69,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'navbar',
     type: '_container',
-    items: ['logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
+    items: ['global','logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
     classes: 'flex-grow-1 align-items-center'
   },
   {

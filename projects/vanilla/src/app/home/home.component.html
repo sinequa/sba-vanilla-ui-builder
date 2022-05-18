@@ -64,6 +64,10 @@
             <sq-facet-baskets #facet [maxBaskets]="config.maxItems"></sq-facet-baskets>
         </sq-facet-card>
     </ng-template>
+
+    <ng-template uib-template="global" let-config>
+        <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage"></sq-global>
+    </ng-template>
 </uib-zone>
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">
@@ -96,6 +100,10 @@
 
     <ng-template uib-template="baskets" let-context>
       <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="global" let-context>
+      <sq-global-configurator [context]="context"></sq-global-configurator>
     </ng-template>
   </uib-configurator>
 </div>
