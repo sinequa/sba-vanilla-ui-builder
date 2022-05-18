@@ -36,7 +36,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home-facets',
     type: '_container',
-    classes: 'flex-row sq-home-facet-bar container row justify-content-center mt-5',
+    classes: 'sq-home-facet-bar container row justify-content-center mt-5',
     items: ['recent-documents', 'recent-queries', 'saved-queries', 'baskets']
   },
   {
