@@ -3,10 +3,13 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IntlModule } from "@sinequa/core/intl";
 import { UtilsModule } from "@sinequa/ngx-ui-builder";
+import { ColorPickerModule } from "ngx-color-picker";
 import { CheckboxControlComponent } from "./checkbox-control.component";
+import { ColorPickerControlComponent } from "./color-picker-control.component";
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
-import { HomeFacetConfigurator } from "./home-facet-configurator.component";
+import { HomeFacetConfiguratorComponent } from "./home-facet-configurator.component";
+import { GlobalConfiguratorComponent } from "./global-configurator.component";
 import { IconSelectorComponent } from "./icon-selector.component";
 import { ImgSelectorComponent } from "./img-selector.component";
 import { MenuConfiguratorComponent } from "./menu-configurator.component";
@@ -15,12 +18,14 @@ import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.co
 import { PreviewConfiguratorComponent } from "./preview-configurator.component";
 import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
 
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IntlModule,
-        UtilsModule
+        UtilsModule,
+        ColorPickerModule
     ],
     declarations: [
         FacetConfiguratorComponent,
@@ -32,8 +37,10 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         IconSelectorComponent,
         ImgSelectorComponent,
         MenuConfiguratorComponent,
-        HomeFacetConfigurator,
-        PreviewConfiguratorComponent
+        HomeFacetConfiguratorComponent,
+        PreviewConfiguratorComponent,
+        ColorPickerControlComponent,
+        GlobalConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
@@ -45,8 +52,10 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         IconSelectorComponent,
         ImgSelectorComponent,
         MenuConfiguratorComponent,
-        HomeFacetConfigurator,
-        PreviewConfiguratorComponent
+        HomeFacetConfiguratorComponent,
+        PreviewConfiguratorComponent,
+        ColorPickerControlComponent,
+        GlobalConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

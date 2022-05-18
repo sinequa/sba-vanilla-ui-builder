@@ -14,7 +14,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'home',
     type: '_container',
     classes: 'flex-column align-items-center',
-    items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets']
+    items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets', 'global']
   },
   {
     id: 'home-logo',
@@ -36,32 +36,36 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home-facets',
     type: '_container',
-    classes: 'flex-row sq-home-facet-bar container row justify-content-center mt-5',
+    classes: 'sq-home-facet-bar container row justify-content-center mt-5',
     items: ['recent-documents', 'recent-queries', 'saved-queries', 'baskets']
   },
   {
     id: 'recent-documents',
     type: 'recent-documents',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'recent-queries',
     type: 'recent-queries',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'saved-queries',
     type: 'saved-queries',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
   },
   {
     id: 'baskets',
     type: 'baskets',
-    classes: 'col-md-5 col-lg-3 mb-3',
+    classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
+  },
+  {
+    id: "global",
+    type: "global"
   }
 ];
 
@@ -69,7 +73,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'navbar',
     type: '_container',
-    items: ['logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
+    items: ['global','logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
     classes: 'flex-grow-1 align-items-center'
   },
   {

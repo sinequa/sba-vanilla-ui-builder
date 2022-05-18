@@ -28,9 +28,9 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
 export class IconSelectorComponent {
     @Input() config: ComponentWithIconConfig;
     @Output() configChanged = new EventEmitter();
-    
+
     iconChanged() {
-        this.configChanged.next();
+        this.configChanged.emit();
     }
 
     select(suggest: string) {

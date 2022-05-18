@@ -36,7 +36,7 @@ export class CheckboxControlComponent implements OnChanges {
         if(value !== val[this._path[i]]) {
           val[this._path[i]] = value;
           this.context.configChanged();
-          this.modelChanged.next(value);
+          this.modelChanged.emit(value);
         }
     }
 
