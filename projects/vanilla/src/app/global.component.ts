@@ -14,6 +14,7 @@ export class GlobalComponent implements OnChanges {
   @Input() backgroundColor?: string;
   @Input() gradientColor?: string;
   @Input() backgroundImage?: string;
+  @Input() fontFamily?: string;
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -23,7 +24,12 @@ export class GlobalComponent implements OnChanges {
     document.body.style.backgroundRepeat = '';
     document.body.style.backgroundPosition = '';
     document.body.style.backgroundSize = '';
-
+    if(this.fontFamily) {
+      document.documentElement.style.setProperty('--bs-body-font-family', this.fontFamily);
+    }
+    else {
+      document.documentElement.style.removeProperty("--bs-body-font-family");
+    }
     if(this.backgroundImage) {
       document.body.style.backgroundImage = `url(${this.backgroundImage})`;
       document.body.style.backgroundRepeat = 'no-repeat';

@@ -62,6 +62,10 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     type: 'baskets',
     classes: 'col-md-5 col-lg-3 m-0 mb-3',
     maxItems: 5
+  },
+  {
+    id: "global",
+    type: "global"
   }
 ];
 
