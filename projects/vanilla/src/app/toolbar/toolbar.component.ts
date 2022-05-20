@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { AppService } from "@sinequa/core/app-utils";
 import { NotificationsService } from "@sinequa/core/notification";
 import { DownloadWebService, JsonMethodPluginService } from "@sinequa/core/web-services";
-import { ConfigService } from "@sinequa/ngx-ui-builder";
+import { ConfigService, ConfigurableService } from "@sinequa/ngx-ui-builder";
 import { throwError } from "rxjs";
 import { catchError, finalize, switchMap } from "rxjs/operators";
 import { AppConfigService } from "../app-config.service";
@@ -16,6 +16,7 @@ export class ToolbarComponent {
   constructor(
     public appService: AppService,
     public configService: ConfigService,
+    public configurableService: ConfigurableService,
     public pluginService: JsonMethodPluginService,
     public downloadService: DownloadWebService,
     public notificationsService: NotificationsService,
@@ -73,6 +74,17 @@ export class ToolbarComponent {
 
   resetConfig() {
     this.appConfigService.reset();
+  }
+
+  openGlobalConfigurator() {
+    // Simulate click on global component
+    this.configurableService.clickConfigurable({
+      id: "global",
+      parentId: "", // parentId would be required to duplicate or remove the component, which is not applicable here
+      zone: "",
+      removeSelected: () => {}, // These callbacks do nothing because this is not a real click on a configurable component
+      removeEdited: () => {}
+    })
   }
 
 }

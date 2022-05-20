@@ -4,6 +4,8 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 @Component({
   selector: "sq-global-configurator",
   template: `
+  <div role="alert" class="alert alert-warning">This component controls global styling options (colors, fonts, etc.). The component itself has no visible appearance.</div>
+
   <sq-color-picker [context]="context" property="backgroundColor" label="Background color"></sq-color-picker>
   <sq-color-picker [context]="context" property="gradientColor" label="Gradient color"></sq-color-picker>
   <sq-img-selector [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></sq-img-selector>

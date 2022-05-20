@@ -1,14 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: 'sq-global',
-  template: `<i class="fas fa-paint-brush fa-3x"></i>`,
-  encapsulation: ViewEncapsulation.None,
-  styles: [`
-  div:not(.uib-configurable) sq-global {
-    display: none;
-  }
-  `]
+  template: ``
 })
 export class GlobalComponent implements OnChanges {
   @Input() backgroundColor?: string;
