@@ -57,9 +57,9 @@ import { AppConfigService } from "./app-config.service";
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
-    app: "training",
+    //app: "training",
     production: environment.production,
-    autoSAMLProvider: environment.autoSAMLProvider,
+    //autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 

@@ -48,6 +48,10 @@
             <ng-template uib-template="feedback-menu">
                 <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
             </ng-template>
+
+            <ng-template uib-template="global" let-config>
+                <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage" [fontFamily]="config.fontFamily"></sq-global>
+            </ng-template>
         </uib-zone>
 
         <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
@@ -347,5 +351,10 @@
       <ng-template uib-template="preview" let-context>
         <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
       </ng-template>
+
+      <ng-template uib-template="global" let-context>
+        <sq-global-configurator [context]="context"></sq-global-configurator>
+      </ng-template>
+
     </uib-configurator>
 </div>
