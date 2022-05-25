@@ -386,13 +386,26 @@ export const RESULTS_VIEW_TILES_CONFIG: ComponentConfig[] = [
   }
 ]
 
-export const PREVIEW_DEFAULT_CONFIG: ComponentConfig[] = [
+export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
+  {
+    id: "panel-right",
+    type: "_container",
+    items: ['preview'],
+    classes: "flex-column align-items-stretch"
+  },
   {
     id: "preview",
     type: "preview",
     metadata: ["authors", "docformat", "modified", "size", "treepath", "filename"],
     highlightActions: true,
-    filters: ["extractslocations","matchlocations","person","geo","company"]
+    height: 750,
+    filters: ["extractslocations","matchlocations","person","geo","company"],
+    condition: { // This condition ensures the preview is only shown when a document is open
+      type: 'equals',
+      field: 'id',
+      values: [{not: true, value: ''}]
+    },
+    classes: "mb-3"
   }
 ];
 
@@ -402,7 +415,7 @@ export const VANILLA_BUILDER_DEFAULT_CONFIG: ComponentConfig[] = [
   ...FACETS_DEFAULT_CONFIG,
   ...TOOLBAR_DEFAULT_CONFIG,
   ...RESULTS_VIEW_LIST_CONFIG,
-  ...PREVIEW_DEFAULT_CONFIG
+  ...PANEL_RIGHT_DEFAULT_CONFIG
 ];
 
 export const RESULTS_VIEWS_CONFIG = [

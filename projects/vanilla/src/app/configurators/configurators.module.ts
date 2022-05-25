@@ -17,6 +17,9 @@ import { MetadataConfiguratorComponent } from "./metadata-configurator.component
 import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.component";
 import { PreviewConfiguratorComponent } from "./preview-configurator.component";
 import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
+import { ChartConfiguratorComponent } from "./chart-configurator.component";
+import { TimelineConfiguratorComponent } from "./timeline-configurator.component";
+import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         HomeFacetConfiguratorComponent,
         PreviewConfiguratorComponent,
         ColorPickerControlComponent,
-        GlobalConfiguratorComponent
+        GlobalConfiguratorComponent,
+        ChartConfiguratorComponent,
+        TimelineConfiguratorComponent,
+        HeatmapConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
@@ -55,7 +61,10 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
         HomeFacetConfiguratorComponent,
         PreviewConfiguratorComponent,
         ColorPickerControlComponent,
-        GlobalConfiguratorComponent
+        GlobalConfiguratorComponent,
+        ChartConfiguratorComponent,
+        TimelineConfiguratorComponent,
+        HeatmapConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

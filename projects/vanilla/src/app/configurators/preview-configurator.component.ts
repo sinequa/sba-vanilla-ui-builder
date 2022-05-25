@@ -16,6 +16,9 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
   </select>
 
+  <label for="height">Preview height</label>
+  <input type="number" class="form-control mb-2" id="height" autocomplete="off" spellcheck="off" min="0" max="10000" [(ngModel)]="context.config.height" (ngModelChangeDebounced)="context.configChanged()">
+
   <sq-checkbox [context]="context" property="highlightActions" label="Enable highlight options"></sq-checkbox>
   `
 })

@@ -33,7 +33,10 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
+import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
+import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
 
 // Components
 import { AppComponent } from "./app.component";
@@ -148,6 +151,8 @@ export const breakpoints = {
         BsSelectionModule,
         BsAdvancedModule,
         BsTimelineModule,
+        BsHeatmapModule,
+        FusionChartsModule,
 
         // UI Builder
         DynamicViewsModule,

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl=true --proxyConfig=./projects/vanilla/src/proxy.conf.json",
+    "sq-update": "npm update @sinequa/core @sinequa/components @sinequa/analytics --legacy-peer-deps",
     "build": "ng build",
     "make-static": "ng generate @sinequa/ngx-ui-builder:make-static",
     "test": "ng test",
@@ -38,6 +39,7 @@
     "classlist.js": "^1.1.20150312",
     "custom-event": "^1.0.1",
     "d3": "^5.15.1",
+    "d3-zoom": "^3.0.0",
     "diacritics": "^1.3.0",
     "dom-to-image": "^2.6.0",
     "element-resize-detector": "^1.2.3",
