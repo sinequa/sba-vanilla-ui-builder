@@ -216,14 +216,14 @@
         <!-- Right part-->
         <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 70, bottom: 30}">
 
-            <uib-zone id="preview" [conditionsData]="conditionsData" *ngIf="openedDoc">
-                <ng-template uib-template="preview" let-config>
+            <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
+                <ng-template uib-template="preview" let-config let-record="data">
                     <!-- Scaled-down preview -->
-                    <sq-facet-card [collapsible]="false" class="d-block mb-3 facet-preview" [actionsSize]="''">
+                    <sq-facet-card [collapsible]="false" class="facet-preview" [actionsSize]="''">
                         <sq-facet-preview-2 #facet
-                            [record]="openedDoc"
+                            [record]="record"
                             [query]="searchService.query"
-                            [height]="750"
+                            [height]="config.height"
                             [metadata]="config.metadata"
                             [expandModal]="false"
                             [customActions]="previewCustomActions"
@@ -232,6 +232,24 @@
                             (recordClosed)="closeDocument()"
                             (previewLoaded)="previewReady($event)">
                         </sq-facet-preview-2>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="timeline" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []"></sq-facet-timeline>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="heatmap" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields"></sq-facet-heatmap>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="chart" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation"></sq-fusion-chart>
                     </sq-facet-card>
                 </ng-template>
             </uib-zone>
@@ -261,6 +279,18 @@
 
       <ng-template uib-template="facet-multi" let-context>
         <sq-facet-multi-configurator [context]="context"></sq-facet-multi-configurator>
+      </ng-template>
+
+      <ng-template uib-template="chart" let-context>
+        <sq-chart-configurator [context]="context"></sq-chart-configurator>
+      </ng-template>
+
+      <ng-template uib-template="timeline" let-context>
+        <sq-timeline-configurator [context]="context"></sq-timeline-configurator>
+      </ng-template>
+
+      <ng-template uib-template="heatmap" let-context>
+        <sq-heatmap-configurator [context]="context" [metadata]="metadata"></sq-heatmap-configurator>
       </ng-template>
 
       <ng-template uib-template="result-source" let-context>

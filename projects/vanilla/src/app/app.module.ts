@@ -33,7 +33,10 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
+import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
+import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
 
 // Components
 import { AppComponent } from "./app.component";
@@ -51,6 +54,7 @@ import { environment } from "../environments/environment";
 // UI Builder
 import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
+import { ConditionsModule } from "@sinequa/ngx-ui-builder";
 
 import { AppConfigService } from "./app-config.service";
 
@@ -148,11 +152,14 @@ export const breakpoints = {
         BsSelectionModule,
         BsAdvancedModule,
         BsTimelineModule,
+        BsHeatmapModule,
+        FusionChartsModule,
 
         // UI Builder
         DynamicViewsModule,
         ConfiguratorModule,
-        ConfiguratorsModule
+        ConfiguratorsModule,
+        ConditionsModule
     ],
     declarations: [
         AppComponent,

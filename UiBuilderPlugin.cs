@@ -74,7 +74,7 @@ namespace Sinequa.Plugin
 			}
 
 			// Run schematic "make-static" to transform the workspace folder
-			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName}";
+			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName} --appModuleDependencies=projects/vanilla/src/app-dependencies.json";
 			System.Diagnostics.Process process = new System.Diagnostics.Process();
 			process.StartInfo = new System.Diagnostics.ProcessStartInfo()
 			{
