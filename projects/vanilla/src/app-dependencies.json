@@ -1,0 +1,8 @@
+{
+  "BsTimelineModule": ["facet-date","timeline"],
+  "BsHeatmapModule": ["heatmap"],
+  "FusionChartsModule": ["chart"],
+  "ConfiguratorModule": [],
+  "ConfiguratorsModule": [],
+  "DynamicViewsModule": []
+}

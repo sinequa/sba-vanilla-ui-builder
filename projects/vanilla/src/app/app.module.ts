@@ -54,6 +54,7 @@ import { environment } from "../environments/environment";
 // UI Builder
 import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
+import { ConditionsModule } from "@sinequa/ngx-ui-builder";
 
 import { AppConfigService } from "./app-config.service";
 
@@ -157,7 +158,8 @@ export const breakpoints = {
         // UI Builder
         DynamicViewsModule,
         ConfiguratorModule,
-        ConfiguratorsModule
+        ConfiguratorsModule,
+        ConditionsModule
     ],
     declarations: [
         AppComponent,

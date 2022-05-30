@@ -6,7 +6,7 @@
     "start": "ng serve --ssl=true --proxyConfig=./projects/vanilla/src/proxy.conf.json",
     "sq-update": "npm update @sinequa/core @sinequa/components @sinequa/analytics --legacy-peer-deps",
     "build": "ng build",
-    "make-static": "ng generate @sinequa/ngx-ui-builder:make-static",
+    "make-static": "ng generate @sinequa/ngx-ui-builder:make-static --appModuleDependencies=./projects/vanilla/src/app-dependencies.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -28,7 +28,7 @@
     "@sinequa/analytics": "rel_11.8.0",
     "@sinequa/components": "rel_11.8.0",
     "@sinequa/core": "rel_11.8.0",
-    "@sinequa/ngx-ui-builder": "^0.0.8",
+    "@sinequa/ngx-ui-builder": "^0.0.11",
     "@swimlane/ngx-charts": "^19.0.0",
     "ag-grid-angular": "^25.2.0",
     "ag-grid-community": "^25.2.0",
