@@ -8,7 +8,6 @@ import { LabelsService } from '@sinequa/components/labels';
 import { UserPreferences } from '@sinequa/components/user-settings';
 import { SelectionService } from '@sinequa/components/selection';
 import { AppService } from '@sinequa/core/app-utils';
-import { FEATURES } from '../config';
 import { AuditWebService } from "@sinequa/core/web-services";
 
 @Component({
@@ -57,32 +56,13 @@ export class AppComponent extends ComponentWithLogin {
 
             this.initDone = true;
 
-            let features = FEATURES;
-            // The local config (config.ts) can be overriden by server-side config
-            if(this.appService.app && this.appService.app.data && this.appService.app.data.features){
-                features = <string[]> this.appService.app.data.features;
+            this.selectionService.selectionActions.push(this.savedQueriesService.selectedRecordsAction);
+            this.basketsService.selectedRecordsAction.icon = "fas fa-inbox"; // Overriding the baskets icon (hard coded in the service)
+            this.selectionService.selectionActions.push(this.basketsService.selectedRecordsAction);
+            const action = this.labelsService.buildSelectionAction();
+            if(action){
+                this.selectionService.selectionActions.push(action);
             }
-
-            features.forEach(feature => {
-                switch(feature) {
-                    case 'saved-queries': {
-                        this.selectionService.selectionActions.push(this.savedQueriesService.selectedRecordsAction);
-                        break;
-                    }
-                    case 'baskets': {
-                        this.basketsService.selectedRecordsAction.icon = "fas fa-inbox"; // Overriding the baskets icon (hard coded in the service)
-                        this.selectionService.selectionActions.push(this.basketsService.selectedRecordsAction);
-                        break;
-                    }
-                    case 'labels': {
-                        const action = this.labelsService.buildSelectionAction();
-                        if(action){
-                            this.selectionService.selectionActions.push(action);
-                        }
-                        break;
-                    }
-                }
-            });
 
             this.auditRouteChange();
 

@@ -72,9 +72,9 @@ namespace Sinequa.Plugin
 				Method.HttpErrorCode = 500;
 				return;
 			}
-			
+
 			// Run schematic "make-static" to transform the workspace folder
-			string arguments = $"run --scripts-prepend-node-path=true ng generate ngx-ui-builder:make-static -- --config={configFileName}";
+			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName} --appModuleDependencies=projects/vanilla/src/app-dependencies.json";
 			System.Diagnostics.Process process = new System.Diagnostics.Process();
 			process.StartInfo = new System.Diagnostics.ProcessStartInfo()
 			{
@@ -87,7 +87,7 @@ namespace Sinequa.Plugin
 				Arguments = arguments
 			};
 			process.Start();
-			
+
             string result = process.StandardOutput.ReadToEnd();
 			string error = process.StandardError.ReadToEnd();
 
@@ -139,7 +139,7 @@ namespace Sinequa.Plugin
 			Method.MethodFormat = JsonMethodFormat.Post_Json_To_Blob;
 			return true;
 		}
-		
+
 		public override void OnPluginMethod()
 		{
 			Sys.Log("Plugin UI Builder - DownloadExportedWorkspace: Start");

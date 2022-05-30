@@ -5,7 +5,6 @@
         "src/polyfills.ts"
     ],
     "include": [
-        "src/**/*.ts",
         "src/locales/*.ts",
         "src/environments/environment.ts"
     ],

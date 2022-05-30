@@ -48,6 +48,10 @@
             <ng-template uib-template="feedback-menu">
                 <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
             </ng-template>
+
+            <ng-template uib-template="global" let-config>
+                <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage" [fontFamily]="config.fontFamily"></sq-global>
+            </ng-template>
         </uib-zone>
 
         <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
@@ -212,20 +216,43 @@
         <!-- Right part-->
         <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 70, bottom: 30}">
 
-            <!-- Scaled-down preview -->
-            <sq-facet-card *ngIf="openedDoc" [collapsible]="false" class="d-block mb-3 facet-preview"
-                [actionsSize]="''">
-                <sq-facet-preview-2 #facet
-                    [record]="openedDoc"
-                    [query]="searchService.query"
-                    [height]="750"
-                    [metadata]="metadata"
-                    [expandModal]="false"
-                    [customActions]="previewCustomActions"
-                    (recordClosed)="closeDocument()"
-                    (previewLoaded)="previewReady($event)">
-                </sq-facet-preview-2>
-            </sq-facet-card>
+            <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
+                <ng-template uib-template="preview" let-config let-record="data">
+                    <!-- Scaled-down preview -->
+                    <sq-facet-card [collapsible]="false" class="facet-preview" [actionsSize]="''">
+                        <sq-facet-preview-2 #facet
+                            [record]="record"
+                            [query]="searchService.query"
+                            [height]="config.height"
+                            [metadata]="config.metadata"
+                            [expandModal]="false"
+                            [customActions]="previewCustomActions"
+                            [highlightActions]="config.highlightActions"
+                            [filters]="config.filters"
+                            (recordClosed)="closeDocument()"
+                            (previewLoaded)="previewReady($event)">
+                        </sq-facet-preview-2>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="timeline" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []"></sq-facet-timeline>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="heatmap" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields"></sq-facet-heatmap>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="chart" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation"></sq-fusion-chart>
+                    </sq-facet-card>
+                </ng-template>
+            </uib-zone>
 
         </div>
     </div>
@@ -252,6 +279,18 @@
 
       <ng-template uib-template="facet-multi" let-context>
         <sq-facet-multi-configurator [context]="context"></sq-facet-multi-configurator>
+      </ng-template>
+
+      <ng-template uib-template="chart" let-context>
+        <sq-chart-configurator [context]="context"></sq-chart-configurator>
+      </ng-template>
+
+      <ng-template uib-template="timeline" let-context>
+        <sq-timeline-configurator [context]="context"></sq-timeline-configurator>
+      </ng-template>
+
+      <ng-template uib-template="heatmap" let-context>
+        <sq-heatmap-configurator [context]="context" [metadata]="metadata"></sq-heatmap-configurator>
       </ng-template>
 
       <ng-template uib-template="result-source" let-context>
@@ -289,7 +328,7 @@
       </ng-template>
 
       <ng-template uib-template="result-metadata" let-context>
-          <sq-metadata-configurator [context]="context"></sq-metadata-configurator>
+          <sq-metadata-configurator [context]="context" [metadata]="metadata"></sq-metadata-configurator>
       </ng-template>
 
       <ng-template uib-template="tabs" let-context>
@@ -338,5 +377,14 @@
       <ng-template uib-template="user-menu" let-context>
         <sq-menu-configurator [context]="context"></sq-menu-configurator>
       </ng-template>
+
+      <ng-template uib-template="preview" let-context>
+        <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
+      </ng-template>
+
+      <ng-template uib-template="global" let-context>
+        <sq-global-configurator [context]="context"></sq-global-configurator>
+      </ng-template>
+
     </uib-configurator>
 </div>

@@ -41,6 +41,10 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   }
 }
 
+.btn-link {
+  text-decoration: none;
+}
+
 // CDK drag & drop
 .cdk-drag-preview {
     z-index: 2000 !important;
@@ -92,6 +96,11 @@ a {
     .card {
         box-shadow: 0 5px 7px rgba(0,0,0,.08);
     }
+}
+
+// Prevent width: 100% from .row on the drag & drop placeholder
+.row > .dragPlaceholder {
+    width: auto;
 }
 
 app-search-form {
@@ -156,11 +165,12 @@ sq-sponsored-results {
 .result-list {
     display: flex;
     flex-wrap: wrap;
-    & > div {
-        min-width: 0; // Necessary to avoid overflow in the result list in special cases like duplicate record items
-    }
 
     .record {
+
+        & > div.flex-grow-1 {
+          min-width: 0; // Important to force the flex item to shrink if needed
+        }
 
         &:hover {
             background-color: rgb(0,0,0,0.03);

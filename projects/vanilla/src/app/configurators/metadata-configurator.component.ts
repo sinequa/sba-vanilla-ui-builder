@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { AppService } from "@sinequa/core/app-utils";
 import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
-import { METADATA } from "../../config";
 
 @Component({
     selector: 'sq-metadata-configurator',
@@ -9,13 +8,13 @@ import { METADATA } from "../../config";
 <div class="form-group">
     <label for="item">Item</label>
     <select id="item" class="form-select mb-2" [(ngModel)]="config.item" (ngModelChange)="configChanged(true)">
-        <option *ngFor="let a of items" [ngValue]="a">{{a}}</option>
+        <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
     </select>
-    
+
     <sq-checkbox [context]="context" property="clickable" label="Clickable"></sq-checkbox>
     <sq-checkbox [context]="context" property="showTitle" label="Show title"></sq-checkbox>
     <sq-checkbox [context]="context" property="showIcon" label="Show icon"></sq-checkbox>
-    
+
     <div *ngIf="isEntity">
         Entity options:
         <sq-checkbox [context]="context" property="showCounts" label="Show counts"></sq-checkbox>
@@ -26,8 +25,8 @@ import { METADATA } from "../../config";
 })
 export class MetadataConfiguratorComponent implements OnChanges {
     @Input() context: ConfiguratorContext;
+    @Input() metadata: string[];
 
-    items = METADATA;
     isEntity: boolean;
 
     constructor(public appService: AppService){}

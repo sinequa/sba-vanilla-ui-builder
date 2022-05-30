@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl=true --proxyConfig=./projects/vanilla/src/proxy.conf.json",
+    "sq-update": "npm update @sinequa/core @sinequa/components @sinequa/analytics --legacy-peer-deps",
     "build": "ng build",
+    "make-static": "ng generate @sinequa/ngx-ui-builder:make-static --appModuleDependencies=./projects/vanilla/src/app-dependencies.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,10 +25,10 @@
     "@angular-slider/ngx-slider": "^2.0.4",
     "@formatjs/intl-relativetimeformat": "^4.5.12",
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "@sinequa/analytics": "11.8.1-DEV.131",
-    "@sinequa/components": "11.8.1-DEV.131",
-    "@sinequa/core": "11.8.1-DEV.131",
-    "@sinequa/ngx-ui-builder": "^0.0.6",
+    "@sinequa/analytics": "rel_11.8.1",
+    "@sinequa/components": "rel_11.8.1",
+    "@sinequa/core": "rel_11.8.1",
+    "@sinequa/ngx-ui-builder": "^0.0.11",
     "@swimlane/ngx-charts": "^19.0.0",
     "ag-grid-angular": "^25.2.0",
     "ag-grid-community": "^25.2.0",
@@ -37,6 +39,7 @@
     "classlist.js": "^1.1.20150312",
     "custom-event": "^1.0.1",
     "d3": "^5.15.1",
+    "d3-zoom": "^3.0.0",
     "diacritics": "^1.3.0",
     "dom-to-image": "^2.6.0",
     "element-resize-detector": "^1.2.3",
@@ -70,7 +73,8 @@
     "@ngneat/elf": "1.0.2",
     "@ngneat/elf-entities": "3.0.0",
     "@ngneat/elf-state-history": "1.0.1",
-    "ngx-drag-drop": "^2.0.0"
+    "ngx-drag-drop": "^2.0.0",
+    "ngx-color-picker": "^12.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.2",
@@ -95,6 +99,9 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
+    "htmlparser": "1.7.7",
+    "html-prettify": "1.0.3",
+    "sanitize-html": "2.7.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.4",

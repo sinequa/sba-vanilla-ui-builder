@@ -33,7 +33,10 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
+import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
+import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
 
 // Components
 import { AppComponent } from "./app.component";
@@ -43,6 +46,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { AutocompleteExtended } from './search-form/autocomplete-extended.directive';
 import { ToolbarComponent } from "./toolbar/toolbar.component";
+import { GlobalComponent } from "./global.component";
 
 // Environment
 import { environment } from "../environments/environment";
@@ -50,15 +54,16 @@ import { environment } from "../environments/environment";
 // UI Builder
 import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
+import { ConditionsModule } from "@sinequa/ngx-ui-builder";
 
 import { AppConfigService } from "./app-config.service";
 
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
-    app: "training",
+    //app: "training",
     production: environment.production,
-    autoSAMLProvider: environment.autoSAMLProvider,
+    //autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 
@@ -147,11 +152,14 @@ export const breakpoints = {
         BsSelectionModule,
         BsAdvancedModule,
         BsTimelineModule,
+        BsHeatmapModule,
+        FusionChartsModule,
 
         // UI Builder
         DynamicViewsModule,
         ConfiguratorModule,
-        ConfiguratorsModule
+        ConfiguratorsModule,
+        ConditionsModule
     ],
     declarations: [
         AppComponent,
@@ -160,7 +168,8 @@ export const breakpoints = {
         PreviewComponent,
         SearchFormComponent,
         AutocompleteExtended,
-        ToolbarComponent
+        ToolbarComponent,
+        GlobalComponent
     ],
     providers: [
         // Provides an APP_INITIALIZER which will fetch application configuration information from the Sinequa

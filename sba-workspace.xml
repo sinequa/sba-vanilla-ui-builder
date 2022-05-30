@@ -3,5 +3,5 @@
     <ZipFile>vanilla-builder</ZipFile>
     <Title>Vanilla Builder</Title>
     <Description>This is the default SBA workspace for Vanilla Builder.</Description>
-	<AlphaBetaOnly>Alpha</AlphaBetaOnly>
+	<AlphaBetaOnly>Beta</AlphaBetaOnly>
 </Sinequa>
