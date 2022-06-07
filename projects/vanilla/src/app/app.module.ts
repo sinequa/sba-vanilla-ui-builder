@@ -37,6 +37,9 @@ import { BsAdvancedModule } from '@sinequa/components/advanced';
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
 import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
 import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
+import { SlideBuilderModule } from '@sinequa/components/slide-builder';
+import { CommentsModule } from "@sinequa/components/comments";
+import { MLModule } from '@sinequa/components/machine-learning';
 
 // Components
 import { AppComponent } from "./app.component";
@@ -154,6 +157,9 @@ export const breakpoints = {
         BsTimelineModule,
         BsHeatmapModule,
         FusionChartsModule,
+        SlideBuilderModule,
+        CommentsModule,
+        MLModule,
 
         // UI Builder
         DynamicViewsModule,

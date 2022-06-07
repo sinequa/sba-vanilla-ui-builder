@@ -162,6 +162,10 @@
                 <ng-template uib-template="sponsored-results">
                     <sq-sponsored-results [query]="searchService.query"></sq-sponsored-results>
                 </ng-template>
+
+                <ng-template uib-template="answer-card">
+                    <sq-answer-card [results]="results" (answerOpened)="onAnswerOpened($event)"></sq-answer-card>
+                </ng-template>
             </uib-zone>
 
             <!-- List of documents (for loop) -->
@@ -228,6 +232,7 @@
                     <!-- Scaled-down preview -->
                     <sq-facet-card [collapsible]="false" class="facet-preview" [actionsSize]="''">
                         <sq-facet-preview-2 #facet
+                            [hidden]="showPassages"
                             [record]="record"
                             [query]="searchService.query"
                             [height]="config.height"
@@ -239,6 +244,7 @@
                             (recordClosed)="closeDocument()"
                             (previewLoaded)="previewReady($event)">
                         </sq-facet-preview-2>
+                        <sq-passage-list [record]="record" *ngIf="showPassages"></sq-passage-list>
                     </sq-facet-card>
                 </ng-template>
 
@@ -258,6 +264,27 @@
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
                         <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation"></sq-fusion-chart>
                     </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="slide-builder" let-config>
+                  <sq-facet-card
+                      [collapsible]="config.collapsible"
+                      [icon]="config.icon"
+                      [title]="config.title"
+                      tooltip="Click on a slide from the search results to add it to the Slide Deck Builder.">
+                      <sq-slide-builder #facet
+                        [enableSaveAsBasket]="config.enableSaveAsBasket">
+                      </sq-slide-builder>
+                  </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="comments" let-config let-record="data">
+                  <sq-facet-card
+                      [collapsible]="config.collapsible"
+                      [icon]="config.icon"
+                      [title]="config.title">
+                      <sq-comments [docid]="record?.id"></sq-comments>
+                  </sq-facet-card>
                 </ng-template>
             </uib-zone>
 
@@ -393,6 +420,20 @@
 
       <ng-template uib-template="preview" let-context>
         <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
+      </ng-template>
+
+      <ng-template uib-template="slide-builder" let-context>
+        <sq-slide-builder-configurator [context]="context"></sq-slide-builder-configurator>
+      </ng-template>
+
+      <ng-template uib-template="comments" let-context>
+        <sq-comments-configurator [context]="context"></sq-comments-configurator>
+      </ng-template>
+
+      <ng-template uib-template="answer-card">
+        <div role="alert" class="alert alert-danger" *ngIf="!appService.isNeural()">
+          This component requires a Neural Search configuration set up on the Sinequa server.
+        </div>
       </ng-template>
 
       <ng-template uib-template="global" let-context>

@@ -94,8 +94,8 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
         this.searchControl.setValue(value);
       })
     ]);
-    
-    
+
+
     this.subscriptions.push(loginService.events.pipe(
       filter((event: SessionEvent) => event.type === "session-start")
     ).subscribe(_ => {
@@ -167,7 +167,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
           this.clearAdvancedForm();
         }
       }
-      
+
       /** Close the advanced form */
       this.showAdvancedSearch = false;
 
@@ -194,6 +194,10 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
       // if this.keepTab, stay on the same tab even after a new search
       if (this.keepTab && !!queryTab) {
         this.searchService.query.tab = queryTab;
+      }
+
+      if (!this.neuralSearch) {
+        this.searchService.query.neuralSearch = false;
       }
 
       /** Trigger the search with the new criteria */
@@ -318,6 +322,24 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
 
   toggleVoice() {
     this.voiceService.toggleRecognition();
+  }
+
+  get neuralSearch(): boolean {
+    return this.prefs.get("neural-search") !== false; // if undefined, default is true
+  }
+
+  set neuralSearch(val: boolean) {
+    if(val) {
+      this.prefs.delete("neural-search");
+    }
+    else {
+      this.prefs.set("neural-search", false); // if set, neural-search can only be false
+    }
+  }
+
+  toggleNeuralSearch() {
+    this.neuralSearch = !this.neuralSearch;
+    this.search();
   }
 
   scrollRight() {

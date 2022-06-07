@@ -50,6 +50,7 @@ export class HeatmapConfiguratorComponent implements OnChanges {
             this.config.fieldX = "company";
             this.config.fieldY = "person";
             this.config.fields = ['geo', 'company', 'person'];
+            this.config.classes = "mb-3";
         }
     }
 
