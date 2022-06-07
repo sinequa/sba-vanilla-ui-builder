@@ -31,7 +31,7 @@ import { ResultModule } from '@sinequa/components/result';
 import { BsFeedbackModule } from '@sinequa/components/feedback';
 import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
-import { BsSelectionModule } from '@sinequa/components/selection';
+import { BsSelectionModule, SELECTION_OPTIONS } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
 
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
@@ -201,7 +201,8 @@ export const breakpoints = {
         // member of the response body to any Sinequa web service requests.
         {provide: HTTP_INTERCEPTORS, useClass: NotificationsInterceptor, multi: true},
 
-        { provide: SCREEN_SIZE_RULES, useValue: breakpoints }
+        {provide: SCREEN_SIZE_RULES, useValue: breakpoints},
+        {provide: SELECTION_OPTIONS, useValue: {storage: 'record'}}
     ],
     bootstrap: [
         AppComponent
