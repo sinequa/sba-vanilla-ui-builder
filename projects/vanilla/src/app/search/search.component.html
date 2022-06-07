@@ -197,7 +197,14 @@
                 </ng-template>
 
                 <ng-template uib-template="result-thumbnail" let-config let-record="data">
-                    <sq-result-thumbnail [record]="record" [thumbnailColumn]="config.thumbnailColumn" [linkBehavior]="config.linkBehavior" [defaultThumbnail]="config.defaultThumbnail">
+                    <sq-result-thumbnail
+                      [record]="record"
+                      [thumbnailColumn]="config.thumbnailColumn"
+                      [linkBehavior]="config.linkBehavior"
+                      [defaultThumbnail]="config.defaultThumbnail"
+                      [style.--thumbnail-max-width.px]="config.maxWidth"
+                      [style.--thumbnail-max-height.px]="config.maxHeight"
+                      [style.--thumbnail-border-radius.px]="config.borderRadius">
                     </sq-result-thumbnail>
                 </ng-template>
 
@@ -317,14 +324,20 @@
 
       <ng-template uib-template="result-thumbnail" let-context>
         <label for="thumbnailColumn">Custom thumbnail column</label>
-        <input type="text" class="form-control mb-1" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="text" class="form-control mb-2" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChangeDebounced)="context.configChanged()">
         <label for="defaultThumbnail">Default thumbnail URL</label>
-        <input type="text" class="form-control mb-1" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="text" class="form-control mb-2" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChangeDebounced)="context.configChanged()">
         <label for="linkBehavior">Click behavior</label>
-        <select id="linkBehavior" class="form-select mb-1" [(ngModel)]="context.config.linkBehavior" (ngModelChange)="context.configChanged()">
+        <select id="linkBehavior" class="form-select mb-2" [(ngModel)]="context.config.linkBehavior" (ngModelChange)="context.configChanged()">
             <option [ngValue]="'open'">Open original document</option>
             <option [ngValue]="'action'">Custom action (or none)</option>
         </select>
+        <label for="maxWidth">Max Width (pixels)</label>
+        <input type="number" class="form-control mb-2" id="maxWidth" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.maxWidth" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="maxHeight">Max Height (pixels)</label>
+        <input type="number" class="form-control mb-2" id="maxHeight" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.maxHeight" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="borderRadius">Border radius (pixels)</label>
+        <input type="number" class="form-control mb-2" id="borderRadius" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.borderRadius" (ngModelChangeDebounced)="context.configChanged()">
       </ng-template>
 
       <ng-template uib-template="result-metadata" let-context>
