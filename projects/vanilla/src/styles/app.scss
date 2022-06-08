@@ -168,10 +168,6 @@ sq-sponsored-results {
 
     .record {
 
-        & > div.flex-grow-1 {
-          min-width: 0; // Important to force the flex item to shrink if needed
-        }
-
         &:hover {
             background-color: rgb(0,0,0,0.03);
         }
