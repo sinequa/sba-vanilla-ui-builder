@@ -39,6 +39,7 @@ export class ChartConfiguratorComponent implements OnChanges {
             this.config.title = "Chart";
             this.config.icon = "fas fa-chart-bar";
             this.config.aggregation = "Company";
+            this.config.classes = "mb-3";
         }
         // Update the list of available aggregations
         this.aggregations = this.searchService.results?.aggregations

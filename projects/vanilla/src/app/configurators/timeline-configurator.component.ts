@@ -55,6 +55,7 @@ export class TimelineConfiguratorComponent implements OnChanges {
                 showDatapoints: true
             }];
             this.config.showRecords = true;
+            this.config.classes = "mb-3";
         }
         // Update the list of available aggregations
         this.aggregations = this.searchService.results?.aggregations

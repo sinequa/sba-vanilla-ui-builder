@@ -24,9 +24,12 @@ import {enSearch} from "@sinequa/components/search";
 import {enStatusBar} from "@sinequa/components/status-bar";
 import {enUserSettings} from "@sinequa/components/user-settings";
 import {enTimeline} from "@sinequa/analytics/timeline";
+import {enSlideBuilder} from "@sinequa/components/slide-builder";
+import {enComments} from "@sinequa/components/comments";
 
 const messages = Utils.merge({}, enCore, enUtils, enAdvanced, enAlerts, enBaskets, enFacet, enFeedback, enHeatmap, enLabels, enMetadata,
-    enNotification, enPreview, enResult, enResultsView, enSavedQueries, enSelection, enSearch, enStatusBar, enUserSettings, enTimeline, appMessages);
+    enNotification, enPreview, enResult, enResultsView, enSavedQueries, enSelection, enSearch, enStatusBar, enUserSettings, enTimeline,
+    enSlideBuilder, enComments, appMessages);
 
 export default <LocaleData>{
     intl: {
