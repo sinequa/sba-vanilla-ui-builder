@@ -20,7 +20,8 @@ import { SearchFormConfiguratorComponent } from "./search-form-configurator.comp
 import { ChartConfiguratorComponent } from "./chart-configurator.component";
 import { TimelineConfiguratorComponent } from "./timeline-configurator.component";
 import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
-
+import { SlideBuilderConfiguratorComponent } from "./slide-builder-configurator.component";
+import { CommentsConfiguratorComponent } from "./comments-configurator.component";
 
 @NgModule({
     imports: [
@@ -46,7 +47,9 @@ import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
         GlobalConfiguratorComponent,
         ChartConfiguratorComponent,
         TimelineConfiguratorComponent,
-        HeatmapConfiguratorComponent
+        HeatmapConfiguratorComponent,
+        SlideBuilderConfiguratorComponent,
+        CommentsConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
@@ -64,7 +67,9 @@ import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
         GlobalConfiguratorComponent,
         ChartConfiguratorComponent,
         TimelineConfiguratorComponent,
-        HeatmapConfiguratorComponent
+        HeatmapConfiguratorComponent,
+        SlideBuilderConfiguratorComponent,
+        CommentsConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

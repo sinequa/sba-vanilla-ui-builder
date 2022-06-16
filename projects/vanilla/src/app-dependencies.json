@@ -2,6 +2,9 @@
   "BsTimelineModule": ["facet-date","timeline"],
   "BsHeatmapModule": ["heatmap"],
   "FusionChartsModule": ["chart"],
+  "MLModule": ["answer-card", "preview"],
+  "SlideBuilderModule": ["slide-builder"],
+  "CommentsModule": ["comments"],
   "ConfiguratorModule": [],
   "ConfiguratorsModule": [],
   "DynamicViewsModule": []

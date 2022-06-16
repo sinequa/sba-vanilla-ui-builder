@@ -168,10 +168,6 @@ sq-sponsored-results {
 
     .record {
 
-        & > div.flex-grow-1 {
-          min-width: 0; // Important to force the flex item to shrink if needed
-        }
-
         &:hover {
             background-color: rgb(0,0,0,0.03);
         }
@@ -246,11 +242,19 @@ sq-feedback-menu {
     }
 }
 
-sq-facet-tree {
-    .list-group.list-group-flush.scrollable {
-        max-height: calc(75vh - 250px);
-    }
+// Reduce max height of facets in edit mode
+sq-facet-tree .list-group.list-group-flush, sq-facet-list .facet-results-scrollable, sq-facet-date > div {
+  max-height: calc(75vh - 250px);
+  overflow: auto;
+  transition: max-height .3s ease-in-out;
 }
+
+.uib-zone.edited {
+  sq-facet-tree .list-group.list-group-flush, sq-facet-list .facet-results-scrollable, sq-facet-date > div {
+    max-height: 100px;
+  }
+}
+
 
 // Flex basis classes
 .flex-basis-0 {
