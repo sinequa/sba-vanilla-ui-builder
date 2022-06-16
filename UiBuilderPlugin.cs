@@ -75,24 +75,12 @@ namespace Sinequa.Plugin
 
 			// Run schematic "make-static" to transform the workspace folder
 			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName} --appModuleDependencies=projects/vanilla/src/app-dependencies.json";
-			System.Diagnostics.Process process = new System.Diagnostics.Process();
-			process.StartInfo = new System.Diagnostics.ProcessStartInfo()
-			{
-				CreateNoWindow = true,
-				RedirectStandardOutput = true,
-				RedirectStandardError = true,
-				UseShellExecute = false,
-				WorkingDirectory = workspacePath,
-				FileName = npm,
-				Arguments = arguments
-			};
-			process.Start();
 
-            string result = process.StandardOutput.ReadToEnd();
-			string error = process.StandardError.ReadToEnd();
+			int exitcode = Sys.RunWithOutputs(npm, arguments, workspacePath, out string result, out string error);
 
 			JsonResponse.Set("trace", result);
-			if(!Str.IsEmpty(error)) {
+			JsonResponse.Set("exitcode", exitcode);
+			if(exitcode != 0) {
 				JsonResponse.Set("error", "Failed to run the make-static script");
 				Json details = Json.NewObject();
 				details.Set("trace", error);
