@@ -13,7 +13,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     spellcheck="off"
     [(ngModel)]="context.config[param]"
     (ngModelChangeDebounced)="onChange($event)">
-  <input type="file" class="form-control-file" accept="image/png, image/jpeg" (change)="onImageLoaded($event)">
+  <input type="file" class="form-control-file" accept="image/png, image/jpeg, image/gif" (change)="onImageLoaded($event)">
 </div>
     `
 })
