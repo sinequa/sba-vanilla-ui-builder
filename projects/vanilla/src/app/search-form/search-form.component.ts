@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, ElementRef, DoCheck, Input} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, UntypedFormControl} from "@angular/forms";
 import {SearchService} from '@sinequa/components/search';
 import {LoginService, SessionEvent} from '@sinequa/core/login';
 import {AppService} from '@sinequa/core/app-utils';
@@ -22,8 +22,8 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() autocompleteSources: string[];
 
-  searchControl: FormControl;
-  form: FormGroup;
+  searchControl: UntypedFormControl;
+  form: UntypedFormGroup;
   autofocus = 0;
 
   /** Expression from the query selects, if any ("simple"/"selects" field search mode) */
@@ -77,7 +77,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
     public voiceService: VoiceRecognitionService,
     public searchService: SearchService,
     public loginService: LoginService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public appService: AppService,
     public prefs: UserPreferences,
     public firstPageService: FirstPageService,
@@ -112,7 +112,7 @@ export class SearchFormComponent implements OnInit, DoCheck, OnDestroy {
    * Initialization of the form
    */
   ngOnInit() {
-    this.searchControl = new FormControl('');
+    this.searchControl = new UntypedFormControl('');
     this.form = this.formBuilder.group({
       search: this.searchControl
     });
