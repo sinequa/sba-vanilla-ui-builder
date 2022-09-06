@@ -47,12 +47,18 @@
               "moment",
               "element-resize-detector",
               "batch-processor",
-              "rxjs",
               "@formatjs/intl-relativetimeformat/polyfill",
               "intl-pluralrules",
               "jstz",
               "atomicjs",
-              "vis-timeline"
+              "vis-timeline",
+              "fusioncharts",
+              "fusioncharts/fusioncharts.charts",
+              "fusioncharts/themes/fusioncharts.theme.candy",
+              "fusioncharts/themes/fusioncharts.theme.fusion",
+              "marked",
+              "diacritics",
+              "fast-text-encoding"
             ]
           },
           "configurations": {
@@ -92,7 +98,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vanilla:build:development"
+            "browserTarget": "vanilla:build:development",
+            "ssl": true,
+            "proxyConfig": "projects/vanilla/src/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -146,6 +154,5 @@
         }
       }
     }
-  },
-  "defaultProject": "vanilla"
+  }
 }
