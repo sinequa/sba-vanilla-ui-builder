@@ -20,7 +20,7 @@ $container-max-widths: (
 // Bootstrap styles
 @import "~bootstrap/scss/bootstrap";
 
-@import "~@sinequa/ngx-ui-builder/styles/ui-builder";
+@import "node_modules/@sinequa/ngx-ui-builder/styles/ui-builder";
 
 // Fontawesome
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
@@ -66,10 +66,10 @@ sq-validation-message {
 
 // Sinequa components stylesheets
 $action-menu-breakpoint: sm;
-@import "~@sinequa/components/action/bootstrap/action.scss";
-@import "~@sinequa/components/notification/bootstrap/notification.scss";
-@import "~@sinequa/components/metadata/metadata.scss";
-@import "~@sinequa/components/advanced/bootstrap/advanced.scss";
+@import "node_modules/@sinequa/components/action/bootstrap/action.scss";
+@import "node_modules/@sinequa/components/notification/bootstrap/notification.scss";
+@import "node_modules/@sinequa/components/metadata/metadata.scss";
+@import "node_modules/@sinequa/components/advanced/bootstrap/advanced.scss";
 
 $secondary-color: #6c757d;
 
