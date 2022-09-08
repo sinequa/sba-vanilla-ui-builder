@@ -50,7 +50,7 @@ export class AutocompleteExtended extends AutocompleteFieldSearch {
      * queries, baskets)
      */
     protected getSuggestsObs(value: string, fields?: string[]): Observable<AutocompleteItem[]> {
-    
+
         // Methods returning (observable of) suggestions from different sources
         let dataSources: Observable<AutocompleteItem[]>[];
         // Fielded search mode
@@ -70,12 +70,12 @@ export class AutocompleteExtended extends AutocompleteFieldSearch {
                 return of([]);
             });
         }
-        
+
         // The forkJoin method allows to merge the suggestions into a single array, so the parent
         // directive only sees a single source.
-        return forkJoin(...dataSources).pipe(
+        return forkJoin(dataSources).pipe(
             map((suggests) => {
-                return [].concat(...suggests)
+                return ([] as AutocompleteItem[]).concat(...suggests)
                     .sort((a,b) => (b['score'] || 0) - (a['score'] || 0)); // autocomplete items returned by searchData still have their "score" attribute, which is consistent across categories
             }),
             catchError((err, caught) => {

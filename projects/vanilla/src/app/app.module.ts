@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { firstValueFrom } from "rxjs";
 
 // @sinequa/core library
 import { WebServicesModule, StartConfigWebService, StartConfig } from "@sinequa/core/web-services";
@@ -72,7 +73,7 @@ export const startConfig: StartConfig = {
 
 // @sinequa/core config initializer
 export function StartConfigInitializer(startConfigWebService: StartConfigWebService): () => Promise<StartConfig> {
-    const init = () => startConfigWebService.fetchPreLoginAppConfig().toPromise();
+    const init = () => firstValueFrom(startConfigWebService.fetchPreLoginAppConfig());
     return init;
 }
 
