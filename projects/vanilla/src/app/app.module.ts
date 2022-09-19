@@ -37,10 +37,17 @@ import { BsAdvancedModule } from '@sinequa/components/advanced';
 
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
 import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
-import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
 import { SlideBuilderModule } from '@sinequa/components/slide-builder';
 import { CommentsModule } from "@sinequa/components/comments";
 import { MLModule } from '@sinequa/components/machine-learning';
+
+// Fusion Charts
+import { FusionChartsModule } from '@sinequa/analytics/fusioncharts';
+import * as FusionCharts from "fusioncharts";
+import * as charts from "fusioncharts/fusioncharts.charts";
+import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import * as CandyTheme from "fusioncharts/themes/fusioncharts.theme.candy";
+FusionCharts.options.creditLabel = false;
 
 // Components
 import { AppComponent } from "./app.component";
@@ -52,6 +59,12 @@ import { AutocompleteExtended } from './search-form/autocomplete-extended.direct
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { GlobalComponent } from "./global.component";
 
+// Application languages (intl service)
+import {LocalesConfig, Locale} from "@sinequa/core/intl";
+import enLocale from "../locales/en";
+import frLocale from "../locales/fr";
+import deLocale from "../locales/de";
+
 // Environment
 import { environment } from "../environments/environment";
 
@@ -59,7 +72,6 @@ import { environment } from "../environments/environment";
 import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
 import { ConfiguratorsModule } from "./configurators/configurators.module";
 import { ConditionsModule } from "@sinequa/ngx-ui-builder";
-
 import { AppConfigService } from "./app-config.service";
 
 
@@ -94,12 +106,7 @@ export const searchOptions: SearchOptions = {
 };
 
 
-// Application languages (intl service)
-import {LocalesConfig, Locale} from "@sinequa/core/intl";
-import enLocale from "../locales/en";
-import frLocale from "../locales/fr";
-import deLocale from "../locales/de";
-
+// Application languages (locales)
 export class AppLocalesConfig implements LocalesConfig {
     defaultLocale: Locale;
     locales?: Locale[];
@@ -157,7 +164,7 @@ export const breakpoints = {
         BsAdvancedModule,
         BsTimelineModule,
         BsHeatmapModule,
-        FusionChartsModule,
+        FusionChartsModule.forRoot(FusionCharts, charts, FusionTheme, CandyTheme),
         SlideBuilderModule,
         CommentsModule,
         MLModule,
