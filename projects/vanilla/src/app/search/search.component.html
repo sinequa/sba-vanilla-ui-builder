@@ -250,19 +250,19 @@
 
                 <ng-template uib-template="timeline" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []"></sq-facet-timeline>
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="isDark()? 'dark' : 'light'"></sq-facet-timeline>
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="heatmap" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields"></sq-facet-heatmap>
+                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields" [theme]="isDark()? 'dark' : 'light'"></sq-facet-heatmap>
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="chart" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation"></sq-fusion-chart>
+                        <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation" [chart]="{theme: isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"></sq-fusion-chart>
                     </sq-facet-card>
                 </ng-template>
 
