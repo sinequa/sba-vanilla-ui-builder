@@ -262,7 +262,17 @@
 
                 <ng-template uib-template="chart" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-fusion-chart #facet [results]="results" [aggregation]="config.aggregation" [chart]="{theme: isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"></sq-fusion-chart>
+                        <sq-fusion-chart #facet
+                            [results]="results"
+                            [type]="config.chartType"
+                            [types]="config.chartTypes.length? config.chartTypes : null"
+                            [aggregation]="config.aggregation"
+                            [aggregations]="config.aggregations.length? config.aggregations : null"
+                            [chart]="{theme: isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"
+                            [defaultColor]="config.defaultColor"
+                            [filteredColor]="config.filteredColor"
+                            [selectedColor]="config.selectedColor">
+                        </sq-fusion-chart>
                     </sq-facet-card>
                 </ng-template>
 

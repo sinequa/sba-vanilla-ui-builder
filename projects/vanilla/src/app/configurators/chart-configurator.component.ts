@@ -17,11 +17,41 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
     <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.aggregation" (ngModelChange)="configChanged()">
         <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
     </select>
+
+    <label for="aggregations">Aggregations available to users (multiple selection)</label>
+    <select multiple id="aggregations" class="form-select mb-2" [(ngModel)]="config.aggregations" (ngModelChange)="configChanged()">
+        <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
+    </select>
+
+    <label for="type">Chart Type</label>
+    <select id="type" class="form-select mb-2" [(ngModel)]="config.chartType" (ngModelChange)="configChanged()">
+        <option *ngFor="let chartType of chartTypes" [ngValue]="chartType.type">{{chartType.display}}</option>
+    </select>
+
+    <label for="types">Chart Types available to users (multiple selection)</label>
+    <select multiple id="types" class="form-select mb-2" [(ngModel)]="config.chartTypes" [compareWith]="compareChartTypes" (ngModelChange)="configChanged()">
+        <option *ngFor="let chartType of chartTypes" [ngValue]="chartType">{{chartType.display}}</option>
+    </select>
+
+    <sq-color-picker [context]="context" property="defaultColor" label="Default color"></sq-color-picker>
+    <sq-color-picker [context]="context" property="filteredColor" label="Filtered color"></sq-color-picker>
+    <sq-color-picker [context]="context" property="selectedColor" label="Selected color"></sq-color-picker>
+
 </div>
 `
 })
 export class ChartConfiguratorComponent implements OnChanges {
     @Input() context: ConfiguratorContext;
+
+    @Input()
+    chartTypes: {type: string, display: string}[] = [
+      {type: 'Column2D', display: 'Columns 2D'},
+      {type: 'Bar2D', display: 'Bars 2D'},
+      {type: 'Pie2D', display: 'Pie 2D'},
+      {type: 'Column3D', display: 'Columns 3D'},
+      {type: 'Bar3D', display: 'Bars 3D'},
+      {type: 'Pie3D', display: 'Pie 3D'}
+    ];
 
     get config(): ComponentConfig {
         return this.context.config;
@@ -39,7 +69,12 @@ export class ChartConfiguratorComponent implements OnChanges {
             this.config.title = "Chart";
             this.config.icon = "fas fa-chart-bar";
             this.config.aggregation = "Company";
+            this.config.aggregations = [];
             this.config.classes = "mb-3";
+            this.config.chartType = "Column2D";
+            this.config.chartTypes = [];
+            this.config.filteredColor = "#C3E6CB";
+            this.config.selectedColor = "#8186d4";
         }
         // Update the list of available aggregations
         this.aggregations = this.searchService.results?.aggregations
@@ -49,6 +84,10 @@ export class ChartConfiguratorComponent implements OnChanges {
 
     configChanged() {
         this.context.configChanged();
+    }
+
+    compareChartTypes(a: {type: string, display: string}, b: {type: string, display: string}){
+      return a.type === b.type;
     }
 
 }
