@@ -20,7 +20,7 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
   [(ngModel)]="config.icon"
   (ngModelChangeDebounced)="iconChanged()">
 <uib-autocomplete [inputElement]="inputElement" [suggestGenerator]="suggestGenerator" (select)="select($event)">
-  <ng-template #itemTpl let-suggest><i class="fas fa-fw" [ngClass]="suggest"></i> {{suggest}}</ng-template>
+  <ng-template #itemTpl let-suggest><i class="fa-fw" [ngClass]="suggest"></i> {{suggest}}</ng-template>
 </uib-autocomplete>
    `,
   changeDetection: ChangeDetectionStrategy.OnPush
