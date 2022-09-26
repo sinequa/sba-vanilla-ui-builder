@@ -29,6 +29,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+@import "~vis-network/dist/dist/vis-network.min.css";
+
 // override btn-light and btn-light:hover's background-color as in Boostrap 5 is too lighter
 .btn-light {
   &.active, &:hover {
