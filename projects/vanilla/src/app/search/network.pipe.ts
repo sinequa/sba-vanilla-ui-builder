@@ -1,7 +1,21 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { AggregationEdgeType, NetworkProvider, ProviderFactory } from "@sinequa/analytics/network";
 import { AppService } from "@sinequa/core/app-utils";
-import { NetworkConfig } from "../configurators/network-configurator.component";
+import { ComponentConfig } from "@sinequa/ngx-ui-builder";
+
+export interface NetworkConfig extends ComponentConfig {
+  nodeTypes: {
+    icon: string;
+    iconCode: string;
+    color: string;
+    field?: string;
+  }[];
+  providers: {
+    type: 'records' | 'selected-records' | 'aggregations';
+    fields: string[];
+    aggregations: string[];
+  }[];
+}
 
 @Pipe({name: "sqNetwork"})
 export class NetworkPipe implements PipeTransform {

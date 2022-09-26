@@ -1,20 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AppService } from '@sinequa/core/app-utils';
 import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
-
-export interface NetworkConfig extends ComponentConfig {
-  nodeTypes: {
-    icon: string;
-    iconCode: string;
-    color: string;
-    field?: string;
-  }[];
-  providers: {
-    type: 'records' | 'selected-records' | 'aggregations';
-    fields: string[];
-    aggregations: string[];
-  }[];
-}
+import { NetworkConfig } from "../search/network.pipe";
 
 @Component({
   selector: 'sq-network-configurator',
