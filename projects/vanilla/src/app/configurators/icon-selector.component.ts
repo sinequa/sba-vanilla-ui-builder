@@ -10,7 +10,7 @@ declare interface ComponentWithIconConfig extends ComponentConfig {
 @Component({
   selector: 'sq-icon-selector',
   template: `
-<label for="icon">Icon <span *ngIf="config.icon">(<i #rendered [ngClass]="config.icon"></i>)</span></label>
+<label for="icon">Icon <span [hidden]="!config.icon">(<i #rendered [ngClass]="config.icon"></i>)</span></label>
 <input type="text"
   #inputElement
   class="form-control"

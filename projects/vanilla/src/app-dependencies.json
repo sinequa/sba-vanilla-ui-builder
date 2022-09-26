@@ -1,5 +1,5 @@
 {
-  "BsTimelineModule": ["facet-date","timeline"],
+  "BsTimelineModule": ["facet-date","timeline","facet-multi"],
   "BsHeatmapModule": ["heatmap"],
   "FusionChartsModule": ["chart"],
   "FusionCharts": ["chart"],
