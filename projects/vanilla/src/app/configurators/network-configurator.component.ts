@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AppService } from '@sinequa/core/app-utils';
-import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
+import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 import { NetworkConfig } from "../search/network.pipe";
 
 @Component({
