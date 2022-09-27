@@ -22,6 +22,7 @@ import { TimelineConfiguratorComponent } from "./timeline-configurator.component
 import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
 import { SlideBuilderConfiguratorComponent } from "./slide-builder-configurator.component";
 import { CommentsConfiguratorComponent } from "./comments-configurator.component";
+import { NetworkConfiguratorComponent } from "./network-configurator.component";
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import { CommentsConfiguratorComponent } from "./comments-configurator.component
         TimelineConfiguratorComponent,
         HeatmapConfiguratorComponent,
         SlideBuilderConfiguratorComponent,
-        CommentsConfiguratorComponent
+        CommentsConfiguratorComponent,
+        NetworkConfiguratorComponent
     ],
     exports: [
         FacetConfiguratorComponent,
@@ -69,7 +71,8 @@ import { CommentsConfiguratorComponent } from "./comments-configurator.component
         TimelineConfiguratorComponent,
         HeatmapConfiguratorComponent,
         SlideBuilderConfiguratorComponent,
-        CommentsConfiguratorComponent
+        CommentsConfiguratorComponent,
+        NetworkConfiguratorComponent
     ]
 })
 export class ConfiguratorsModule {}

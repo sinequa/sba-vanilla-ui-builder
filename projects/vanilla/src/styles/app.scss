@@ -1,5 +1,5 @@
 
-@import "~@angular/cdk/overlay-prebuilt";
+@import "@angular/cdk/overlay-prebuilt";
 
 // Overriding Bootstrap variables
 $grid-breakpoints: (
@@ -18,16 +18,18 @@ $container-max-widths: (
 );
 
 // Bootstrap styles
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 @import "node_modules/@sinequa/ngx-ui-builder/styles/ui-builder";
 
 // Fontawesome
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/brands";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/scss/regular";
+@import "@fortawesome/fontawesome-free/scss/solid";
+
+@import "vis-network/dist/dist/vis-network.min.css";
 
 // override btn-light and btn-light:hover's background-color as in Boostrap 5 is too lighter
 .btn-light {

@@ -296,6 +296,15 @@
                       <sq-comments [docid]="record?.id"></sq-comments>
                   </sq-facet-card>
                 </ng-template>
+
+                <ng-template uib-template="network" let-config let-record="data">
+                  <sq-facet-card
+                      [collapsible]="config.collapsible"
+                      [icon]="config.icon"
+                      [title]="config.title">
+                      <sq-network #facet [results]="results" [providers]="config | sqNetwork"></sq-network>
+                  </sq-facet-card>
+                </ng-template>
             </uib-zone>
 
         </div>
@@ -438,6 +447,10 @@
 
       <ng-template uib-template="comments" let-context>
         <sq-comments-configurator [context]="context"></sq-comments-configurator>
+      </ng-template>
+
+      <ng-template uib-template="network" let-context>
+        <sq-network-configurator [context]="context" [metadata]="metadata"></sq-network-configurator>
       </ng-template>
 
       <ng-template uib-template="answer-card">

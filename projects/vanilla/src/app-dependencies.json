@@ -1,11 +1,17 @@
 {
-  "BsTimelineModule": ["facet-date","timeline"],
+  "BsTimelineModule": ["facet-date","timeline","facet-multi"],
   "BsHeatmapModule": ["heatmap"],
   "FusionChartsModule": ["chart"],
+  "FusionCharts": ["chart"],
+  "charts": ["chart"],
+  "FusionTheme": ["chart"],
+  "CandyTheme": ["chart"],
   "MLModule": ["answer-card", "preview"],
   "SlideBuilderModule": ["slide-builder"],
   "CommentsModule": ["comments"],
   "ConfiguratorModule": [],
   "ConfiguratorsModule": [],
-  "DynamicViewsModule": []
+  "DynamicViewsModule": [],
+  "NetworkModule": ["network"],
+  "NetworkPipe": ["network"]
 }
