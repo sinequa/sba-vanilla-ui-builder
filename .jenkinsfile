@@ -1,0 +1,135 @@
+// ### Environment ###
+properties([
+    parameters([
+        string(name:"SBA_NODE", defaultValue: "${env.SBA_NODE}", description: "execution node name", trim: true)
+    ]),
+    disableConcurrentBuilds()
+])
+
+// Get mail parameters from jenkins env vars
+url           = "${env.NPM_SERVER_URL}"
+npm_user      = "${env.NPM_USER}"
+npm_pass      = "${env.NPM_PASS}"
+npm_mail      = "${env.NPM_MAIL}"
+
+// .npmrc variables for verdaccio connection
+scope  = "@sinequa"
+fnpmrc = '.npmrc'
+anpmrc = ['node-options="--max-old-space-size=8192"', "always-auth=true", "registry=${url}/", "scope=${scope}"]
+
+// Useful Jenkins functions
+// get the branch name and the version number from the right jenkins variable 
+def findBranchNumber() {
+    def tmpBranch=""
+    def theBranch=""
+    // PR : 
+    //   BRANCH_NAME: PR-8208
+    //   CHANGE_TARGET: release/11.7.0
+    // BRANCH
+    //   BRANCH_NAME: develop
+    //   BRANCH_NAME: release/11.7.0
+    // return: release%2F11.7.0
+    if (env.BRANCH_NAME.contains("PR-")) {
+        tmpBranch = env.CHANGE_TARGET
+    } else {
+        tmpBranch = env.BRANCH_NAME
+    }
+    echo "tmpBranch: ${tmpBranch}"
+
+    theBranch = tmpBranch.replace("/", "%2F")
+    return theBranch
+}
+
+// function to append lines to the end of a file
+def appendFile(afile, what) {
+    def content = ''
+    def txt = ''
+    try {
+        if (fileExists(afile)) {
+            content = readFile afile
+            what.each {
+                txt += it + "\n"
+            }
+            content += txt
+            writeFile file: afile, text: content
+        }
+    } catch (err) {
+        currentBuild.result = 'FAILURE'
+        throw err
+    }
+}
+
+// Pipeline workflow (main)
+node (params.SBA_NODE) {
+
+    currentBuild.result = "SUCCESS"
+    try {
+    
+        // get the source code
+        checkout scm
+        
+		// find the branch name
+        def currentBranch = findBranchNumber()
+        
+        stage('Clean') {
+            // delete dependency modules 
+            def nmfolder = "node_modules"
+            bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"
+        }
+        
+        stage('Create user') {
+            // create user for verdaccio
+            bat "npm-cli-login -u ${npm_user} -p ${npm_pass} -e ${npm_mail} -r ${url} -s ${scope} --config-path ${fnpmrc}"
+            // add connection infos in .npmrc file
+            appendFile(fnpmrc, anpmrc)
+            // check the connection
+            bat "npm whoami"
+        }
+    
+        // install dependencies, fallback to official registry
+        // and retry if get on internal repo fails
+        stage('NPM Install') {
+            def ret = bat (script: "npm install --legacy-peer-deps", returnStatus: true)
+            if (ret) {
+                // set .npmrc file as original
+                // check registry
+                // install again
+                bat """
+                  call git restore .npmrc
+                  call npm config get registry
+                  call npm install --legacy-peer-deps
+                """
+            }
+        }
+        
+        // Build the app
+        stage('Build initial') {
+            bat """
+              call npm run build
+            """
+        }
+        // Build the app with config-standard
+        stage('Build config-standard') {
+            bat """
+              call npm run make-static -- --config=projects/vanilla/e2e/config-standard.json
+              call npm run build
+            """
+        }
+        // Build the app with config-custom
+        stage('Build config-custom') {
+            bat """
+              call npm run make-static -- --config=projects/vanilla/e2e/config-custom.json
+              call npm run build
+            """
+        }
+    
+    } catch (err) {
+        currentBuild.result = "FAILURE"
+        throw err
+    } finally {
+        // should no be blocker
+        //if ( currentBuild.result == "FAILURE" ) {
+        //	currentBuild.result = "UNSTABLE"
+        //}
+    }
+}
