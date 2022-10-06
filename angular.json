@@ -59,7 +59,8 @@
               "fast-text-encoding",
               "@microsoft/teams-js",
               "date-fns/locale/_lib/buildFormatLongFn",
-              "date-fns-tz"
+              "date-fns-tz",
+              "component-emitter"
             ]
           },
           "configurations": {
