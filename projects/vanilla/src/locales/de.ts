@@ -1,5 +1,4 @@
 import {LocaleData} from "@sinequa/core/intl";
-import "moment/locale/de";
 import d3Format from "d3-format/locale/de-DE.json";
 import d3Time from "d3-time-format/locale/de-DE.json";
 import {deCore} from "@sinequa/core";
@@ -36,9 +35,6 @@ const messages = Utils.merge({}, deCore, deUtils, deAdvanced, deAlerts, deBasket
 export default <LocaleData>{
     intl: {
         locale: "de-DE"
-    },
-    moment: {
-        locale: "de"
     },
     d3: {
         locale: "de-DE",

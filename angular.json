@@ -44,12 +44,10 @@
               "intl",
               "jssha",
               "lodash",
-              "moment",
               "element-resize-detector",
               "batch-processor",
               "@formatjs/intl-relativetimeformat/polyfill",
               "intl-pluralrules",
-              "jstz",
               "atomicjs",
               "vis-timeline",
               "fusioncharts",
@@ -58,7 +56,11 @@
               "fusioncharts/themes/fusioncharts.theme.fusion",
               "marked",
               "diacritics",
-              "fast-text-encoding"
+              "fast-text-encoding",
+              "@microsoft/teams-js",
+              "date-fns/locale/_lib/buildFormatLongFn",
+              "date-fns-tz",
+              "component-emitter"
             ]
           },
           "configurations": {
