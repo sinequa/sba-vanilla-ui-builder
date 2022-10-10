@@ -24,6 +24,12 @@ anpmrc = ['node-options="--max-old-space-size=8192"', "always-auth=true", "regis
 node (params.SBA_NODE) {
 
     currentBuild.result = "SUCCESS"
+    // if param sba_version is not null, the call comes from sba-internal
+    def modeCallFromSbaInternal = false
+    if (sba_version.length() > 0) {
+        echo "SBA_VERSION should comming from build of sba-internal"
+        modeCallFromSbaInternal = true
+    }
     try {
     
         // get the source code
