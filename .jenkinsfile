@@ -1,6 +1,7 @@
 // ### Environment ###
 properties([
     parameters([
+        string(name:"SBA_VERSION",  defaultValue: "", description: "version of sba", trim: true),
         string(name:"SBA_NODE", defaultValue: "${env.SBA_NODE}", description: "execution node name", trim: true)
     ]),
     disableConcurrentBuilds()
@@ -12,52 +13,12 @@ npm_user      = "${env.NPM_USER}"
 npm_pass      = "${env.NPM_PASS}"
 npm_mail      = "${env.NPM_MAIL}"
 
+// get job variables from job parameters
+sba_version   = "${params.SBA_VERSION}"
 // .npmrc variables for verdaccio connection
 scope  = "@sinequa"
 fnpmrc = '.npmrc'
 anpmrc = ['node-options="--max-old-space-size=8192"', "always-auth=true", "registry=${url}/", "scope=${scope}"]
-
-// Useful Jenkins functions
-// get the branch name and the version number from the right jenkins variable 
-def findBranchNumber() {
-    def tmpBranch=""
-    def theBranch=""
-    // PR : 
-    //   BRANCH_NAME: PR-8208
-    //   CHANGE_TARGET: release/11.7.0
-    // BRANCH
-    //   BRANCH_NAME: develop
-    //   BRANCH_NAME: release/11.7.0
-    // return: release%2F11.7.0
-    if (env.BRANCH_NAME.contains("PR-")) {
-        tmpBranch = env.CHANGE_TARGET
-    } else {
-        tmpBranch = env.BRANCH_NAME
-    }
-    echo "tmpBranch: ${tmpBranch}"
-
-    theBranch = tmpBranch.replace("/", "%2F")
-    return theBranch
-}
-
-// function to append lines to the end of a file
-def appendFile(afile, what) {
-    def content = ''
-    def txt = ''
-    try {
-        if (fileExists(afile)) {
-            content = readFile afile
-            what.each {
-                txt += it + "\n"
-            }
-            content += txt
-            writeFile file: afile, text: content
-        }
-    } catch (err) {
-        currentBuild.result = 'FAILURE'
-        throw err
-    }
-}
 
 // Pipeline workflow (main)
 node (params.SBA_NODE) {
@@ -68,8 +29,12 @@ node (params.SBA_NODE) {
         // get the source code
         checkout scm
         
-		// find the branch name
-        def currentBranch = findBranchNumber()
+        // load jenkins functions
+        def rootDir = pwd()
+        def jf = load "${rootDir}/.jenkins_function.groovy"
+        def currentBranch = jf.findBranchNumber()
+        // sba_version : commes from sba-internal just build before 
+        echo "sba_version: ${sba_version}"
         
         stage('Clean') {
             // delete dependency modules 
@@ -81,11 +46,19 @@ node (params.SBA_NODE) {
             // create user for verdaccio
             bat "npm-cli-login -u ${npm_user} -p ${npm_pass} -e ${npm_mail} -r ${url} -s ${scope} --config-path ${fnpmrc}"
             // add connection infos in .npmrc file
-            appendFile(fnpmrc, anpmrc)
+            jf.appendFile(fnpmrc, anpmrc)
             // check the connection
             bat "npm whoami"
         }
     
+        // Validate app fired
+        if (modeCallFromSbaInternal) {
+            // Validate app fired on merge event
+            stage('Update package') {
+                // update package.json with version
+                jf.updatePackage(sba_version)
+            }
+        }
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
@@ -128,8 +101,8 @@ node (params.SBA_NODE) {
         throw err
     } finally {
         // should no be blocker
-        //if ( currentBuild.result == "FAILURE" ) {
-        //	currentBuild.result = "UNSTABLE"
-        //}
+        if ( modeCallFromSbaInternal && (currentBuild.result == "FAILURE")) {
+            currentBuild.result = "UNSTABLE"
+        }
     }
 }
