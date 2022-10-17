@@ -50,17 +50,20 @@
               "intl-pluralrules",
               "atomicjs",
               "vis-timeline",
+              "vis-network",
+              "component-emitter",
               "fusioncharts",
               "fusioncharts/fusioncharts.charts",
               "fusioncharts/themes/fusioncharts.theme.candy",
               "fusioncharts/themes/fusioncharts.theme.fusion",
+              "fast-text-encoding",
               "marked",
               "diacritics",
-              "fast-text-encoding",
-              "@microsoft/teams-js",
+              "keycharm",
+              "vis-data",
               "date-fns/locale/_lib/buildFormatLongFn",
               "date-fns-tz",
-              "component-emitter"
+              "@microsoft/teams-js"
             ]
           },
           "configurations": {
