@@ -5,16 +5,15 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 @Component({
   selector: 'sq-preview-configurator',
   template: `
+  <label>Highlights</label>
+  <p class="small text-muted m-0">Select which entities are highlighted in the preview text.</p>
+  <sq-select-multi [options]="highlights" [(ngModel)]="context.config.filters" (ngModelChange)="context.configChanged()">
+  </sq-select-multi>
 
-  <label for="preview-highlights">Highlights</label>
-  <select id="preview-highlights" class="form-select mb-1" [(ngModel)]="context.config.filters" (ngModelChange)="context.configChanged()" multiple>
-    <option *ngFor="let a of highlights" [ngValue]="a">{{a}}</option>
-  </select>
-
-  <label for="preview-metadata">Metadata</label>
-  <select id="preview-metadata" class="form-select mb-1" [(ngModel)]="context.config.metadata" (ngModelChange)="context.configChanged()" multiple>
-    <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
-  </select>
+  <label>Metadata</label>
+  <p class="small text-muted m-0">Select which metadata to display in the preview header. The order of the metadata can be changed by dragging the following options up and down.</p>
+  <sq-select-multi [options]="metadata" [enableReorder]="true" [(ngModel)]="context.config.metadata" (ngModelChange)="context.configChanged()">
+  </sq-select-multi>
 
   <label for="height">Preview height</label>
   <input type="number" class="form-control mb-2" id="height" autocomplete="off" spellcheck="off" min="0" max="10000" [(ngModel)]="context.config.height" (ngModelChangeDebounced)="context.configChanged()">

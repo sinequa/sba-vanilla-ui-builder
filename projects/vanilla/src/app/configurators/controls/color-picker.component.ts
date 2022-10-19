@@ -4,18 +4,20 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 @Component({
   selector: 'sq-color-picker',
   template: `
-  <label for="color-{{property}}" *ngIf="label">{{label}}</label>
-  <input id="color-{{property}}"
-    class="form-control mb-2"
-    [(colorPicker)]="color"
-    (colorPickerSelect)="context.configChanged()"
-    [style.background]="color"/>
+  <label for="color-{{property}}" class="form-label" *ngIf="label">{{label}}</label>
+  <input
+    type="color"
+    id="color-{{property}}"
+    class="form-control form-control-color mb-2"
+    [(ngModel)]="color"
+    (ngModelChangeDebounced)="context.configChanged()"/>
   `
 })
-export class ColorPickerControlComponent implements OnChanges {
+export class ColorPickerComponent implements OnChanges {
   @Input() context: ConfiguratorContext;
   @Input() property: string;
   @Input() label?: string;
+  @Input() defaultColor = '#ffffff';
 
   _path: string[];
 
@@ -24,11 +26,11 @@ export class ColorPickerControlComponent implements OnChanges {
     for(let p of this._path) {
       val = val[p];
     }
-    return <string><unknown>val;
+    return <string><unknown>val || this.defaultColor;
   }
 
   set color(value: string) {
-    if(value === "#ffffff") {
+    if(value.toLowerCase() === this.defaultColor.toLowerCase()) {
       value = '';
     }
     let val = this.context.config;

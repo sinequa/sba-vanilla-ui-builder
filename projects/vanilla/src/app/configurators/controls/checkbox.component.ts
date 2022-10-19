@@ -10,7 +10,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 </div>
     `
 })
-export class CheckboxControlComponent implements OnChanges {
+export class CheckboxComponent implements OnChanges {
     @Input() context: ConfiguratorContext;
     @Input() property: string;
     @Input() label?: string;
