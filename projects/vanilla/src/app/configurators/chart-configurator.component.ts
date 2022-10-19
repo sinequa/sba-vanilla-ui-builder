@@ -18,20 +18,26 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
         <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
     </select>
 
-    <label for="aggregations">Aggregations available to users (multiple selection)</label>
-    <select multiple id="aggregations" class="form-select mb-2" [(ngModel)]="config.aggregations" (ngModelChange)="configChanged()">
-        <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
-    </select>
+    <label>Aggregations available to users</label>
+    <sq-select-multi
+      [options]="aggregations"
+      [(ngModel)]="config.aggregations"
+      (ngModelChange)="configChanged()">
+    </sq-select-multi>
 
     <label for="type">Chart Type</label>
     <select id="type" class="form-select mb-2" [(ngModel)]="config.chartType" (ngModelChange)="configChanged()">
         <option *ngFor="let chartType of chartTypes" [ngValue]="chartType.type">{{chartType.display}}</option>
     </select>
 
-    <label for="types">Chart Types available to users (multiple selection)</label>
-    <select multiple id="types" class="form-select mb-2" [(ngModel)]="config.chartTypes" [compareWith]="compareChartTypes" (ngModelChange)="configChanged()">
-        <option *ngFor="let chartType of chartTypes" [ngValue]="chartType">{{chartType.display}}</option>
-    </select>
+    <label>Chart Types available to users</label>
+    <sq-select-multi
+      [options]="chartTypes"
+      displayField="display"
+      [compareWith]="compareChartTypes"
+      [(ngModel)]="config.chartTypes"
+      (ngModelChange)="configChanged()">
+    </sq-select-multi>
 
     <sq-color-picker [context]="context" property="defaultColor" label="Default color"></sq-color-picker>
     <sq-color-picker [context]="context" property="filteredColor" label="Filtered color"></sq-color-picker>

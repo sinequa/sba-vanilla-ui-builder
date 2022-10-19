@@ -39,10 +39,12 @@ import { NetworkConfig } from "../search/network.pipe";
         Nodes and edges are given by cross-aggregations computed on index columns.
         Cross-aggregations are configured by providing the 2 two columns (instead of 1) separated by a slash (/), eg. "person/company".
       </p>
-      <label for="aggregations-{{i}}">Cross Aggregations</label>
-      <select multiple *ngIf="aggregations.length" id="aggregations-{{i}}" class="form-select mb-2" [(ngModel)]="provider.aggregations" (ngModelChange)="configChanged()">
-        <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
-      </select>
+      <label>Cross Aggregations</label>
+      <sq-select-multi
+        [options]="aggregations"
+        [(ngModel)]="provider.aggregations"
+        (ngModelChange)="configChanged()">
+      </sq-select-multi>
       <div *ngIf="!aggregations.length" class="alert alert-warning">
         Please configure at least one cross-aggregation in the query web service
       </div>
@@ -52,10 +54,12 @@ import { NetworkConfig } from "../search/network.pipe";
       <p class="text-muted">
         Nodes are given by the records selected from the result list, and by the fields contained in these records.
       </p>
-      <label for="fields-{{i}}">Fields</label>
-      <select multiple id="fields-{{i}}" class="form-select mb-2" [(ngModel)]="provider.fields" (ngModelChange)="configChanged()">
-        <option *ngFor="let f of metadata" [ngValue]="f">{{f}}</option>
-      </select>
+      <label>Fields</label>
+      <sq-select-multi
+        [options]="metadata"
+        [(ngModel)]="provider.fields"
+        (ngModelChange)="configChanged()">
+      </sq-select-multi>
     </div>
   </div>
   <button class="btn btn-sm btn-primary mb-2" (click)="addProvider()">Add Provider</button>
