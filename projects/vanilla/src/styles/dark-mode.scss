@@ -17,6 +17,10 @@ body.dark {
 
     a:not(.btn):not(.badge) {
         color: #9bccff;
+        &:hover,
+        &:focus {
+          color: $dark-secondary;
+        }
     }
 
     .btn-link {
@@ -36,6 +40,10 @@ body.dark {
             background-color: $dark-background-highlight;
             border-color: $dark-borders;
         }
+    }
+
+    .navbar {
+        --navbar-bg: $dark-background;
     }
 
     .navbar-dark .navbar-nav .nav-link {
@@ -159,7 +167,7 @@ body.dark {
 
     app-search-form {
         box-shadow: 0px 0px 15px 4px $dark-background-highlight;
-        
+
         .list-group-item:not(.list-group-item-primary){
             .autocomplete-item {
                 small, i {
@@ -182,7 +190,9 @@ body.dark {
                 color: $dark-secondary;
             }
 
-            .nav-link.active, .nav-item.show .nav-link {
+            .nav-link.active, .nav-link.active:hover,
+            .nav-item.show
+            .nav-link {
                 color: $dark-color;
                 background-color: transparent;
                 border-color: $dark-borders $dark-borders $dark-background;
@@ -270,11 +280,11 @@ body.dark {
             border-color: $dark-borders;
         }
     }
-    
+
     sq-facet-mysearch {
         .sq-metadata-item {
             background-color: $dark-background;
-    
+
             &:hover {
                 background-color: $dark-background;
                 opacity: 0.8;

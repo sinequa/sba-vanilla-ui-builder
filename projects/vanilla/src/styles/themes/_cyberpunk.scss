@@ -1,0 +1,46 @@
+:root {
+  /* background color + gradent background color */
+  --background-color: #00ffd2;
+
+  /* primary color */
+  --primary-100: #ffccd8ff;
+  --primary-200: #ff99b1ff;
+  --primary-300: #ff003c;
+  --primary-400: #cc0030ff;
+  --primary-500: #990024ff;
+  --primary: var(--primary-300);
+  --primary-rgb: 255,0,60;
+
+  /* secondary color */
+  --secondary-100: #cce9e4ff;
+  --secondary-200: #99d3c8ff;
+  --secondary-300: #008f75;
+  --secondary-400: #00735eff;
+  --secondary-500: #005647ff;
+  --secondary: var(--secondary-300);
+  --secondary-rgb: 0,143,116;
+
+  /* branding color */
+  --brand-hue: 58;
+  --brand-saturation: 98%;
+  --brand-lightness: 49%;
+  --brand-100: #fefccdff;
+  --brand-200: #fdf99aff;
+  --brand-300: #f8ef02;
+  --brand-400: #c7c002ff;
+  --brand-500: #959002ff;
+  --brand: var(--brand-300);
+
+  /* text color settings */
+  /* darken */
+  --text1: hsl(var(--brand-hue) var(--brand-saturation) 10%);
+  /* medium */
+  --text2: hsl(var(--brand-hue) 30% 50%);
+  /* lighter */
+  --text3: hsl(var(--brand-hue), calc(80% - var(--brand-saturation)), calc(180% - var(--brand-lightness)) );
+  --text3-hover: hsl(var(--brand-hue), var(--brand-saturation), calc(160% - var(--brand-lightness)) );
+
+  /* text color used by the facet and the navbar */
+  --sq-text: var(--text1);
+  --sq-text-hover: var(--text2);
+}

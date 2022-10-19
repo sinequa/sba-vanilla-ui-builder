@@ -1,0 +1,16 @@
+@import "prebuilt/buttons";
+@import "prebuilt/forms";
+@import "prebuilt/form-check";
+@import "prebuilt/card";
+@import "prebuilt/nav";
+
+body:not(.dark) {
+  background-color: var(--background-color, var(--bs-body-bg));
+  background-image: linear-gradient(var(--background-color), var(--gradient-color));
+  background-attachment: fixed;
+
+  // Need to override this class
+  .bg-primary {
+    background-color: var(--primary, var(--bs-primary)) !important;
+  }
+}
