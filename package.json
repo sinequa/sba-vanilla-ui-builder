@@ -1,6 +1,6 @@
 {
   "name": "vanilla-builder",
-  "version": "11.8.2",
+  "version": "11.9.1",
   "scripts": {
     "ng": "ng",
     "tsc": "tsc",
@@ -32,9 +32,9 @@
     "@ngneat/elf-entities": "^4.3.1",
     "@ngneat/elf-state-history": "^1.1.0",
     "@popperjs/core": "^2.11.5",
-    "@sinequa/analytics": "rel_11.8.2",
-    "@sinequa/components": "rel_11.8.2",
-    "@sinequa/core": "rel_11.8.2",
+    "@sinequa/analytics": "rel_11.9.1",
+    "@sinequa/components": "rel_11.9.1",
+    "@sinequa/core": "rel_11.9.1",
     "@sinequa/ngx-ui-builder": "^0.1.6",
     "@swimlane/ngx-charts": "^20.1.0",
     "ag-grid-angular": "^25.2.0",
