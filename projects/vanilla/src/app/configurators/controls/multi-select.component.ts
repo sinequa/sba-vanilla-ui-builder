@@ -4,51 +4,7 @@ import { DndDropEvent } from "ngx-drag-drop";
 
 @Component({
   selector: "sq-select-multi",
-  template: `
-  <div [dndDropzone]="[selectId]" *ngIf="enableReorder" (dndDrop)="onDrop($event)">
-    <div dndPlaceholderRef></div>
-    <div *ngFor="let option of _optionsSelected; let i=index"
-      [dndDraggable]="i"
-      [dndType]="selectId"
-      class="d-flex align-items-center">
-      <ng-container *ngIf="option !== null">
-        <i class="fas fa-grip-vertical fa-fw text-muted" dndHandle></i>
-        <ng-container *ngTemplateOutlet="optionTpl; context:{
-          $implicit: {
-            value: valueField? option[valueField] : option,
-            display: displayField? option[displayField] : option,
-            i:i
-          }
-        }"></ng-container>
-      </ng-container>
-    </div>
-  </div>
-
-  <ng-container *ngFor="let option of _options; let i=index"
-    [ngTemplateOutlet]="optionTpl"
-    [ngTemplateOutletContext]="{
-      $implicit: {
-        value: valueField? option[valueField] : option,
-        display: displayField? option[displayField] : option,
-        i:i+(_optionsSelected?.length||0)
-      }
-    }">
-  </ng-container>
-
-  <ng-template #optionTpl let-item>
-    <div class="form-check">
-      <input id="{{selectId}}-{{item.i}}"
-        type="checkbox"
-        class="form-check-input"
-        [checked]="isChecked(item.value)"
-        (change)="onChecked(item.value, $any($event).target.checked)"
-        (blur)="onTouched()"/>
-      <label class="form-check-label" for="{{selectId}}-{{item.i}}">
-        {{item.display}}
-      </label>
-    </div>
-  </ng-template>
-  `,
+  templateUrl: './multi-select.component.html',
   styles: [`
   [dndhandle] {
     cursor: grab;
@@ -90,14 +46,10 @@ export class MultiSelectComponent<T> implements OnChanges, ControlValueAccessor 
   _values: T[] | undefined;
 
   static idCpt = 0;
-  _id: number;
-
-  get selectId() {
-    return `select-${this._id}`;
-  }
+  selectId: string;
 
   constructor(){
-    this._id = MultiSelectComponent.idCpt++;
+    this.selectId = `select-${MultiSelectComponent.idCpt++}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -111,35 +63,38 @@ export class MultiSelectComponent<T> implements OnChanges, ControlValueAccessor 
     if(this.options) {
       this._options = [...this.options];
       if(this.enableReorder && this._values) {
-        this._optionsSelected = [];
-        for(let val of this._values) {
-          const i = this._options.findIndex(o => this.compareWith(val, this.valueField? o[this.valueField] : o));
-          if(i !== -1) {
-            const [o] = this._options.splice(i, 1);
-            this._optionsSelected.push(o);
-          }
-          else { // val is missing from the list of options... (this can happen with incomplete list of metadata)
-            this._optionsSelected.push(null);
-          }
-        }
+        this._optionsSelected = this._values.map(val => {
+          const i = this._options!.findIndex(o => this.compareWith(val, this.getValue(o))); // For each value, find its corresponding option
+          return i !== -1? this._options!.splice(i, 1)[0] : null; // i === -1 can happen with incomplete list of metadata. null allows the Drag & Drop directive to have the right number of items
+        });
       }
     }
   }
 
-  isChecked(item: T): boolean {
+  getValue(option: T) {
+    return this.valueField? option[this.valueField] : option;
+  }
+
+  valueIndex(value: T) {
+    return this._values?.findIndex(v => this.compareWith(v, value)) ?? -1;
+  }
+
+  isChecked(option: T): boolean {
     if(!this._values) return false;
-    return this._values.findIndex(v => this.compareWith(v, item)) !== -1;
+    const value = this.getValue(option);
+    return this.valueIndex(value) !== -1;
   }
 
   onChecked(option: T, checked: boolean) {
     if(!this._values) {
       this._values = [];
     }
+    const value = this.getValue(option);
     if(checked) {
-      this._values.push(option);
+      this._values.push(value);
     }
     else {
-      this._values.splice(this._values.indexOf(option), 1);
+      this._values.splice(this.valueIndex(value), 1);
     }
     this.triggerChange();
   }
