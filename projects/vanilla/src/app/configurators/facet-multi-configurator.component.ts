@@ -13,9 +13,14 @@ import { map } from "rxjs/operators";
 <sq-icon-selector [config]="context.config" (configChanged)="context.configChanged()"></sq-icon-selector>
 
 Select the facets to display:
-<select class="form-select mb-2" multiple [(ngModel)]="context.config.facets" [compareWith]="compareIds" (ngModelChange)="context.configChanged()">
-    <option *ngFor="let facet of (facets$ | async)" [ngValue]="facet">{{facet.name}}</option>
-</select>
+<sq-select-multi
+  [options]="facets$ | async"
+  displayField="name"
+  [enableReorder]="true"
+  [(ngModel)]="context.config.facets"
+  [compareWith]="compareIds"
+  (ngModelChange)="context.configChanged()">
+</sq-select-multi>
 `
 })
 export class FacetMultiConfiguratorComponent implements OnChanges {

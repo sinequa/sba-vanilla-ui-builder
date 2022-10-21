@@ -5,7 +5,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   selector: "sq-img-selector",
   template: `
 <div class="form-group">
-  <label for="img-{{param}}">{{description}}</label>
+  <label for="img-{{param}}" class="form-label">{{description}}</label>
   <input type="text"
     class="form-control mb-1"
     id="img-{{param}}"

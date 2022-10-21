@@ -23,10 +23,12 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
         <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
     </select>
 
-    <label for="fields">All available fields</label>
-    <select id="fields" class="form-select mb-2" [(ngModel)]="config.fields" multiple (ngModelChange)="configChanged()">
-        <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
-    </select>
+    <label>All available fields</label>
+    <sq-select-multi
+      [options]="metadata"
+      [(ngModel)]="config.fields"
+      (ngModelChange)="configChanged()">
+    </sq-select-multi>
 </div>
 `
 })
