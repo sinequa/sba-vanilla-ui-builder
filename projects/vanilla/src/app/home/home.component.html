@@ -1,11 +1,11 @@
 <uib-zone id="home" *ngIf="loginService.complete" class="home">
 
-    <ng-template uib-template="home-logo" let-config>
+    <ng-template uib-template="home-logo" display="Homepage logo" let-config>
         <img id="logo" [src]="config.logoLight" *ngIf="config.logoLight && !isDark()">
         <img id="logo" [src]="config.logoDark" *ngIf="config.logoDark && isDark()">
     </ng-template>
 
-    <ng-template uib-template="search-form" let-config>
+    <ng-template uib-template="search-form" display="Search form" let-config>
         <app-search-form
             [autocompleteSources]="config.autocompleteSources"
             [enableVoiceRecognition]="config.enableVoiceRecognition"
@@ -17,7 +17,7 @@
         </app-search-form>
     </ng-template>
 
-    <ng-template uib-template="home-actions">
+    <ng-template uib-template="home-actions" display="Homepage actions">
 
         <!-- Login/Logout link -->
         <button class="btn btn-link" (click)="toggleLogin()">{{ (loginService.complete ? 'msg#userMenu.logout' : 'msg#userMenu.login') | sqMessage}}</button>
@@ -29,7 +29,7 @@
 
     </ng-template>
 
-    <ng-template uib-template="recent-documents" let-config>
+    <ng-template uib-template="recent-documents" display="Recent documents" let-config>
         <sq-facet-card
             [title]="'msg#recentDocuments.recentDocuments'"
             [collapsible]="false"
@@ -38,7 +38,7 @@
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="recent-queries" let-config>
+    <ng-template uib-template="recent-queries" display="Recent queries" let-config>
         <sq-facet-card
             [title]="'msg#facet.recentQueries.title'"
             [collapsible]="false"
@@ -47,7 +47,7 @@
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="saved-queries" let-config>
+    <ng-template uib-template="saved-queries" display="Saved queries" let-config>
         <sq-facet-card
             [title]="'msg#savedQueries.savedQueries'"
             [collapsible]="false"
@@ -56,7 +56,7 @@
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="baskets" let-config>
+    <ng-template uib-template="baskets" display="Collections" let-config>
         <sq-facet-card
             [title]="'msg#baskets.baskets'"
             [collapsible]="false"
@@ -65,7 +65,7 @@
         </sq-facet-card>
     </ng-template>
 
-    <ng-template uib-template="global" let-config>
+    <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
         <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage" [fontFamily]="config.fontFamily"></sq-global>
     </ng-template>
 </uib-zone>

@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-sm" [ngClass]="{'navbar-light bg-light': !isDark(), 'navbar-dark bg-dark': isDark()}">
         <uib-zone id="navbar" class="container-xl" *ngIf="loginService.complete">
             <!-- Application logo -->
-            <ng-template uib-template="logo" let-config>
+            <ng-template uib-template="logo" display="App logo" let-config>
                 <a [routerLink]="['/home']" title="Home">
                     <img id="logo" [src]="config.logoLightLg" alt="sinequa logo" *ngIf="config.logoLightLg && !isDark() && ui.screenSizeIsGreater('md')">
                     <img id="logo" [src]="config.logoLightSm" alt="sinequa logo" *ngIf="config.logoLightSm && !isDark() && ui.screenSizeIsLessOrEqual('md')">
@@ -13,7 +13,7 @@
             </ng-template>
 
             <!-- Search form -->
-            <ng-template uib-template="search-form" let-config>
+            <ng-template uib-template="search-form" display="Search form" let-config>
                 <app-search-form
                     [autocompleteSources]="config.autocompleteSources"
                     [enableVoiceRecognition]="config.enableVoiceRecognition"
@@ -25,31 +25,31 @@
                 </app-search-form>
             </ng-template>
 
-            <ng-template uib-template="baskets-menu">
+            <ng-template uib-template="baskets-menu" display="Collections menu">
                 <sq-baskets-menu [icon]="'fas fa-inbox'"></sq-baskets-menu>
             </ng-template>
 
-            <ng-template uib-template="saved-queries-menu">
+            <ng-template uib-template="saved-queries-menu" display="Saved queries menu">
                 <sq-saved-queries-menu></sq-saved-queries-menu>
             </ng-template>
 
-            <ng-template uib-template="alerts-menu">
+            <ng-template uib-template="alerts-menu" display="Alerts menu">
                 <sq-alerts-menu></sq-alerts-menu>
             </ng-template>
 
-            <ng-template uib-template="labels-menu">
+            <ng-template uib-template="labels-menu" display="Labels menu">
                 <sq-labels-menu [results]="results$ | async"></sq-labels-menu>
             </ng-template>
 
-            <ng-template uib-template="user-menu">
+            <ng-template uib-template="user-menu" display="User menu">
                 <sq-user-menu></sq-user-menu>
             </ng-template>
 
-            <ng-template uib-template="feedback-menu">
+            <ng-template uib-template="feedback-menu" display="Feedback menu">
                 <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
             </ng-template>
 
-            <ng-template uib-template="global" let-config>
+            <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
                 <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage" [fontFamily]="config.fontFamily"></sq-global>
             </ng-template>
         </uib-zone>
@@ -72,7 +72,7 @@
         <!-- Left facet bar -->
         <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 70, bottom: 80}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
-                <ng-template uib-template="facet-list" let-config>
+                <ng-template uib-template="facet-list" display="List facet" title="A component that displays a list of metadata to filter the results" let-config>
                     <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-list #facet [results]="results"
                             [aggregation]="config.parameters.aggregation"
@@ -86,7 +86,7 @@
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="facet-tree" let-config>
+                <ng-template uib-template="facet-tree" display="Tree facet" title="A component that displays a tree-structured metadata to filter the results" let-config>
                     <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-tree #facet
                             [results]="results"
@@ -99,7 +99,7 @@
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="facet-date" let-config>
+                <ng-template uib-template="facet-date" display="Date facet" title="A component that displays a date metadata to filter the results" let-config>
                   <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                       <sq-facet-date #facet
                           [results]="results"
@@ -115,7 +115,7 @@
                   </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="facet-multi" let-config>
+                <ng-template uib-template="facet-multi" display="Multiple facet" title="A compact container for multiple facet component" let-config>
                     <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="false">
                         <sq-facet-multi #facet
                             [results]="results"
@@ -139,31 +139,31 @@
         <div class="col-lg-5" [ngClass]="{'col-md-7': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
-                <ng-template uib-template="tabs" let-config>
+                <ng-template uib-template="tabs" display="Tabs" let-config>
                     <sq-tabs [results]="results" [showCounts]="!config.hideCounts"></sq-tabs>
                 </ng-template>
 
-                <ng-template uib-template="my-search" let-config>
+                <ng-template uib-template="my-search" display="My search" let-config>
                     <sq-facet-mysearch [results]="results" [allowDeletion]="config.allowDeletion"></sq-facet-mysearch>
                 </ng-template>
 
-                <ng-template uib-template="result-counter">
+                <ng-template uib-template="result-counter" display="Result counter">
                     <sq-results-counter [rowCount]="searchService.rowCount"></sq-results-counter>
                 </ng-template>
 
-                <ng-template uib-template="sort-selector" let-config>
+                <ng-template uib-template="sort-selector" display="Sort selector" let-config>
                     <sq-sort-selector [results]="results" [rightAligned]="config.rightAligned"></sq-sort-selector>
                 </ng-template>
 
-                <ng-template uib-template="did-you-mean">
+                <ng-template uib-template="did-you-mean" display="Did you mean?">
                     <sq-did-you-mean [results]="results"></sq-did-you-mean>
                 </ng-template>
 
-                <ng-template uib-template="sponsored-results">
+                <ng-template uib-template="sponsored-results" display="Sponsored links">
                     <sq-sponsored-results [query]="searchService.query"></sq-sponsored-results>
                 </ng-template>
 
-                <ng-template uib-template="answer-card">
+                <ng-template uib-template="answer-card" display="Answer card">
                     <sq-answer-card [results]="results" (answerOpened)="onAnswerOpened($event)"></sq-answer-card>
                 </ng-template>
             </uib-zone>
@@ -171,36 +171,36 @@
             <!-- List of documents (for loop) -->
             <uib-zone id="results" [data]="results.records" [conditionsData]="conditionsData" (itemClicked)="onDocumentClicked($event.data, $event.event)" class="result-list">
 
-                <ng-template uib-template="result-selector" let-config let-record="data">
+                <ng-template uib-template="result-selector" display="Selector" title="A checkbox to select a document and apply actions onto it" let-config let-record="data">
                     <sq-result-selector [record]="record"></sq-result-selector>
                 </ng-template>
 
-                <ng-template uib-template="result-title" let-config let-record="data">
+                <ng-template uib-template="result-title" display="Document title" let-config let-record="data">
                     <sq-result-title [record]="record" (titleClicked)="openPreviewIfNoUrl(record, $event)"></sq-result-title>
                 </ng-template>
 
-                <ng-template uib-template="result-source" let-config let-record="data">
+                <ng-template uib-template="result-source" display="Document source" let-config let-record="data">
                     <sq-result-source [record]="record" [displayTreepath]="config.displayTreepath" [displayUrl]="config.displayUrl" [displayTreepathMinLevel]="config.displayTreepathMinLevel" [displayTreepathMaxLevel]="config.displayTreepathMaxLevel"></sq-result-source>
                 </ng-template>
 
-                <ng-template uib-template="result-extracts" let-config let-record="data">
+                <ng-template uib-template="result-extracts" display="Document extracts" let-config let-record="data">
                     <sq-result-extracts [record]="record" [showLongExtracts]="config.showLongExtracts" [hideDate]="config.hideDate" [maxLongExtracts]="config.maxLongExtracts"></sq-result-extracts>
                 </ng-template>
 
-                <ng-template uib-template="result-icon" let-config let-record="data">
+                <ng-template uib-template="result-icon" display="Format icon" let-config let-record="data">
                     <sq-result-icon [record]="record" [size]="config.size">
                     </sq-result-icon>
                 </ng-template>
 
-                <ng-template uib-template="result-missing-terms" let-config let-record="data">
+                <ng-template uib-template="result-missing-terms" display="Missing Terms" let-config let-record="data">
                     <sq-result-missing-terms [record]="record"></sq-result-missing-terms>
                 </ng-template>
 
-                <ng-template uib-template="result-labels" let-config let-record="data">
+                <ng-template uib-template="result-labels" display="Labels" let-config let-record="data">
                     <sq-labels [record]="record" [public]="config.public" [enableDelete]="config.enableDelete"></sq-labels>
                 </ng-template>
 
-                <ng-template uib-template="result-thumbnail" let-config let-record="data">
+                <ng-template uib-template="result-thumbnail" display="Thumbnail" let-config let-record="data">
                     <sq-result-thumbnail
                       [record]="record"
                       [thumbnailColumn]="config.thumbnailColumn"
@@ -212,7 +212,7 @@
                     </sq-result-thumbnail>
                 </ng-template>
 
-                <ng-template uib-template="result-metadata" let-config let-record="data">
+                <ng-template uib-template="result-metadata" display="Metadata" let-config let-record="data">
                     <sq-metadata-item [record]="record" [item]="config.item" [showTitle]="config.showTitle" [showIcon]="config.showIcon" [showCounts]="config.showCounts" [showEntityTooltip]="config.showEntityTooltip" [clickable]="config.clickable" (select)="onMetadataSelect($event.item, $event.valueItem)"></sq-metadata-item>
                 </ng-template>
             </uib-zone>
@@ -228,7 +228,7 @@
         <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 70, bottom: 30}">
 
             <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
-                <ng-template uib-template="preview" let-config let-record="data">
+                <ng-template uib-template="preview" display="Preview" title="Preview of a selected document" let-config let-record="data">
                     <!-- Scaled-down preview -->
                     <sq-facet-card [collapsible]="false" class="facet-preview" [actionsSize]="''">
                         <sq-facet-preview-2 #facet
@@ -248,19 +248,19 @@
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="timeline" let-config>
+                <ng-template uib-template="timeline" display="Timeline" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
                         <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="isDark()? 'dark' : 'light'"></sq-facet-timeline>
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="heatmap" let-config>
+                <ng-template uib-template="heatmap" display="Heatmap" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
                         <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields" [theme]="isDark()? 'dark' : 'light'"></sq-facet-heatmap>
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="chart" let-config>
+                <ng-template uib-template="chart" display="Chart" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
                         <sq-fusion-chart #facet
                             [results]="results"
@@ -276,7 +276,7 @@
                     </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="slide-builder" let-config>
+                <ng-template uib-template="slide-builder" display="Slide Builder" title="A component to assemble a list of selected slides and to export them as as single PowerPoint file" let-config>
                   <sq-facet-card
                       [collapsible]="config.collapsible"
                       [icon]="config.icon"
@@ -288,7 +288,7 @@
                   </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="comments" let-config let-record="data">
+                <ng-template uib-template="comments" display="Comments" title="A component to display a thread of comments associated to a document" let-config let-record="data">
                   <sq-facet-card
                       [collapsible]="config.collapsible"
                       [icon]="config.icon"
@@ -297,7 +297,7 @@
                   </sq-facet-card>
                 </ng-template>
 
-                <ng-template uib-template="network" let-config let-record="data">
+                <ng-template uib-template="network" display="Network" let-config let-record="data">
                   <sq-facet-card
                       [collapsible]="config.collapsible"
                       [icon]="config.icon"
