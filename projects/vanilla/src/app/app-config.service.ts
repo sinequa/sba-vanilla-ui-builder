@@ -49,7 +49,7 @@ export class AppConfigService {
         switchMap((config) => this.userSettingsService.patch({ 'ui-builder': config }))
       )
       .subscribe(value => {
-        this.toastService.info('UI configuration saved.');
+        this.toastService.show('UI configuration saved.', 'success');
       });
   }
 
