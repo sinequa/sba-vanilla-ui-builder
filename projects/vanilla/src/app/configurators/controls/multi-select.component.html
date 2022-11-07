@@ -3,9 +3,9 @@
   <div *ngFor="let option of _optionsSelected; let i=index"
     [dndDraggable]="i"
     [dndType]="selectId"
-    class="d-flex align-items-center">
+    class="d-flex align-items-center dndDraggable">
     <ng-container *ngIf="option !== null">
-      <i class="fas fa-grip-vertical fa-fw text-muted" dndHandle></i>
+      <i class="fas fa-grip-vertical fa-fw text-muted" title="Drag to reorder"></i>
       <ng-container *ngTemplateOutlet="optionTpl; context:{$implicit: option, i: i}"></ng-container>
     </ng-container>
   </div>
