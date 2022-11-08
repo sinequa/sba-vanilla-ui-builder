@@ -12,7 +12,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <label for="font">Font</label>
   <select id="font" class="form-select mb-2" [(ngModel)]="context.config.fontFamily" (ngModelChange)="context.configChanged()">
-      <option *ngFor="let font of fonts" [ngValue]="font.value">{{font.name}}</option>
+    <option *ngFor="let font of fonts" [ngValue]="font.value">{{font.name}}</option>
   </select>
   `
 })

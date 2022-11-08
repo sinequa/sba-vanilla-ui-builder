@@ -116,7 +116,7 @@
                 </ng-template>
 
                 <ng-template uib-template="facet-multi" display="Multiple facet" title="A compact container for multiple facet component" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="false">
+                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="config.collapsible">
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"

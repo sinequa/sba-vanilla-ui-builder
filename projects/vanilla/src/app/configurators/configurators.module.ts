@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IntlModule } from "@sinequa/core/intl";
 import { UtilsModule } from "@sinequa/ngx-ui-builder";
+import { FacetHeaderConfiguratorComponent } from "./facet-header-configurator.component"
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
 import { HomeFacetConfiguratorComponent } from "./home-facet-configurator.component";
@@ -21,48 +22,50 @@ import { NetworkConfiguratorComponent } from "./network-configurator.component";
 import { ControlsModule } from "./controls/controls.module";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IntlModule,
-        UtilsModule,
-        ControlsModule
-    ],
-    declarations: [
-      FacetConfiguratorComponent,
-      FacetMultiConfiguratorComponent,
-      MetadataConfiguratorComponent,
-      SearchFormConfiguratorComponent,
-      PredefinedResultsLayoutComponent,
-      MenuConfiguratorComponent,
-      HomeFacetConfiguratorComponent,
-      PreviewConfiguratorComponent,
-      GlobalConfiguratorComponent,
-      ChartConfiguratorComponent,
-      TimelineConfiguratorComponent,
-      HeatmapConfiguratorComponent,
-      SlideBuilderConfiguratorComponent,
-      CommentsConfiguratorComponent,
-      NetworkConfiguratorComponent
-    ],
-    exports: [
-        FacetConfiguratorComponent,
-        FacetMultiConfiguratorComponent,
-        MetadataConfiguratorComponent,
-        SearchFormConfiguratorComponent,
-        PredefinedResultsLayoutComponent,
-        MenuConfiguratorComponent,
-        HomeFacetConfiguratorComponent,
-        PreviewConfiguratorComponent,
-        GlobalConfiguratorComponent,
-        ChartConfiguratorComponent,
-        TimelineConfiguratorComponent,
-        HeatmapConfiguratorComponent,
-        SlideBuilderConfiguratorComponent,
-        CommentsConfiguratorComponent,
-        NetworkConfiguratorComponent,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IntlModule,
+    UtilsModule,
+    ControlsModule
+  ],
+  declarations: [
+    FacetHeaderConfiguratorComponent,
+    FacetConfiguratorComponent,
+    FacetMultiConfiguratorComponent,
+    MetadataConfiguratorComponent,
+    SearchFormConfiguratorComponent,
+    PredefinedResultsLayoutComponent,
+    MenuConfiguratorComponent,
+    HomeFacetConfiguratorComponent,
+    PreviewConfiguratorComponent,
+    GlobalConfiguratorComponent,
+    ChartConfiguratorComponent,
+    TimelineConfiguratorComponent,
+    HeatmapConfiguratorComponent,
+    SlideBuilderConfiguratorComponent,
+    CommentsConfiguratorComponent,
+    NetworkConfiguratorComponent
+  ],
+  exports: [
+    FacetHeaderConfiguratorComponent,
+    FacetConfiguratorComponent,
+    FacetMultiConfiguratorComponent,
+    MetadataConfiguratorComponent,
+    SearchFormConfiguratorComponent,
+    PredefinedResultsLayoutComponent,
+    MenuConfiguratorComponent,
+    HomeFacetConfiguratorComponent,
+    PreviewConfiguratorComponent,
+    GlobalConfiguratorComponent,
+    ChartConfiguratorComponent,
+    TimelineConfiguratorComponent,
+    HeatmapConfiguratorComponent,
+    SlideBuilderConfiguratorComponent,
+    CommentsConfiguratorComponent,
+    NetworkConfiguratorComponent,
 
-        ControlsModule // Export so that controls can be used directly in the application
-    ]
+    ControlsModule // Export so that controls can be used directly in the application
+  ]
 })
 export class ConfiguratorsModule {}
