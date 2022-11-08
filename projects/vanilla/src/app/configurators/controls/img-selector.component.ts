@@ -14,6 +14,15 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     [(ngModel)]="context.config[param]"
     (ngModelChangeDebounced)="onChange($event)">
   <input type="file" class="form-control-file" accept="image/png, image/jpeg, image/gif" (change)="onImageLoaded($event)">
+
+  <details *ngIf="context.config[param]">
+    <summary>
+      Preview
+    </summary>
+    <div>
+      <img class="mw-100 border rounded" [src]="context.config[param]">
+    </div>
+  </details>
 </div>
     `
 })

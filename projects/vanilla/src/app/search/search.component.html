@@ -407,10 +407,17 @@
       </ng-template>
 
       <ng-template uib-template="logo" let-context>
-        <sq-img-selector [context]="context" param="logoLightLg" description="Large logo (light mode)" class="d-block mb-3"></sq-img-selector>
-        <sq-img-selector [context]="context" param="logoLightSm" description="Small logo (light mode)" class="d-block mb-3"></sq-img-selector>
-        <sq-img-selector [context]="context" param="logoDarkLg" description="Large logo (dark mode)" class="d-block mb-3"></sq-img-selector>
-        <sq-img-selector [context]="context" param="logoDarkSm" description="Small logo (dark mode)" class="d-block mb-3"></sq-img-selector>
+        <div class="p-1">
+          <h6>Light Mode</h6>
+          <sq-img-selector [context]="context" param="logoLightLg" description="Logo" class="d-block mb-3"></sq-img-selector>
+          <sq-img-selector [context]="context" param="logoLightSm" description="Logo (mobile devices)" class="d-block mb-3"></sq-img-selector>
+        </div>
+        <hr />
+        <div class="bg-dark text-white p-1">
+          <h6>Dark Mode</h6>
+          <sq-img-selector [context]="context" param="logoDarkLg" description="Logo" class="d-block mb-3"></sq-img-selector>
+          <sq-img-selector [context]="context" param="logoDarkSm" description="Logo (mobile devices)" class="d-block mb-3"></sq-img-selector>
+        </div>
       </ng-template>
 
       <ng-template uib-template="_container" let-context>

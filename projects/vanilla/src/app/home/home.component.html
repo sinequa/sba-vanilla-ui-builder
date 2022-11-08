@@ -78,8 +78,15 @@
 
   <uib-configurator>
     <ng-template uib-template="home-logo" let-context>
-      <sq-img-selector [context]="context" param="logoLight" description="Logo (light mode)" class="d-block mb-3"></sq-img-selector>
-      <sq-img-selector [context]="context" param="logoDark" description="Logo (dark mode)" class="d-block mb-3"></sq-img-selector>
+      <div class="p-1">
+        <h6>Light Mode</h6>
+        <sq-img-selector [context]="context" param="logoLight" description="Logo" class="d-block mb-3"></sq-img-selector>
+      </div>
+      <hr />
+      <div class="bg-dark text-white p-1">
+        <h6>Dark Mode</h6>
+        <sq-img-selector [context]="context" param="logoDark" description="Logo" class="d-block mb-3"></sq-img-selector>
+      </div>
     </ng-template>
 
     <ng-template uib-template="search-form" let-context>
