@@ -5,8 +5,8 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   selector: 'sq-menu-configurator',
   template: `
   <div class="form-check mb-2">
-      <input class="form-check-input" type="checkbox" id="right-aligned" [(ngModel)]="rightAligned">
-      <label class="form-check-label" for="right-aligned">Right aligned</label>
+    <input class="form-check-input" type="checkbox" id="right-aligned" [(ngModel)]="rightAligned">
+    <label class="form-check-label" for="right-aligned">Right aligned</label>
   </div>
   `
 })

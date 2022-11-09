@@ -3,61 +3,59 @@ import { SearchService } from "@sinequa/components/search";
 import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
 
 @Component({
-    selector: 'sq-heatmap-configurator',
-    template: `
+  selector: 'sq-heatmap-configurator',
+  template: `
 <div class="form-group">
-    <label for="title">Title <span *ngIf="config.title!.startsWith('msg#')">("{{config.title | sqMessage}}")</span></label>
-    <input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="config.title" (ngModelChangeDebounced)="configChanged()">
+  <h6>Header</h6>
+  <sq-facet-header-configurator [context]="context"></sq-facet-header-configurator>
+  <hr />
 
-    <sq-icon-selector class="d-block mb-2" [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
+  <h6>Heatmap configuration</h6>
+  <label for="fieldX">Default field (X)</label>
+  <select id="fieldX" class="form-select mb-2" [(ngModel)]="config.fieldX" (ngModelChange)="configChanged()">
+    <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
+  </select>
 
-    <sq-checkbox [context]="context" property="collapsible" label="Collapsible"></sq-checkbox>
+  <label for="fieldY">Default field (Y)</label>
+  <select id="fieldY" class="form-select mb-2" [(ngModel)]="config.fieldY" (ngModelChange)="configChanged()">
+    <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
+  </select>
 
-    <label for="fieldX">Default field (X)</label>
-    <select id="fieldX" class="form-select mb-2" [(ngModel)]="config.fieldX" (ngModelChange)="configChanged()">
-        <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
-    </select>
-
-    <label for="fieldY">Default field (Y)</label>
-    <select id="fieldY" class="form-select mb-2" [(ngModel)]="config.fieldY" (ngModelChange)="configChanged()">
-        <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
-    </select>
-
-    <label>All available fields</label>
-    <sq-select-multi
-      [options]="metadata"
-      [(ngModel)]="config.fields"
-      (ngModelChange)="configChanged()">
-    </sq-select-multi>
+  <label>All available fields</label>
+  <sq-select-multi
+    [options]="metadata"
+    [(ngModel)]="config.fields"
+    (ngModelChange)="configChanged()">
+  </sq-select-multi>
 </div>
 `
 })
 export class HeatmapConfiguratorComponent implements OnChanges {
-    @Input() context: ConfiguratorContext;
-    @Input() metadata: string[];
+  @Input() context: ConfiguratorContext;
+  @Input() metadata: string[];
 
-    get config(): ComponentConfig {
-        return this.context.config;
+  get config(): ComponentConfig {
+    return this.context.config;
+  }
+
+  constructor(
+    public searchService: SearchService
+  ) { }
+
+  ngOnChanges(): void {
+    // Initialize the config (when a new facet is created)
+    if (!this.config.fieldX) {
+      this.config.title = "Heatmap";
+      this.config.icon = "fas fa-th";
+      this.config.fieldX = "company";
+      this.config.fieldY = "person";
+      this.config.fields = ['geo', 'company', 'person'];
+      this.config.classes = "mb-3";
     }
+  }
 
-    constructor(
-        public searchService: SearchService
-    ){}
-
-    ngOnChanges(): void {
-        // Initialize the config (when a new facet is created)
-        if(!this.config.fieldX) {
-            this.config.title = "Heatmap";
-            this.config.icon = "fas fa-th";
-            this.config.fieldX = "company";
-            this.config.fieldY = "person";
-            this.config.fields = ['geo', 'company', 'person'];
-            this.config.classes = "mb-3";
-        }
-    }
-
-    configChanged() {
-        this.context.configChanged();
-    }
+  configChanged() {
+    this.context.configChanged();
+  }
 
 }

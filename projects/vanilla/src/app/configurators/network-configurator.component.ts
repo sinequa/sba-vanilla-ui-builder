@@ -6,13 +6,8 @@ import { NetworkConfig } from "../search/network.pipe";
 @Component({
   selector: 'sq-network-configurator',
   template: `
-  <label for="title">Title <span *ngIf="config.title!.startsWith('msg#')">("{{config.title | sqMessage}}")</span></label>
-  <input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="config.title" (ngModelChangeDebounced)="configChanged()">
-
-  <sq-icon-selector class="d-block mb-2" [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
-
-  <sq-checkbox [context]="context" property="collapsible" label="Collapsible"></sq-checkbox>
-
+  <h6>Header</h6>
+  <sq-facet-header-configurator [context]="context"></sq-facet-header-configurator>
   <hr />
 
   <h6>Node Types</h6>
@@ -63,8 +58,6 @@ import { NetworkConfig } from "../search/network.pipe";
     </div>
   </div>
   <button class="btn btn-sm btn-primary mb-2" (click)="addProvider()">Add Provider</button>
-
-  <hr />
 
 `
 })

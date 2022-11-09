@@ -7,20 +7,19 @@ import { map } from "rxjs/operators";
 @Component({
   selector: 'sq-facet-multi-configurator',
   template: `
-<label for="title">Title <span *ngIf="context.config.title!.startsWith('msg#')">("{{context.config.title | sqMessage}}")</span></label>
-<input type="text" class="form-control mb-2" id="title" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.title" (ngModelChangeDebounced)="context.configChanged()">
+  <h6>Header</h6>
+  <sq-facet-header-configurator [context]="context"></sq-facet-header-configurator>
+  <hr />
 
-<sq-icon-selector [config]="context.config" (configChanged)="context.configChanged()"></sq-icon-selector>
-
-Select the facets to display:
-<sq-select-multi
-  [options]="facets$ | async"
-  displayField="name"
-  [enableReorder]="true"
-  [(ngModel)]="context.config.facets"
-  [compareWith]="compareIds"
-  (ngModelChange)="context.configChanged()">
-</sq-select-multi>
+  <h6>Select the facets to display</h6>
+  <sq-select-multi
+    [options]="facets$ | async"
+    displayField="name"
+    [enableReorder]="true"
+    [(ngModel)]="context.config.facets"
+    [compareWith]="compareIds"
+    (ngModelChange)="context.configChanged()">
+  </sq-select-multi>
 `
 })
 export class FacetMultiConfiguratorComponent implements OnChanges {

@@ -4,32 +4,32 @@ import { RESULTS_VIEWS_CONFIG } from "../../config";
 import { AppConfigService } from "../app-config.service";
 
 @Component({
-    selector: 'sq-predefined-results-layouts',
-    template: `
+  selector: 'sq-predefined-results-layouts',
+  template: `
 <h6>Apply a predefined view:</h6>
 <div>
-    <button *ngFor="let view of views"
-        class="btn btn-outline-primary me-2"
-        (click)="applyView(view.config)">
-        <i [ngClass]="view.icon"></i> {{view.name}}
-    </button>
+  <button *ngFor="let view of views"
+    class="btn btn-outline-primary me-2"
+    (click)="applyView(view.config)">
+    <i [ngClass]="view.icon"></i> {{view.name}}
+  </button>
 </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PredefinedResultsLayoutComponent {
 
-    constructor(
-        public appConfigService: AppConfigService,
-        public configService: ConfigService
-    ){}
+  constructor(
+    public appConfigService: AppConfigService,
+    public configService: ConfigService
+  ) { }
 
-    get views() {
-        return RESULTS_VIEWS_CONFIG;
-    }
+  get views() {
+    return RESULTS_VIEWS_CONFIG;
+  }
 
-    applyView(view: ComponentConfig[]) {
-        this.configService.updateConfig(view);
-    }
+  applyView(view: ComponentConfig[]) {
+    this.configService.updateConfig(view);
+  }
 
 }
