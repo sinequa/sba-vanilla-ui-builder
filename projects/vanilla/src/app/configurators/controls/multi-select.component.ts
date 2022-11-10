@@ -6,7 +6,7 @@ import { DndDropEvent } from "ngx-drag-drop";
   selector: "sq-select-multi",
   templateUrl: './multi-select.component.html',
   styles: [`
-  [dndhandle] {
+  .dndDraggable, .dndDraggable label {
     cursor: grab;
   }
   [dndPlaceholderRef] {
