@@ -11,7 +11,7 @@ import { UIService } from '@sinequa/components/utils';
 import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
-import { Answer, AuditWebService, Record, Results } from '@sinequa/core/web-services';
+import { Answer, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
 import { FacetParams } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 
@@ -30,7 +30,6 @@ export class SearchComponent implements OnInit {
 
   // Custom action for the preview facet (open the preview route)
   public previewCustomActions: Action[];
-  public showPassagesAction: Action;
 
   // Whether the left facet bar is shown
   public _showFilters = this.ui.screenSizeIsEqual('md');
@@ -46,6 +45,13 @@ export class SearchComponent implements OnInit {
 
   public results$: Observable<Results | undefined>;
 
+  // Whether the results contain answers/passages data (neural search)
+  public hasAnswers: boolean;
+  public hasPassages: boolean;
+
+  // Whether it should display the passages view upon opening (only works for 1st opening, it doesn't refresh if the preview is already opened)
+  public passagesByDefault: boolean;
+
   conditionsData: any;
 
   constructor(
@@ -60,9 +66,8 @@ export class SearchComponent implements OnInit {
     public ui: UIService,
   ) {
 
-    // Initialize the facet preview action (opens the preview route)
-    const expandPreviewAction = new Action({
-      icon: "fas fa-expand-alt",
+    const expandAction = new Action({
+      icon: "fas fa-fw fa-expand-alt",
       title: "msg#facet.preview.expandTitle",
       action: () => {
         if (this.openedDoc) {
@@ -71,20 +76,15 @@ export class SearchComponent implements OnInit {
       }
     });
 
-    // Display Neural Search passages, when they exist
-    this.showPassagesAction = new Action({
-      icon: "fas fa-brain",
-      title: "Show/hide passages extracted by Neural Search",
-      action: action => {
-        action.selected = !action.selected
-      },
-      updater: action => {
-        action.hidden = !this.openedDoc?.matchingpassages?.passages.length;
+    const closeAction = new Action({
+      icon: "fas fa-fw fa-times",
+      title: "msg#facet.preview.closeTitle",
+      action: () => {
+        this.closeDocument();
       }
     });
 
-    this.previewCustomActions = [ expandPreviewAction, this.showPassagesAction ];
-
+    this.previewCustomActions = [ expandAction, closeAction ];
   }
 
   /**
@@ -108,6 +108,8 @@ export class SearchComponent implements OnInit {
             this.openedDoc = undefined;
             this._showFilters = false;
           }
+          this.hasAnswers = !!results?.answers?.answers?.length;
+          this.hasPassages = !!results?.topPassages?.passages?.length;
         })
       );
   }
@@ -144,9 +146,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  openMiniPreview(record: Record) {
+  openMiniPreview(record: Record, passagesByDefault = false) {
+    this.passagesByDefault = passagesByDefault;
     this.openedDoc = record;
-    this.showPassagesAction.update();
+    this.openedDoc.$hasPassages = !!this.openedDoc.matchingpassages?.passages?.length;
     if(this.ui.screenSizeIsLessOrEqual('md')){
       this._showFilters = false; // Hide filters on small screens if a document gets opened
     }
@@ -262,18 +265,6 @@ export class SearchComponent implements OnInit {
     return document.body.classList.contains("dark");
   }
 
-  get showPassages(): boolean {
-    return !this.showPassagesAction?.hidden && !!this.showPassagesAction?.selected;
-  }
-
-  onAnswerOpened(answer: Answer) {
-    // Important to retrieve the "real" record if possible, as the one in the answer misses some metadata
-    const record = this.searchService.results?.records.find(r => r.id === answer.$record?.id) || answer.$record;
-    if (record) {
-      this.openMiniPreview(record);
-    }
-  }
-
   updateMetadata(records: Record[]) {
     const set = new Set(this.metadata);
     records.forEach(r => {
@@ -289,4 +280,15 @@ export class SearchComponent implements OnInit {
     this.searchService.search();
   }
 
+  onPreviewOpened(item: Answer | TopPassage) {
+    if (item.$record) {
+      this.openMiniPreview(item.$record);
+    }
+  }
+
+  onTitleClick(value: {item: Answer | TopPassage, isLink: boolean}) {
+    if (value.item.$record) {
+      this.openPreviewIfNoUrl(value.item.$record, value.isLink);
+    }
+  }
 }
