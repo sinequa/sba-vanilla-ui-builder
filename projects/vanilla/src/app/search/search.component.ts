@@ -268,8 +268,10 @@ export class SearchComponent implements OnInit {
 
   onAnswerOpened(answer: Answer) {
     // Important to retrieve the "real" record if possible, as the one in the answer misses some metadata
-    const record = this.searchService.results?.records.find(r => r.id === answer.record.id);
-    this.openMiniPreview(record || answer.record);
+    const record = this.searchService.results?.records.find(r => r.id === answer.$record?.id) || answer.$record;
+    if (record) {
+      this.openMiniPreview(record);
+    }
   }
 
   updateMetadata(records: Record[]) {
