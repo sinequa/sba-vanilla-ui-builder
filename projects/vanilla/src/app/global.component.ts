@@ -1,5 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 
+import { hexToHSL, hexToRGBA, RGBAToHexA, shadeColor, tintColor } from "./colors";
+
+type ColorVariants = "primary" | "secondary" | "brand";
+
 @Component({
   selector: 'sq-global',
   template: ``
@@ -9,6 +13,10 @@ export class GlobalComponent implements OnChanges {
   @Input() gradientColor?: string;
   @Input() backgroundImage?: string;
   @Input() fontFamily?: string;
+  @Input() brandingColor?: string;
+  @Input() primaryColor?: string;
+  @Input() secondaryColor?: string;
+  @Input() textColor?: string;
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,13 +39,80 @@ export class GlobalComponent implements OnChanges {
       document.body.style.backgroundSize = 'cover';
     }
     else if(this.backgroundColor) {
-      if(this.gradientColor) {
-        document.body.style.backgroundImage = `linear-gradient(${this.backgroundColor},${this.gradientColor})`;
-        document.body.style.backgroundAttachment = 'fixed';
-      }
-      else {
-        document.body.style.backgroundColor = this.backgroundColor;
-      }
+      document.documentElement.style.setProperty('--background-color', this.backgroundColor);
+    }
+    if(this.gradientColor) {
+      document.documentElement.style.setProperty('--gradient-color', this.gradientColor);
+    }
+
+    if (this.primaryColor) {
+      this.setColorVariants(this.primaryColor, "primary");
+      document.documentElement.style.setProperty('--primary', `var(--primary-300)`);
+      const [r, g, b] = hexToRGBA(this.primaryColor);
+      document.documentElement.style.setProperty('--primary-rgb',`${r},${g},${b}` );
+    }
+
+    if (this.secondaryColor) {
+      this.setColorVariants(this.secondaryColor, "secondary");
+      document.documentElement.style.setProperty('--secondary', `var(--secondary-300)`);
+      const [r, g, b] = hexToRGBA(this.secondaryColor);
+      document.documentElement.style.setProperty('--secondary-rgb',`${r},${g},${b}` );
+    }
+
+    if (this.brandingColor) {
+      const [h, s, l] = hexToHSL(this.brandingColor);
+
+      document.documentElement.style.setProperty('--brand-hue', `${h}`);
+      document.documentElement.style.setProperty('--brand-saturation', `${s}%`);
+      document.documentElement.style.setProperty('--brand-lightness', `${l}%`);
+
+      this.setColorVariants(this.brandingColor, "brand");
+      document.documentElement.style.setProperty('--brand', `var(--brand-300)`);
+
+      document.documentElement.style.setProperty('--text1', 'hsl(var(--brand-hue) var(--brand-saturation) 10%)');
+      document.documentElement.style.setProperty('--text2', 'hsl(var(--brand-hue) 20% 70%)');
+      document.documentElement.style.setProperty('--text3', 'hsl(var(--brand-hue), calc(80% - var(--brand-saturation)), calc(180% - var(--brand-lightness)) )');
+      document.documentElement.style.setProperty('--text3-hover', 'hsl(var(--brand-hue), var(--brand-saturation), calc(160% - var(--brand-lightness)) )');
+      document.documentElement.style.setProperty('--sq-text', 'var(--text3)');
+      document.documentElement.style.setProperty('--sq-text-hover', 'var(--text2)');
+    }
+
+    if (this.textColor) {
+      document.documentElement.style.setProperty('--sq-text', `var(--${this.textColor})`)
+    }
+  }
+
+  setColorVariants900(color: string, name: ColorVariants) {
+    // variants from 100-400
+    for (let index = 1; index < 5; index++) {
+      const value = RGBAToHexA(tintColor(color, 100 - (20 * index)));
+      document.documentElement.style.setProperty(`--${name}-${index * 100}`, value);
+    }
+
+    // base variant is 500
+    document.documentElement.style.setProperty(`--${name}-500`, color);
+
+    // variants from 500-900
+    for (let index = 1; index < 5; index++) {
+      const value = RGBAToHexA(shadeColor(color, 20 * index));
+      document.documentElement.style.setProperty(`--${name}-${index * 100 + 500}`, value);
+    }
+  }
+
+  setColorVariants(color: string, name: ColorVariants) {
+    // variants from 100-200
+    for (let index = 1; index < 3; index++) {
+      const value = RGBAToHexA(tintColor(color, 100 - (20 * index)));
+      document.documentElement.style.setProperty(`--${name}-${index * 100}`, value);
+    }
+
+    // base variant is 300
+    document.documentElement.style.setProperty(`--${name}-300`, color);
+
+    // variants from 400-500
+    for (let index = 1; index < 3; index++) {
+      const value = RGBAToHexA(shadeColor(color, 20 * index));
+      document.documentElement.style.setProperty(`--${name}-${index * 100 + 300}`, value);
     }
   }
 }

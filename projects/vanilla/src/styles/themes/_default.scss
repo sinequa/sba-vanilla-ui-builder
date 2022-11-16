@@ -1,0 +1,208 @@
+/* default vanilla-search theme */
+$secondary-color: #6c757d;
+$navbar-bg: #f8f9fa;
+
+body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #3434d6;
+}
+
+// large screens (> sm)
+@include media-breakpoint-up(sm) {
+
+  .sq-home-facet-bar {
+      min-height: 287px;
+  }
+
+  .card {
+      box-shadow: 0 5px 7px rgba(0,0,0,.08);
+  }
+}
+
+// Prevent width: 100% from .row on the drag & drop placeholder
+.row > .dragPlaceholder {
+  width: auto;
+}
+
+app-search-form {
+  box-shadow: 0px 0px 7px 2px rgba(0,0,0,.08);
+
+  .autocomplete-item {
+      small, i {
+          color: $secondary-color;
+      }
+  }
+}
+
+app-search nav {
+  box-shadow: 1px 3px 4px 0px rgba(0,0,0,.08);
+}
+
+app-preview {
+  height: 100vh;
+  display: block;
+}
+
+// Results list
+
+sq-tabs {
+  .nav-item .count {
+      font-size: 0.9em;
+      color: $secondary-color;
+  }
+}
+
+sq-results-counter {
+  color: $secondary-color;
+  font-size: 0.85em;
+}
+
+sq-sort-selector button.btn {
+  padding: 3px 5px;
+  margin: -3px 0;
+  color: $secondary-color;
+  background-color: inherit;
+  font-size: 0.85em;
+  border: none;
+
+  & > div {
+      padding: 5px 0;
+  }
+}
+
+sq-result-selector label{
+  margin: 0 !important;
+  margin-left: 4px;
+}
+
+sq-sponsored-results {
+  .sponsored-item {
+      margin-top: 0.75em;
+  }
+  .sq-sponsored-link-view-summary {
+      color: $secondary-color;
+      font-size: 0.9em;
+  }
+}
+
+// Styling of the result items
+
+.result-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .record {
+
+      &:hover {
+          background-color: rgb(0,0,0,0.03);
+      }
+
+      &.selected {
+          background-color: rgb(0,0,0,0.05);
+      }
+
+      cursor: pointer;
+
+      sq-result-title {
+          display: block; // Added to force truncation of long titles with ellipsis
+          max-width: 100%;
+
+          .record .match-highlight {
+              font-weight: bold;
+              font-style: italic;
+          }
+      }
+
+      &.list-view {
+          padding: 0.5em 15px;
+          margin: 0 -15px;
+          width: calc(100% + 30px);
+
+          sq-result-thumbnail {
+              --thumbnail-max-width: 100px;
+              --thumbnail-max-height: 150px;
+              --thumbnail-border-radius: 3px;
+              & img {
+                  max-width: var(--thumbnail-max-width);
+                  max-height: var(--thumbnail-max-height);
+                  border-radius: var(--thumbnail-border-radius);
+              }
+          }
+      }
+
+      &.tile-view {
+          padding: 0.5em;
+          width: 50%;
+
+          sq-result-thumbnail img {
+              object-fit: cover;
+              object-position: center;
+              width: 100%;
+              height: 250px;
+              border-radius: 1em;
+          }
+      }
+  }
+}
+
+// Facets
+sq-facet-card.facet-preview {
+.card-header {
+    sq-metadata {
+        color: $secondary-color;
+        font-size: 0.9em;
+    }
+}
+
+.sq-secondary-actions.position-absolute {
+    z-index: 5;
+}
+
+@media (pointer:fine) {
+    .sq-secondary-actions.on-preview-hover {
+        opacity: 0;
+        transition: opacity 250ms ease;
+    }
+    .card:hover {
+        .sq-secondary-actions.on-preview-hover {
+            opacity: 1;
+        }
+    }
+}
+
+@media (min-width: 1720px) {
+  .sq-secondary-actions.outside-if-space {
+    right: -4rem !important;
+  }
+
+}
+}
+
+sq-feedback-menu {
+  button.btn{
+      border-radius: 19px;
+      width: 38px;
+      height: 38px;
+      padding-left: 10px;
+  }
+  .dropdown-toggle::after{
+      display: none;
+  }
+}
+
+// Reduce max height of facets in edit mode
+sq-facet-tree .list-group.list-group-flush, sq-facet-list .facet-results-scrollable, sq-facet-date > div {
+  max-height: calc(75vh - 250px);
+  overflow: auto;
+  transition: max-height .3s ease-in-out;
+}
+
+.uib-zone.edited {
+sq-facet-tree .list-group.list-group-flush, sq-facet-list .facet-results-scrollable, sq-facet-date > div {
+  max-height: 100px;
+}
+}

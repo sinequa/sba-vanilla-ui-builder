@@ -1,0 +1,11 @@
+body:not(.dark) {
+
+  .form-select:focus,
+  .form-control:focus,
+  .form-control:focus-within {
+    --box-shadow-color-rgb: 13, 110, 253;
+    --border-color: #86b7fe;
+    border-color: var(--primary-200, var(--border-color)) !important;
+    box-shadow: 0 0 0 0.25rem rgb(var(--primary-rgb, var(--box-shadow-color-rgb)), .25) !important;
+  }
+}
