@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "14.2.0",
     "@angular/router": "14.2.0",
     "@egjs/hammerjs": "2.0.17",
+    "@formatjs/icu-messageformat-parser": "^2.1.10",
     "@formatjs/intl-relativetimeformat": "^4.5.12",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@microsoft/teams-js": "^2.4.0",
@@ -56,9 +57,8 @@
     "immer": "^9.0.16",
     "intl": "^1.2.5",
     "intl-format-cache": "^4.2.24",
-    "intl-messageformat": "^7.8.4",
-    "intl-messageformat-parser": "^3.6.4",
-    "intl-pluralrules": "^1.3.0",
+    "intl-messageformat": "^10.2.1",
+    "intl-pluralrules": "^1.3.1",
     "js-polyfills": "^0.1.42",
     "jssha": "^2.4.2",
     "keycharm": "^0.3.1",
@@ -71,7 +71,6 @@
     "propagating-hammerjs": "2.0.1",
     "rxjs": "~7.5.0",
     "timsort": "^0.3.0",
-    "tslib": "^2.3.1",
     "uuid": "8.3.2",
     "vis-data": "7.1.4",
     "vis-network": "9.1.2",
@@ -113,6 +112,7 @@
     "sanitize-html": "2.7.0",
     "sass-color-helpers": "^2.1.1",
     "ts-node": "~8.3.0",
+    "tslib": "^2.4.0",
     "typescript": "~4.6.4"
   }
 }

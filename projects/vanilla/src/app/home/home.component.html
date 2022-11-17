@@ -66,7 +66,16 @@
     </ng-template>
 
     <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
-        <sq-global [backgroundColor]="config.backgroundColor" [gradientColor]="config.gradientColor" [backgroundImage]="config.backgroundImage" [fontFamily]="config.fontFamily"></sq-global>
+        <sq-global
+          [backgroundColor]="config.backgroundColor"
+          [gradientColor]="config.gradientColor"
+          [backgroundImage]="config.backgroundImage"
+          [brandingColor]="config.brandingColor"
+          [primaryColor]="config.primaryColor"
+          [secondaryColor]="config.secondaryColor"
+          [textColor]="config.textColor"
+          [fontFamily]="config.fontFamily">
+        </sq-global>
     </ng-template>
 </uib-zone>
 
