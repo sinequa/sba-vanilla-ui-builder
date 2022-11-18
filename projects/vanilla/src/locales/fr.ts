@@ -27,12 +27,13 @@ import {frUserSettings} from "@sinequa/components/user-settings";
 import {frTimeline} from "@sinequa/analytics/timeline";
 import {frSlideBuilder} from "@sinequa/components/slide-builder";
 import {frComments} from "@sinequa/components/comments";
+import {frML} from "@sinequa/components/machine-learning";
 
 d3Format.thousands = " "; // consistency with intl-number-format
 
 const messages = Utils.merge({}, frCore, frUtils, frAdvanced, frAlerts, frBaskets, frFacet, frFeedback, frHeatmap, frLabels, frMetadata,
     frNotification, frPreview, frResult, frResultsView, frSavedQueries, frSelection, frSearch, frStatusBar, frUserSettings, frTimeline,
-    frSlideBuilder, frComments, appMessages);
+    frSlideBuilder, frComments, frML, appMessages);
 
 export default <LocaleData>{
     intl: {
