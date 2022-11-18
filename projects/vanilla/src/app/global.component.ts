@@ -157,8 +157,5 @@ export class GlobalComponent implements OnChanges {
     for (let index = 1; index < 6; index++) {
       document.documentElement.style.removeProperty(`--${name}-${index * 100}`);
     }
-
-    // base variant is 300
-    document.documentElement.style.removeProperty(`--${name}-300`);
   }
 }
