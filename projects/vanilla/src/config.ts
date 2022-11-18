@@ -283,7 +283,7 @@ export const TOOLBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'results-header',
     type: '_container',
-    items: ['tabs','toolbar','did-you-mean','sponsored-results', 'answer-card'],
+    items: ['tabs','toolbar','did-you-mean','sponsored-results', 'answer-card', 'top-passages'],
     classes: 'flex-column'
   },
   {
