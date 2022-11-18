@@ -153,17 +153,12 @@ export class GlobalComponent implements OnChanges {
   }
 
   unsetColorVariants(name: ColorVariants) {
-    // variants from 100-200
-    for (let index = 1; index < 3; index++) {
+    // variants from 100-600
+    for (let index = 1; index < 6; index++) {
       document.documentElement.style.removeProperty(`--${name}-${index * 100}`);
     }
 
     // base variant is 300
     document.documentElement.style.removeProperty(`--${name}-300`);
-
-    // variants from 400-500
-    for (let index = 1; index < 3; index++) {
-      document.documentElement.style.removeProperty(`--${name}-${index * 100 + 300}`);
-    }
   }
 }
