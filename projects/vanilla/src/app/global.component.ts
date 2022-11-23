@@ -10,16 +10,19 @@ type ColorVariants = "primary" | "secondary" | "brand";
 })
 export class GlobalComponent implements OnChanges {
   @Input() backgroundColor?: string;
-  @Input() gradientColor?: string;
-  @Input() backgroundImage?: string;
-  @Input() fontFamily?: string;
-  @Input() brandingColor?: string;
-  @Input() primaryColor?: string;
-  @Input() secondaryColor?: string;
-  @Input() textColor?: string;
-
+  @Input() gradientColor?:string
+  @Input() backgroundImage?:string;
+  @Input() brandingColor?:string;
+  @Input() primaryColor?:string;
+  @Input() secondaryColor?:string;
+  @Input() textColor?:string;
+  @Input() fontFamily?:string;
+  @Input() theme?:boolean;
 
   ngOnChanges(): void {
+    if (this.theme) {
+      document.body.classList.add("sinequa");
+    }
 
     if(this.fontFamily) {
       document.documentElement.style.setProperty('--bs-body-font-family', this.fontFamily);
