@@ -1,20 +1,19 @@
-
 @import "@angular/cdk/overlay-prebuilt";
 
 // Overriding Bootstrap variables
 $grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 992px,
-        lg: 1400px,
-        xl: 1650px
+    xs: 0,
+    sm: 576px,
+    md: 992px,
+    lg: 1400px,
+    xl: 1650px
 );
 
 $container-max-widths: (
-        sm: 540px,
-        md: 960px,
-        lg: 1360px,
-        xl: 1610px
+    sm: 540px,
+    md: 960px,
+    lg: 1360px,
+    xl: 1610px
 );
 
 // Bootstrap styles
@@ -33,7 +32,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 
 .btn-link {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 // CDK drag & drop
@@ -64,8 +63,14 @@ $action-menu-breakpoint: sm;
 
 // default sinequa configuration
 @import 'themes/default';
+
+.sinequa {
+    @import "../../../../node_modules/@sinequa/components/theme/vanilla";
+}
+@import "../../../../node_modules/@sinequa/components/theme/vanilla-dark";
+
+
 // allow cusomization
 @import 'themes/custom';
-
 
 @import 'dark-mode';

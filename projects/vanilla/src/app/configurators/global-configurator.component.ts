@@ -6,6 +6,11 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   template: `
   <div role="alert" class="alert alert-warning">This component controls global styling options (colors, fonts, etc.). The component itself has no visible appearance.</div>
 
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" id="checkSinequaTheme" uib-tooltip="Activate The Sinequa Amazing Theme" [ngModel]="!!context.config.theme" [value]="!!context.config.theme" (click)="changeTheme($event)">
+    <label class="form-check-label" for="checkSinequaTheme">Sinequa Theme</label>
+  </div>
+
   <div class="d-flex gap-2">
     <sq-color-picker [context]="context" [defaultColor]="background" property="backgroundColor" label="Background" tooltip="Select the background color"></sq-color-picker>
     <sq-color-picker [context]="context" [defaultColor]="gradient" property="gradientColor" label="Gradient" tooltip="Select last color to create a gradient backgound"></sq-color-picker>
@@ -96,5 +101,13 @@ export class GlobalConfiguratorComponent implements OnInit {
   setTextColor(index: number) {
     this.context.config.textColor = `text${index+1}`;
     this.context.configChanged();
+  }
+
+  changeTheme(event) {
+    const checked =  event.target.checked;
+    this.context.config.theme = checked;
+    this.context.configChanged();
+
+    document.body.classList.toggle("sinequa");
   }
 }

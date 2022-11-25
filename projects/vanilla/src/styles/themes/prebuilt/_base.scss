@@ -1,0 +1,11 @@
+body {
+  height: 100%;
+  background-color: var(--background-color, var(--bs-body-bg));
+  background-image: linear-gradient(var(--background-color), var(--gradient-color));
+  background-attachment: fixed;
+}
+
+// Need to override this class
+.bg-primary {
+  background-color: var(--primary, #0d6efd) !important;
+}
