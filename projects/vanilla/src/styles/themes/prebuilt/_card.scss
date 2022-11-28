@@ -1,12 +1,10 @@
-body:not(.dark) {
-  .card {
-    --sq-card-cap-bg: var(--brand-300, var(--bs-card-cap-bg));
-    --sq-card-cap-color: var(--sq-text, var(--body-text-grey-1));
-    --sq-link-color: var(--text1, var(--body-text-grey-1));
+.card {
+  --sq-card-cap-bg: var(--brand-300, var(--bs-card-cap-bg));
+  --sq-card-cap-color: var(--sq-text, var(--body-text-grey-1));
+  --sq-link-color: var(--text1, var(--body-text-grey-1));
 
-    .card-header {
-      color: var(--sq-card-cap-color);
-      background-color: var(--sq-card-cap-bg);
-    }
+  .card-header {
+    color: var(--sq-card-cap-color);
+    background-color: var(--sq-card-cap-bg);
   }
 }

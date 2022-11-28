@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -18,7 +18,8 @@ import { BsFacetDate } from '@sinequa/analytics/timeline';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent implements OnInit {
 

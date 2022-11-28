@@ -51,15 +51,15 @@
 
             <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
               <sq-global
-                [backgroundColor]="config.backgroundColor"
-                [gradientColor]="config.gradientColor"
-                [backgroundImage]="config.backgroundImage"
-                [primaryColor]="config.primaryColor"
-                [secondaryColor]="config.secondaryColor"
-                [brandingColor]="config.brandingColor"
-                [textColor]="config.textColor"
-                [fontFamily]="config.fontFamily">
-              </sq-global>
+              [backgroundColor]="config.backgroundColor"
+              [gradientColor]="config.gradientColor"
+              [backgroundImage]="config.backgroundImage"
+              [brandingColor]="config.brandingColor"
+              [primaryColor]="config.primaryColor"
+              [secondaryColor]="config.secondaryColor"
+              [textColor]="config.textColor"
+              [fontFamily]="config.fontFamily"
+              [theme]="config.theme"></sq-global>
             </ng-template>
         </uib-zone>
 
@@ -79,10 +79,10 @@
     <div class="row" *ngIf="results$ | async; let results">
 
         <!-- Left facet bar -->
-        <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 70, bottom: 80}">
+        <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 80}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" display="List facet" title="A component that displays a list of metadata to filter the results" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
+                    <sq-facet-card class="d-block mb-3" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-list #facet [results]="results"
                             [aggregation]="config.parameters.aggregation"
                             [showCount]="config.parameters.showCount"
@@ -96,7 +96,7 @@
                 </ng-template>
 
                 <ng-template uib-template="facet-tree" display="Tree facet" title="A component that displays a tree-structured metadata to filter the results" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
+                    <sq-facet-card class="d-block mb-3" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                         <sq-facet-tree #facet
                             [results]="results"
                             [aggregation]="config.parameters.aggregation"
@@ -109,7 +109,7 @@
                 </ng-template>
 
                 <ng-template uib-template="facet-date" display="Date facet" title="A component that displays a date metadata to filter the results" let-config>
-                  <sq-facet-card class="d-block mb-1" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
+                  <sq-facet-card class="d-block mb-3" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
                       <sq-facet-date #facet
                           [results]="results"
                           [aggregation]="config.parameters.aggregation"
@@ -125,7 +125,7 @@
                 </ng-template>
 
                 <ng-template uib-template="facet-multi" display="Multiple facet" title="A compact container for multiple facet component" let-config>
-                    <sq-facet-card class="d-block mb-1" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="config.collapsible">
+                    <sq-facet-card class="d-block mb-3" [title]="getMultiFacetTitle(config.id, config.title)" [icon]="getMultiFacetIcon(config.id, config.icon)" [collapsible]="config.collapsible">
                         <sq-facet-multi #facet
                             [results]="results"
                             [facets]="config.facets"
@@ -252,7 +252,7 @@
         </div>
 
         <!-- Right part-->
-        <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 70, bottom: 30}">
+        <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 96, bottom: 15}">
 
             <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
                 <ng-template uib-template="preview" display="Preview" title="Preview of a selected document" let-config let-record="data">
