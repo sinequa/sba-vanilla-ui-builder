@@ -20,7 +20,6 @@ body:not(.dark) {
     .nav-tabs {
       color: var(--sq-text);
       border-bottom-color: var(--brand, #dee2e6);
-
       .nav-link {
         &.active, &.active:hover {
           --border-color: var(--brand) var(--brand) var(--background-color);
@@ -34,7 +33,7 @@ body:not(.dark) {
       .nav-link.active,
       .show>.nav-link {
         color: var(--sq-text, #495057);
-        background-color: var(--background-color, #fff);
+        background-color: var(--sq-nav-tabs-link-active-bg, var(--brand, transparent));
       }
 
     }

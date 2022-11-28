@@ -8,7 +8,7 @@ $dark-background-highlight: rgb(255,255,255,0.15);
 $dark-background-hover: rgb(255,255,255,0.08);
 $dark-borders: #777373;
 
-body.dark {
+body.dark, body.sinequa.dark {
 
     background-color: $dark-background;
     color: $dark-color;
@@ -44,6 +44,7 @@ body.dark {
 
     .navbar {
         --navbar-bg: $dark-background;
+        --bs-bg-opacity: 1;
     }
 
     .navbar-dark .navbar-nav .nav-link {
