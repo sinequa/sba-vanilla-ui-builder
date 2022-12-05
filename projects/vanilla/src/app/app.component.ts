@@ -1,6 +1,6 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
+import { Component } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
-import { ComponentWithLogin, LoginService } from "@sinequa/core/login";
+import { ComponentWithLogin } from "@sinequa/core/login";
 import { BasketsService } from '@sinequa/components/baskets';
 import { SavedQueriesService } from '@sinequa/components/saved-queries';
 import { AlertsService } from '@sinequa/components/alerts';
@@ -21,10 +21,6 @@ export class AppComponent extends ComponentWithLogin {
 
 
     constructor(
-        // These 2 services are required by the constructor of ComponentWithLogin
-        loginService: LoginService,
-        cdRef: ChangeDetectorRef,
-
         // Services are instantiated by the app component,
         // to guarantee they are instantiated in a consistent order,
         // regardless of the entry route.
@@ -40,7 +36,7 @@ export class AppComponent extends ComponentWithLogin {
         public router: Router,
         public auditWebService: AuditWebService
     ){
-        super(loginService, cdRef);
+        super();
 
     }
 
