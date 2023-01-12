@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 import { filter} from 'rxjs/operators';
 
 import { LoginService } from '@sinequa/core/login';
-import { AuditEventType, PreviewData, Results } from '@sinequa/core/web-services';
-import { AppService, Query } from '@sinequa/core/app-utils';
+import { PreviewData, Results } from '@sinequa/core/web-services';
+import { Query } from '@sinequa/core/app-utils';
 import { Action } from '@sinequa/components/action';
 import { PreviewService, PreviewDocument } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
@@ -70,7 +70,6 @@ export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
   subpanels = ["extracts", "entities"];
   subpanel = 'extracts';
   previewSearchable = true;
-  minimapType = "extractslocations"
 
   // Page management for splitted documents
   pagesResults: Results;
@@ -98,7 +97,6 @@ export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
     protected intlService: IntlService,
     protected previewService: PreviewService,
     protected searchService: SearchService,
-    public appService: AppService,
     public prefs: UserPreferences,
     public ui: UIService,
     protected activatedRoute: ActivatedRoute,
@@ -226,11 +224,6 @@ export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
         previewData => {
           this.previewData = previewData;
           const url = previewData?.documentCachedContentUrl;
-          if(this.appService.isNeural() && !this.subpanels.includes("passages")) {
-            this.subpanels.unshift("passages");
-            this.subpanel = "passages";
-            this.minimapType = "matchingpassages";
-          }
           // Manage splitted documents
           const pageNumber = this.previewService.getPageNumber(previewData.record);
           if(pageNumber) {
@@ -262,32 +255,10 @@ export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
         .map(item => previewDocument.toggleHighlight(item.entity, false));
 
       this.previewDocument = previewDocument;
-      if(!this.highlightMostRelevant(this.previewData, this.previewDocument, "matchingpassages")) {
-        this.highlightMostRelevant(this.previewData, this.previewDocument, "extractslocations");
-      }
+      const extracts = this.previewService.getExtracts(this.previewData);
+      const mostRelevantExtract = extracts[0]?.textIndex || 0;
+      this.previewDocument.selectHighlight("extractslocations", mostRelevantExtract); // Scroll to most relevant extract
     }
-  }
-
-  highlightMostRelevant(previewData: PreviewData, previewDocument: PreviewDocument, type: string): boolean {
-    const extracts = this.previewService.getExtracts(previewData, undefined, type);
-    if(extracts[0]) {
-      const mostRelevantExtract = extracts[0].textIndex;
-      previewDocument.selectHighlight(type, mostRelevantExtract); // Scroll to most relevant extract
-      return true;
-    }
-    return false;
-  }
-
-  openPanel(panel: string) {
-    this.subpanel = panel;
-    // Change the type of extract highlighted by the minimap in function of the current tab
-    if(panel === "passages") {
-      this.minimapType = "matchingpassages";
-    }
-    if(panel === "extracts") {
-      this.minimapType = "extractslocations";
-    }
-    return false;
   }
 
   onPreviewPageChange(event: string | PreviewDocument) {
@@ -310,25 +281,11 @@ export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * @returns URL of the original document, if any
-   */
-  getOriginalDocUrl(): string | undefined {
-    return this.previewData?.record.url1 || this.previewData?.record.originalUrl;
-  }
-
-  /**
    * Notification for the audit service
    */
-  notifyOriginalDoc(){
+  openOriginalDoc(){
     if (this.previewData) {
-      const type = this.previewData?.record.url1? AuditEventType.Doc_Url1 : AuditEventType.Doc_CacheOriginal;
-      this.searchService.notifyOpenOriginalDocument(this.previewData.record, undefined, type);
-    }
-  }
-
-  notifyPdf() {
-    if (this.previewData) {
-      this.searchService.notifyOpenOriginalDocument(this.previewData.record, undefined, AuditEventType.Doc_CachePdf);
+      this.searchService.notifyOpenOriginalDocument(this.previewData.record);
     }
   }
 
