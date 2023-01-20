@@ -125,8 +125,10 @@ body.dark, body.sinequa.dark {
     }
 
     ul.dropdown-menu {
-        background: #1c1e21;
-        border-color: $dark-borders;
+        --bs-dropdown-bg: #1c1e21;
+        --bs-dropdown-border-color: #{$dark-borders};
+        background: var(--bs-dropdown-bg);
+        border-color: var(--bs-dropdown-border-color);
 
         a {
             color: #f8f9fa;
@@ -235,7 +237,7 @@ body.dark, body.sinequa.dark {
         }
 
         sq-result-source {
-            span, a {
+            span, a:not(.btn):not(.badge) {
                 color: #a9c7b4;
             }
         }
