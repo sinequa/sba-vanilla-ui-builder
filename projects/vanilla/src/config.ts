@@ -1,4 +1,4 @@
-import { FacetListParams, FacetMySearchParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams, FacetTreeParams } from '@sinequa/components/facet';
+import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from '@sinequa/components/facet';
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
 
@@ -123,7 +123,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   }
 ];
 
-export type FacetParams = FacetListParams | FacetTreeParams | FacetMySearchParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
+export type FacetParams = FacetListParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
 
 export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
   {
@@ -289,12 +289,12 @@ export const TOOLBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'toolbar',
     type: '_container',
-    items: ['my-search','result-counter','sort-selector']
+    items: ['filters-view', 'result-counter', 'sort-selector'],
   },
   {
-    id: 'my-search',
-    type: 'my-search',
-    classes: 'flex-grow-1',
+    id: 'filters-view',
+    type: 'filters-view',
+    classes: 'flex-grow-1 small',
     allowDeletion: true
   },
   {
