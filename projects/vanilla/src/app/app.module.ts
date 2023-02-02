@@ -35,6 +35,7 @@ import { BsPreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule, SELECTION_OPTIONS } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
+import { FiltersModule } from "@sinequa/components/filters";
 
 import { BsTimelineModule } from "@sinequa/analytics/timeline";
 import { BsHeatmapModule } from "@sinequa/analytics/heatmap";
@@ -56,8 +57,8 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { PreviewComponent } from './preview/preview.component';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { AutocompleteExtended } from './search-form/autocomplete-extended.directive';
+import { AppSearchFormComponent } from './search-form/search-form.component';
+import { AutocompleteComponent } from './search-form/autocomplete.component';
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { GlobalComponent } from "./global.component";
 import { NetworkPipe } from "./search/network.pipe";
@@ -77,10 +78,13 @@ import { ConfiguratorsModule } from "./configurators/configurators.module";
 import { ConditionsModule } from "@sinequa/ngx-ui-builder";
 import { AppConfigService } from "./app-config.service";
 
+// standalone components
+import { SearchFormComponent } from "@sinequa/components/search-form";
+
 
 // Initialization of @sinequa/core
 export const startConfig: StartConfig = {
-    //app: "training",
+    // app: "training",
     production: environment.production,
     //autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
@@ -174,6 +178,10 @@ export const breakpoints = {
         MLModule,
         NetworkModule,
 
+        // Standalone components
+        FiltersModule,
+        SearchFormComponent,
+
         // UI Builder
         DynamicViewsModule,
         ConfiguratorModule,
@@ -185,8 +193,8 @@ export const breakpoints = {
         HomeComponent,
         SearchComponent,
         PreviewComponent,
-        SearchFormComponent,
-        AutocompleteExtended,
+        AppSearchFormComponent,
+        AutocompleteComponent,
         ToolbarComponent,
         GlobalComponent,
         NetworkPipe

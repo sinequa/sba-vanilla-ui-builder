@@ -14,15 +14,7 @@
 
             <!-- Search form -->
             <ng-template uib-template="search-form" display="Search form" let-config>
-                <app-search-form
-                    [autocompleteSources]="config.autocompleteSources"
-                    [enableVoiceRecognition]="config.enableVoiceRecognition"
-                    [keepTab]="config.keepTab"
-                    [enableKeepFilters]="config.enableKeepFilters"
-                    [keepFilters]="config.keepFilters"
-                    [enableAdvancedForm]="config.enableAdvancedForm"
-                    [keepAdvancedSearchFilters]="config.keepAdvancedSearchFilters">
-                </app-search-form>
+                <app-search-form [autocompleteSources]="config.autocompleteSources"></app-search-form>
             </ng-template>
 
             <ng-template uib-template="baskets-menu" display="Collections menu">
@@ -97,14 +89,14 @@
 
                 <ng-template uib-template="facet-tree" display="Tree facet" title="A component that displays a tree-structured metadata to filter the results" let-config>
                     <sq-facet-card class="d-block mb-3" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
-                        <sq-facet-tree #facet
+                        <sq-facet-list #facet
                             [results]="results"
                             [aggregation]="config.parameters.aggregation"
                             [showCount]="config.parameters.showCount"
                             [searchable]="config.parameters.searchable"
                             [allowExclude]="config.parameters.allowExclude"
                             [allowOr]="config.parameters.allowOr"
-                        ></sq-facet-tree>
+                        ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>
 
@@ -152,8 +144,14 @@
                     <sq-tabs [results]="results" [showCounts]="!config.hideCounts"></sq-tabs>
                 </ng-template>
 
-                <ng-template uib-template="my-search" display="My search" let-config>
-                    <sq-facet-mysearch [results]="results" [allowDeletion]="config.allowDeletion"></sq-facet-mysearch>
+                <ng-template uib-template="filters-view" display="Filters view" let-config>
+                  <sq-filters-view
+                    class="flex-grow-1 position-relative"
+                    [query]="searchService.query"
+                    [closeOnClickOutside]="true"
+                    [advancedModeClass]="'card position-absolute p-3'"
+                    (filterEdit)="searchService.search()">
+                  </sq-filters-view>
                 </ng-template>
 
                 <ng-template uib-template="result-counter" display="Result counter">

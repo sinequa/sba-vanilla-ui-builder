@@ -6,15 +6,7 @@
     </ng-template>
 
     <ng-template uib-template="search-form" display="Search form" let-config>
-        <app-search-form
-            [autocompleteSources]="config.autocompleteSources"
-            [enableVoiceRecognition]="config.enableVoiceRecognition"
-            [keepTab]="config.keepTab"
-            [enableKeepFilters]="config.enableKeepFilters"
-            [keepFilters]="config.keepFilters"
-            [enableAdvancedForm]="config.enableAdvancedForm"
-            [keepAdvancedSearchFilters]="config.keepAdvancedSearchFilters">
-        </app-search-form>
+        <app-search-form [autocompleteSources]="config.autocompleteSources"></app-search-form>
     </ng-template>
 
     <ng-template uib-template="home-actions" display="Homepage actions">

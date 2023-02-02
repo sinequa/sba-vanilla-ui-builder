@@ -132,8 +132,9 @@ export class SearchComponent implements OnInit {
       this.multiFacetMap.delete(id);
     }
     else {
-      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title || facet.name || facet.parameters?.aggregation || ''});
+      this.multiFacetMap.set(id, {icon: facet.icon || '', title: facet.title || facet.name || ''});
     }
+
   }
 
   /**
