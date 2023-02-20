@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
-import { default_facet_components, FacetConfig } from '@sinequa/components/facet';
+import { DEFAULT_FACET_COMPONENTS, FacetConfig } from '@sinequa/components/facet';
 import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
   public _showMenu = false;
 
   public readonly facetComponents = {
-    ...default_facet_components,
+    ...DEFAULT_FACET_COMPONENTS,
     "date": BsFacetDate
   }
 
