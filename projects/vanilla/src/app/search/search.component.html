@@ -1,6 +1,6 @@
 <div class="nav-wrapper">
     <!-- Navbar with app icon, search form, and menus -->
-    <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-sm bg-light">
         <uib-zone id="navbar" class="container-xl" *ngIf="loginService.complete">
             <!-- Application logo -->
             <ng-template uib-template="logo" display="App logo" let-config>
@@ -14,7 +14,7 @@
 
             <!-- Search form -->
             <ng-template uib-template="search-form" display="Search form" let-config>
-                <app-search-form [autocompleteSources]="config.autocompleteSources"></app-search-form>
+                <app-search-form class="app-search-form" [autocompleteSources]="config.autocompleteSources"></app-search-form>
             </ng-template>
 
             <ng-template uib-template="baskets-menu" display="Collections menu">
