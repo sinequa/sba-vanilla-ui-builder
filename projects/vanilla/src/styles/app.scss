@@ -1,52 +1,6 @@
-@import "@angular/cdk/overlay-prebuilt";
 
-// Overriding Bootstrap variables
-$grid-breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 992px,
-    lg: 1400px,
-    xl: 1650px
-);
-
-$container-max-widths: (
-    sm: 540px,
-    md: 960px,
-    lg: 1360px,
-    xl: 1610px
-);
-
-// Bootstrap styles
-@import "bootstrap/scss/bootstrap";
-
+@import "@sinequa/components/theme/sinequa";
 @import "@sinequa/ngx-ui-builder/styles/ui-builder";
-
-// Fontawesome
-$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "@fortawesome/fontawesome-free/scss/brands";
-@import "@fortawesome/fontawesome-free/scss/regular";
-@import "@fortawesome/fontawesome-free/scss/solid";
-
-@import "vis-network/dist/dist/vis-network.min.css";
-
-
-.btn-link {
-    text-decoration: none;
-}
-
-// CDK drag & drop
-.cdk-drag-preview {
-    z-index: 2000 !important;
-}
-
-// Validation
-sq-validation-message {
-    @extend .invalid-feedback;
-    .form-group > .is-invalid ~ & {
-        display: block;
-    }
-}
 
 // File formats & metadata icons
 @import "icons";
@@ -54,23 +8,16 @@ sq-validation-message {
 // Preview stylings (incl. entity highlights & metadata)
 @import "preview";
 
-// Sinequa components stylesheets
-$action-menu-breakpoint: sm;
-@import "@sinequa/components/action/bootstrap/action.scss";
-@import "@sinequa/components/notification/bootstrap/notification.scss";
-@import "@sinequa/components/metadata/metadata.scss";
-@import "@sinequa/components/advanced/bootstrap/advanced.scss";
-
-// default sinequa configuration
-@import 'themes/default';
-
-.sinequa {
-    @import "@sinequa/components/theme/vanilla";
+// override preview .matchlocations properties now that the <b> we used to have for them
+// are now with this class
+span.matchlocations:not(.sq-inactive) {
+    font-weight: 600;
+    color: inherit !important;
+    background-color: transparent !important;
 }
-@import "@sinequa/components/theme/vanilla-dark";
 
+// SBA components custom CSS overrides
+@import "vanilla";
 
 // allow cusomization
-@import 'themes/custom';
-
-@import 'dark-mode';
+// @import 'themes/custom';
