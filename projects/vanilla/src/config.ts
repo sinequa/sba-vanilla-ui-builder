@@ -73,12 +73,13 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'navbar',
     type: '_container',
-    items: ['global','logo','search-form','baskets-menu','saved-queries-menu','labels-menu','alerts-menu','user-menu','feedback-menu'],
+    items: ['global','logo','search-form','menus'],
     classes: 'flex-grow-1 align-items-center'
   },
   {
     id: "logo",
     type: "logo",
+    classes: "col-lg-3 col-xl-2",
     logoLightLg: "assets/sinequa-logo-light-lg.png",
     logoLightSm: "assets/sinequa-logo-light-sm.png",
     logoDarkLg: "assets/sinequa-logo-dark-lg.png",
@@ -87,7 +88,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'search-form',
     type: 'search-form',
-    classes: 'flex-grow-1 flex-basis-0 mx-3',
+    classes: 'col-5 col-lg-5 app-search-form px-2',
     autocompleteSources: ['suggests','baskets','recent-documents','recent-queries','saved-queries'],
     enableVoiceRecognition: true,
     keepTab: true,
@@ -120,6 +121,19 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'user-menu',
     type: 'user-menu',
     classes: 'navbar-nav navbar-right'
+  },
+  {
+    type: "_container",
+    id: "menus",
+    items: [
+      "labels-menu",
+      "baskets-menu",
+      "saved-queries-menu",
+      "alerts-menu",
+      "user-menu",
+      "feedback-menu"
+    ],
+    "classes": "w-100 justify-content-end"
   }
 ];
 
@@ -283,8 +297,13 @@ export const TOOLBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'results-header',
     type: '_container',
-    items: ['tabs','toolbar','did-you-mean','sponsored-results', 'answer-card', 'top-passages'],
+    items: ['tabs', 'top-passages', 'toolbar','did-you-mean','sponsored-results', 'answer-card'],
     classes: 'flex-column'
+  },
+  {
+    id: "tabs",
+    type: "tabs",
+    classes: "mb-3"
   },
   {
     id: 'toolbar',

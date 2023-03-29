@@ -1,77 +1,76 @@
-<div class="nav-wrapper">
-    <!-- Navbar with app icon, search form, and menus -->
-    <nav class="navbar navbar-expand-sm bg-light">
-        <uib-zone id="navbar" class="container-xl" *ngIf="loginService.complete">
-            <!-- Application logo -->
-            <ng-template uib-template="logo" display="App logo" let-config>
-                <a [routerLink]="['/home']" title="Home">
-                    <img id="logo" [src]="config.logoLightLg" alt="sinequa logo" *ngIf="config.logoLightLg && !isDark() && ui.screenSizeIsGreater('md')">
-                    <img id="logo" [src]="config.logoLightSm" alt="sinequa logo" *ngIf="config.logoLightSm && !isDark() && ui.screenSizeIsLessOrEqual('md')">
-                    <img id="logo" [src]="config.logoDarkLg" alt="sinequa logo" *ngIf="config.logoDarkLg && isDark() && ui.screenSizeIsGreater('md')">
-                    <img id="logo" [src]="config.logoDarkSm" alt="sinequa logo" *ngIf="config.logoDarkSm && isDark() && ui.screenSizeIsLessOrEqual('md')">
-                </a>
-            </ng-template>
+<!-- Navbar with app icon, search form, and menus -->
+<nav class="navbar navbar-expand-sm bg-light sticky-top" [ngClass]="{'navbar-dark': ui.isDark()}">
+    <uib-zone id="navbar" class="container-xl flex-nowrap" *ngIf="loginService.complete">
+        <!-- Application logo -->
+        <ng-template uib-template="logo" display="App logo" let-config>
+            <a [routerLink]="['/home']" title="Home">
+                <img id="logo" [src]="config.logoLightLg" alt="sinequa logo" *ngIf="config.logoLightLg && !ui.isDark() && ui.screenSizeIsGreater('md')">
+                <img id="logo" [src]="config.logoLightSm" alt="sinequa logo" *ngIf="config.logoLightSm && !ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
+                <img id="logo" [src]="config.logoDarkLg" alt="sinequa logo" *ngIf="config.logoDarkLg && ui.isDark() && ui.screenSizeIsGreater('md')">
+                <img id="logo" [src]="config.logoDarkSm" alt="sinequa logo" *ngIf="config.logoDarkSm && ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
+            </a>
+        </ng-template>
 
-            <!-- Search form -->
-            <ng-template uib-template="search-form" display="Search form" let-config>
-                <app-search-form class="app-search-form" [autocompleteSources]="config.autocompleteSources"></app-search-form>
-            </ng-template>
+        <!-- Search form -->
+        <ng-template uib-template="search-form" display="Search form" let-config>
+            <app-search-form class="app-search-form" [autocompleteSources]="config.autocompleteSources"></app-search-form>
+        </ng-template>
 
-            <ng-template uib-template="baskets-menu" display="Collections menu">
-                <sq-baskets-menu [icon]="'fas fa-inbox'"></sq-baskets-menu>
-            </ng-template>
+        <ng-template uib-template="baskets-menu" display="Collections menu">
+            <sq-baskets-menu icon="fas fa-inbox"></sq-baskets-menu>
+        </ng-template>
 
-            <ng-template uib-template="saved-queries-menu" display="Saved queries menu">
-                <sq-saved-queries-menu></sq-saved-queries-menu>
-            </ng-template>
+        <ng-template uib-template="saved-queries-menu" display="Saved queries menu">
+            <sq-saved-queries-menu></sq-saved-queries-menu>
+        </ng-template>
 
-            <ng-template uib-template="alerts-menu" display="Alerts menu">
-                <sq-alerts-menu></sq-alerts-menu>
-            </ng-template>
+        <ng-template uib-template="alerts-menu" display="Alerts menu">
+            <sq-alerts-menu></sq-alerts-menu>
+        </ng-template>
 
-            <ng-template uib-template="labels-menu" display="Labels menu">
-                <sq-labels-menu [results]="results$ | async"></sq-labels-menu>
-            </ng-template>
+        <ng-template uib-template="labels-menu" display="Labels menu">
+            <sq-labels-menu [results]="results$ | async"></sq-labels-menu>
+        </ng-template>
 
-            <ng-template uib-template="user-menu" display="User menu">
-                <sq-user-menu [display]="'fullName'"></sq-user-menu>
-            </ng-template>
+        <ng-template uib-template="user-menu" display="User menu">
+            <sq-user-menu [display]="'fullName'"></sq-user-menu>
+        </ng-template>
 
-            <ng-template uib-template="feedback-menu" display="Feedback menu">
-                <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
-            </ng-template>
+        <ng-template uib-template="feedback-menu" display="Feedback menu">
+            <sq-feedback-menu [style]="'primary'" [rightAligned]="true" *ngIf="loginService.complete"></sq-feedback-menu>
+        </ng-template>
 
-            <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
-              <sq-global
-              [backgroundColor]="config.backgroundColor"
-              [gradientColor]="config.gradientColor"
-              [backgroundImage]="config.backgroundImage"
-              [brandingColor]="config.brandingColor"
-              [primaryColor]="config.primaryColor"
-              [secondaryColor]="config.secondaryColor"
-              [textColor]="config.textColor"
-              [fontFamily]="config.fontFamily"
-              [theme]="config.theme"></sq-global>
-            </ng-template>
-        </uib-zone>
+        <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
+          <sq-global
+          [backgroundColor]="config.backgroundColor"
+          [gradientColor]="config.gradientColor"
+          [backgroundImage]="config.backgroundImage"
+          [brandingColor]="config.brandingColor"
+          [primaryColor]="config.primaryColor"
+          [secondaryColor]="config.secondaryColor"
+          [textColor]="config.textColor"
+          [fontFamily]="config.fontFamily"
+          [theme]="config.theme"></sq-global>
+        </ng-template>
+    </uib-zone>
 
-        <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
-          <div class="navbar-nav navbar-right">
-            <sq-user-menu></sq-user-menu>
-          </div>
-        </div>
-    </nav>
+    <!-- only visible when user is not authenticated yet -->
+    <div class="container-xl justify-content-end" *ngIf="!loginService.complete">
+      <div class="navbar-nav navbar-right">
+        <sq-user-menu display="fullName"></sq-user-menu>
+      </div>
+    </div>
+</nav>
 
-    <!-- Loading bar (Manages its own state and visibility via the search service) -->
-    <sq-loading-bar></sq-loading-bar>
-</div>
+<!-- Loading bar (Manages its own state and visibility via the search service) -->
+<sq-loading-bar></sq-loading-bar>
 
 <!-- Main interface -->
 <div class="container-xl main" *ngIf="loginService.complete">
     <div class="row" *ngIf="results$ | async; let results">
 
         <!-- Left facet bar -->
-        <div class="col-md-4 col-lg-3 col-xl-2" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 80}">
+        <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2 sq-facet-bar" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" display="List facet" title="A component that displays a list of metadata to filter the results" let-config>
                     <sq-facet-card class="d-block mb-3" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
@@ -129,15 +128,8 @@
             </uib-zone>
         </div>
 
-        <!-- Result selection toolbar -->
-        <div class="card-action-bar rounded text-white bg-primary position-fixed w-auto" *ngIf="ui.screenSizeIsGreater('sm')">
-            <div class="p-2">
-                <sq-results-selector [style]="'primary'"></sq-results-selector>
-            </div>
-        </div>
-
         <!-- Results -->
-        <div class="col-lg-5" [ngClass]="{'col-md-7': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
+        <div class="col-sm-12 col-lg-5" [ngClass]="{'col-md-6': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
                 <ng-template uib-template="tabs" display="Tabs" let-config>
@@ -173,7 +165,7 @@
                 <ng-template uib-template="answer-card" display="Answer card" title="Answer generated by Neural Search (if activated)">
 
                     <!-- Answer card -->
-                    <sq-facet-card class="mt-3" *ngIf="hasAnswers" #answersFacet>
+                    <sq-facet-card class="mb-3" *ngIf="hasAnswers" #answersFacet>
                         <sq-answer-card #facet [results]="results" (previewOpened)="onPreviewOpened($event)"
                             (titleClicked)="onTitleClick($event)" [collapsed]="answersFacet._collapsed"></sq-answer-card>
                     </sq-facet-card>
@@ -183,7 +175,7 @@
                 <ng-template uib-template="top-passages" display="Top Passages" title="Top passages generated by Neural Search (if activated)">
 
                     <!-- nth top pasages -->
-                    <sq-facet-card class="mt-3" *ngIf="hasPassages" #passagesFacet>
+                    <sq-facet-card class="mb-3" *ngIf="hasPassages" title="msg#machine-learning.passages" icon="fas fa-brain primary-icon" [collapsible]="true" buttonsStyle="primary">
                         <sq-top-passages #facet [results]="results" (previewOpened)="onPreviewOpened($event)"
                             (titleClicked)="onTitleClick($event)"></sq-top-passages>
                     </sq-facet-card>
@@ -250,7 +242,17 @@
         </div>
 
         <!-- Right part-->
-        <div class="col-md-5 col-lg-4 col-xl-5" [sqSticky]="{top: 96, bottom: 15}">
+        <div class="col-sm-12 col-lg-4 col-xl-5" [sqSticky]="{top: 80, bottom: 10}">
+
+            <!-- Without selected document -->
+            <!-- hidden only on md resolution -->
+            <sq-facet-card *ngIf="!openedDoc" class="d-none d-sm-block no-record" [ngClass]="{ 'd-none d-lg-block mb-3': showFilters }" [collapsible]="false" [title]="'msg#facet.preview.documentPreview'">
+              <div class="text-center">
+                  <img src="assets/sinequa-empty-preview.png" class="mb-3">
+                  <p class="fw-bold">{{'msg#facet.preview.documentPreviewTitle' | sqMessage}}</p>
+                  <p>{{'msg#facet.preview.documentPreviewDescription' | sqMessage}}</p>
+              </div>
+            </sq-facet-card>
 
             <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
                 <ng-template uib-template="preview" display="Preview" title="Preview of a selected document" let-config let-record="data">
@@ -267,7 +269,8 @@
                         class="facet-preview">
 
                         <ng-template #headerTpl>
-                            <sq-result-title class="flex-grow-1" [record]="record" field="title" titleLinkBehavior="open-if-url"></sq-result-title>
+                          <sq-result-icon [record]="openedDoc" class="me-1"></sq-result-icon>
+                          <sq-result-title class="flex-grow-1" [record]="record" field="title" titleLinkBehavior="open-if-url"></sq-result-title>
                         </ng-template>
 
                         <ng-template #subHeaderTpl>
@@ -278,6 +281,10 @@
                                 [showIcons]="config.metadataShowIcon"
                                 [clickable]="config.metadataClickable">
                             </sq-metadata>
+                        </ng-template>
+
+                        <ng-template [sqFacetView]="{text: 'msg#facet.preview.viewPassages'}" [default]="true" *ngIf="openedDoc?.$hasPassages" #passagesList>
+                          <sq-passage-list [record]="openedDoc" [passageId]="passageId"></sq-passage-list>
                         </ng-template>
 
                         <ng-template [sqFacetView]="{text: 'msg#facet.preview.viewPreview'}">
@@ -293,22 +300,18 @@
                             </sq-facet-preview-2>
                         </ng-template>
 
-                        <ng-template [sqFacetView]="{text: 'msg#facet.preview.viewPassages'}" [default]="passagesByDefault" *ngIf="record.$hasPassages">
-                            <sq-passage-list [record]="record"></sq-passage-list>
-                        </ng-template>
-
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="timeline" display="Timeline" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="isDark()? 'dark' : 'light'"></sq-facet-timeline>
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="ui.isDark()? 'dark' : 'light'"></sq-facet-timeline>
                     </sq-facet-card>
                 </ng-template>
 
                 <ng-template uib-template="heatmap" display="Heatmap" let-config>
                     <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
-                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields" [theme]="isDark()? 'dark' : 'light'"></sq-facet-heatmap>
+                        <sq-facet-heatmap #facet [results]="results" [fieldX]="config.fieldX" [fieldY]="config.fieldY" [fieldsX]="config.fields" [fieldsY]="config.fields" [theme]="ui.isDark()? 'dark' : 'light'"></sq-facet-heatmap>
                     </sq-facet-card>
                 </ng-template>
 
@@ -320,7 +323,7 @@
                             [types]="config.chartTypes.length? config.chartTypes : null"
                             [aggregation]="config.aggregation"
                             [aggregations]="config.aggregations.length? config.aggregations : null"
-                            [chart]="{theme: isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"
+                            [chart]="{theme: ui.isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"
                             [defaultColor]="config.defaultColor"
                             [filteredColor]="config.filteredColor"
                             [selectedColor]="config.selectedColor">
@@ -361,6 +364,11 @@
 
           </div>
     </div>
+</div>
+
+<!-- Result selection toolbar -->
+<div class="card-action-bar rounded text-white bg-primary position-fixed w-auto p-2 d-none d-md-block" *ngIf="ui.screenSizeIsGreater('sm')">
+  <sq-results-selector [style]="'primary'"></sq-results-selector>
 </div>
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">

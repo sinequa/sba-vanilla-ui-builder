@@ -1,4 +1,26 @@
 
+/****************************************************
+    colors overrides
+****************************************************/
+$secondary: #515960;
+$link-decoration: none;
+
+$nav-link-color: rgb(0, 0, 0, 0.55);
+$nav-link-hover-color: rgb(0, 0, 0, .7);
+
+/****************************************************
+    Dark colors
+****************************************************/
+$dark-color: #f8f9fa;
+$dark-secondary: #c9c0c0;
+$dark-background: #1c1e21;
+$dark-background-highlight: rgb(255, 255, 255, 0.15);
+$dark-background-hover: rgb(255, 255, 255, 0.08);
+$dark-borders: #777373;
+$dark-link: #9bccff;
+
+// Sinequa global theme (contains Bootstrap imports)
+// @import "../../../components/theme/minimal";
 @import "@sinequa/components/theme/sinequa";
 @import "@sinequa/ngx-ui-builder/styles/ui-builder";
 
@@ -8,16 +30,5 @@
 // Preview stylings (incl. entity highlights & metadata)
 @import "preview";
 
-// override preview .matchlocations properties now that the <b> we used to have for them
-// are now with this class
-span.matchlocations:not(.sq-inactive) {
-    font-weight: 600;
-    color: inherit !important;
-    background-color: transparent !important;
-}
-
 // SBA components custom CSS overrides
 @import "vanilla";
-
-// allow cusomization
-// @import 'themes/custom';
