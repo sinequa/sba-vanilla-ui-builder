@@ -1,90 +1,69 @@
 #logo {
-    height: 40px;
-}
-
-.nav-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    & > .navbar {
-        min-height: 50px;
-    }
+  height: 40px;
 }
 
 .main {
-    margin-top: 70px;
-    margin-bottom: 20px;
+  margin-top: 1rem;
+  margin-bottom: 20px;
+}
+
+.sq-facet-bar {
+  position: relative;
+  z-index: 1; // This is needed for dropdown menus from the facet actions not to be masked by the sq-filters-view which has position: relative
+}
+
+// Styling of the result items
+.record {
+  display: flex;
+  padding: 0.5em 15px;
+  margin: 0 -15px;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(0, 0, 0, 0.03);
+  }
+
+  &.selected {
+    background-color: rgb(0, 0, 0, 0.05);
+  }
+
+  .flex-grow-1 {
+    min-width: 0; // force the flex item to shrink to the parent size
+  }
+}
+
+// Selection / Action bar on top of results (position: fixed)
+.card-action-bar {
+  bottom: 10px;
+  margin-left: 15px;
+  z-index: 4;
+}
+
+// The default view in the mini preview when nothing is selected
+.no-record {
+  .card {
+    height: min(100vh, 100vh - 100px);
+  }
+
+  sq-collapse {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: clip; // similar to hidden, but forbids all scrolling
+  }
+
+  img {
+    width: 10rem;
+  }
+
+  p {
+    max-width: 50%;
+    margin: auto;
+  }
 }
 
 .app-search-form {
   min-height: 41px;
 }
-
-// Selection / Action bar on top of results (position: fixed)
-.card-action-bar {
-    bottom: 10px;
-    margin-left: 15px;
-    z-index: 4;
-}
-
-.result-list {
-    display: flex;
-    flex-wrap: wrap;
-
-    .record {
-      display: flex;
-
-      &:hover {
-        background-color: rgb(0, 0, 0, 0.03);
-      }
-
-      &.selected {
-        background-color: rgb(0, 0, 0, 0.05);
-      }
-
-      cursor: pointer;
-
-      sq-result-title {
-        display: block; // Added to force truncation of long titles with ellipsis
-        max-width: 100%;
-
-        .record .match-highlight {
-          font-weight: bold;
-          font-style: italic;
-        }
-      }
-
-      &.list-view {
-        padding: 0.5em 15px;
-        margin: 0 -15px;
-        width: calc(100% + 30px);
-
-        sq-result-thumbnail {
-          --thumbnail-max-width: 100px;
-          --thumbnail-max-height: 150px;
-          --thumbnail-border-radius: 3px;
-
-          & img {
-            max-width: var(--thumbnail-max-width);
-            max-height: var(--thumbnail-max-height);
-            border-radius: var(--thumbnail-border-radius);
-          }
-        }
-      }
-
-      &.tile-view {
-        padding: 0.5em;
-        width: 50%;
-
-        sq-result-thumbnail img {
-          object-fit: cover;
-          object-position: center;
-          width: 100%;
-          height: 250px;
-          border-radius: 1em;
-        }
-      }
-    }
-  }
