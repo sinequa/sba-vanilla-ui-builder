@@ -1,6 +1,8 @@
 /****************************************************
   VANILLA-SEARCH
 ****************************************************/
+// tint-color() and shade-color() needs this import
+@use "bootstrap/scss/functions";
 
 // SBA Components
 $dark-result-source-color: #a9c7b4;
@@ -59,6 +61,19 @@ app-search {
 
 .extracts-date {
   font-weight: 500;
+}
+
+// set default colors for unknown metadata
+.sq-metadata-item-values {
+  a.badge {
+    color: black;
+    background-color: whitesmoke;
+
+    &:hover {
+      color: whitesmoke;
+      background-color: black;
+    }
+  }
 }
 
 /****************************************************
