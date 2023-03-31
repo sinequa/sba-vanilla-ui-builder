@@ -133,7 +133,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
       "user-menu",
       "feedback-menu"
     ],
-    "classes": "w-100 justify-content-end"
+    "classes": "w-100 justify-content-end align-items-center"
   }
 ];
 
