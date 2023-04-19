@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
 import { BsFacetCard, DEFAULT_FACET_COMPONENTS, FacetConfig, FacetViewDirective } from '@sinequa/components/facet';
-import { PreviewDocument, PreviewService } from '@sinequa/components/preview';
+import { PreviewHighlightColors, PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
 import { UIService } from '@sinequa/components/utils';
@@ -12,7 +12,7 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
-import { FacetParams } from '../../config';
+import { FacetParams, PREVIEW_HIGHLIGHTS } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 
 @Component({
@@ -188,6 +188,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  public get previewHighlights(): PreviewHighlightColors[] {
+    return this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
+  }
+
   /**
    * Responds to a click on a document (setting openedDoc will open the preview facet)
    * @param record
@@ -237,17 +241,6 @@ export class SearchComponent implements OnInit {
         this._showFilters = true; // Show filters on medium screen when document is closed
       }
     }
-  }
-
-  /**
-   * Document is loaded and displayed on screen. It could be manipulated easily.
-   *
-   * eg: scroll to a specific location
-   * document.getContentWindow().scrollTo(0, 3000);
-   * @param document the document currently in preview
-   */
-  previewReady(document: PreviewDocument) {
-    // document.getContentWindow().scrollTo(0, Math.random() * 4000);
   }
 
   // Make sure the click is not meant to trigger an action (from sq-result-source or sq-result-title)

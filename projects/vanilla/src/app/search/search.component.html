@@ -288,16 +288,15 @@
                         </ng-template>
 
                         <ng-template [sqFacetView]="{text: 'msg#facet.preview.viewPreview'}">
-                            <sq-facet-preview-2 #facet
-                                [record]="record"
-                                [query]="searchService.query"
-                                [height]="config.height"
-                                [highlightActions]="config.highlightActions"
-                                [highlightEntities]="config.highlightEntities"
-                                [highlightExtracts]="config.highlightExtracts"
-                                [extracts]="config.extracts"
-                                (previewLoaded)="previewReady($event)">
-                            </sq-facet-preview-2>
+                          <sq-preview #facet
+                            style="height: calc(100vh - 220px);"
+                            [id]="openedDoc?.id"
+                            [query]="searchService.query"
+                            [highlightColors]="previewHighlights"
+                            [highlightEntities]="false"
+                            [preferenceName]="'mini-preview'"
+                            [scale]="0.8">
+                          </sq-preview>
                         </ng-template>
 
                     </sq-facet-card>

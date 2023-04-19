@@ -31,7 +31,7 @@ import { BsLabelsModule } from '@sinequa/components/labels';
 import { BsUserSettingsModule } from '@sinequa/components/user-settings';
 import { ResultModule } from '@sinequa/components/result';
 import { BsFeedbackModule } from '@sinequa/components/feedback';
-import { BsPreviewModule } from '@sinequa/components/preview';
+import { PreviewModule } from '@sinequa/components/preview';
 import { MetadataModule } from '@sinequa/components/metadata';
 import { BsSelectionModule, SELECTION_OPTIONS } from '@sinequa/components/selection';
 import { BsAdvancedModule } from '@sinequa/components/advanced';
@@ -166,7 +166,7 @@ export const breakpoints = {
         BsUserSettingsModule,
         ResultModule,
         BsFeedbackModule,
-        BsPreviewModule,
+        PreviewModule,
         MetadataModule,
         BsSelectionModule,
         BsAdvancedModule,
