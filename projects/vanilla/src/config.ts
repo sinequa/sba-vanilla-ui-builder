@@ -1,6 +1,7 @@
 import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from '@sinequa/components/facet';
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
+import { PreviewHighlightColors } from '@sinequa/components/preview';
 
 
 /**
@@ -453,3 +454,31 @@ export const RESULTS_VIEWS_CONFIG = [
     config: RESULTS_VIEW_TILES_CONFIG
   }
 ];
+
+export const PREVIEW_HIGHLIGHTS: PreviewHighlightColors[] = [
+  {
+    name: 'company',
+    color: 'white',
+    bgColor: '#FF7675'
+  },
+  {
+    name: 'geo',
+    color: 'white',
+    bgColor: '#74B9FF'
+  },
+  {
+    name: 'person',
+    color: 'white',
+    bgColor: '#00ABB5'
+  },
+  {
+    name: 'extractslocations',
+    color: 'black',
+    bgColor: '#fffacd'
+  },
+  {
+    name: 'matchlocations',
+    color: 'black',
+    bgColor: '#ff0'
+  }
+]
