@@ -9,7 +9,15 @@ import { AppConfigService } from "../app-config.service";
 
 @Component({
   selector: 'sq-ui-builder-toolbar',
-  templateUrl: './toolbar.component.html'
+  templateUrl: './toolbar.component.html',
+  styles: [`
+    .dropdown-item {
+      width: calc(100% - .5rem);
+    }
+    .dropdown-divider {
+      margin: 0;
+    }
+  `]
 })
 export class ToolbarComponent {
 
@@ -50,14 +58,7 @@ export class ToolbarComponent {
   }
 
   exportConfig() {
-    const config = JSON.stringify(this.configService.getAllConfig(), null, 2);
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(config));
-    element.setAttribute('download', "config.json");
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    this.configService.exportConfiguration();
   }
 
   importConfig(importConfigElement: HTMLInputElement) {

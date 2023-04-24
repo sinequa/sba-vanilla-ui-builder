@@ -1,38 +1,48 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import { inject, Injectable, OnDestroy } from "@angular/core";
+import { ConfigService } from "@sinequa/ngx-ui-builder";
 
 import { hexToHSL, hexToRGBA, RGBAToHexA, shadeColor, tintColor } from "./colors";
+import { Subscription } from "rxjs";
 
 type ColorVariants = "primary" | "secondary" | "brand";
 
-@Component({
-  selector: 'sq-global',
-  template: ``
-})
-export class GlobalComponent implements OnChanges {
-  @Input() backgroundColor?: string;
-  @Input() gradientColor?:string
-  @Input() backgroundImage?:string;
-  @Input() brandingColor?:string;
-  @Input() primaryColor?:string;
-  @Input() secondaryColor?:string;
-  @Input() textColor?:string;
-  @Input() fontFamily?:string;
-  @Input() theme?:boolean;
+export const configFactory = (global: GlobalService) => {
+  global.startListening();
+}
 
-  ngOnChanges(): void {
-    if (this.theme) {
+@Injectable({ providedIn: "root"})
+export class GlobalService implements OnDestroy {
+
+  private subscription: Subscription;
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  startListening() {
+    if (!this.subscription) {
+      const configService = inject(ConfigService);
+      this.subscription = configService.watchConfig("global")
+        .subscribe(value => this.changes(value as any));
+    }
+  }
+
+  changes({backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor}): void {
+    if (theme) {
       document.body.classList.add("sinequa");
     }
 
-    if(this.fontFamily) {
-      document.documentElement.style.setProperty('--bs-body-font-family', this.fontFamily);
+    if(fontFamily) {
+      document.documentElement.style.setProperty('--bs-body-font-family', fontFamily);
     }
     else {
       document.documentElement.style.removeProperty("--bs-body-font-family");
     }
 
-    if(this.backgroundImage) {
-      document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+    if(backgroundImage) {
+      document.body.style.backgroundImage = `url(${backgroundImage})`;
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundPosition = '50%';
       document.body.style.backgroundSize = 'cover';
@@ -44,24 +54,24 @@ export class GlobalComponent implements OnChanges {
       document.body.style.backgroundSize = '';
     }
 
-    if(!this.backgroundImage && this.backgroundColor) {
-      document.documentElement.style.setProperty('--background-color', this.backgroundColor);
+    if(!backgroundImage && backgroundColor) {
+      document.documentElement.style.setProperty('--bs-body-bg', backgroundColor);
     }
     else {
-      document.documentElement.style.removeProperty('--background-color');
+      document.documentElement.style.removeProperty('--bs-body-bg');
     }
 
-    if(!this.backgroundImage && this.gradientColor) {
-      document.documentElement.style.setProperty('--gradient-color', this.gradientColor);
+    if(!backgroundImage && gradientColor) {
+      document.documentElement.style.setProperty('--gradient-color', gradientColor);
     }
     else {
       document.documentElement.style.removeProperty('--gradient-color');
     }
 
-    if (this.primaryColor) {
-      this.setColorVariants(this.primaryColor, "primary");
+    if (primaryColor) {
+      this.setColorVariants(primaryColor, "primary");
       document.documentElement.style.setProperty('--primary', `var(--primary-300)`);
-      const [r, g, b] = hexToRGBA(this.primaryColor);
+      const [r, g, b] = hexToRGBA(primaryColor);
       document.documentElement.style.setProperty('--primary-rgb',`${r},${g},${b}` );
     }
     else {
@@ -70,10 +80,10 @@ export class GlobalComponent implements OnChanges {
       document.documentElement.style.removeProperty('--primary-rgb');
     }
 
-    if (this.secondaryColor) {
-      this.setColorVariants(this.secondaryColor, "secondary");
+    if (secondaryColor) {
+      this.setColorVariants(secondaryColor, "secondary");
       document.documentElement.style.setProperty('--secondary', `var(--secondary-300)`);
-      const [r, g, b] = hexToRGBA(this.secondaryColor);
+      const [r, g, b] = hexToRGBA(secondaryColor);
       document.documentElement.style.setProperty('--secondary-rgb',`${r},${g},${b}` );
     }
     else {
@@ -82,14 +92,14 @@ export class GlobalComponent implements OnChanges {
       document.documentElement.style.removeProperty('--secondary-rgb');
     }
 
-    if (this.brandingColor) {
-      const [h, s, l] = hexToHSL(this.brandingColor);
+    if (brandingColor) {
+      const [h, s, l] = hexToHSL(brandingColor);
 
       document.documentElement.style.setProperty('--brand-hue', `${h}`);
       document.documentElement.style.setProperty('--brand-saturation', `${s}%`);
       document.documentElement.style.setProperty('--brand-lightness', `${l}%`);
 
-      this.setColorVariants(this.brandingColor, "brand");
+      this.setColorVariants(brandingColor, "brand");
       document.documentElement.style.setProperty('--brand', `var(--brand-300)`);
 
       document.documentElement.style.setProperty('--text1', 'hsl(var(--brand-hue) var(--brand-saturation) 10%)');
@@ -113,8 +123,8 @@ export class GlobalComponent implements OnChanges {
       document.documentElement.style.removeProperty('--sq-text-hover');
     }
 
-    if (this.textColor) {
-      document.documentElement.style.setProperty('--sq-text', `var(--${this.textColor})`);
+    if (textColor) {
+      document.documentElement.style.setProperty('--sq-text', `var(--${textColor})`);
     }
     else {
       document.documentElement.style.removeProperty('--sq-text');

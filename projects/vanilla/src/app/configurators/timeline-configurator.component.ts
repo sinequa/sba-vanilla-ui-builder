@@ -16,12 +16,12 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
     <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
   </select>
 
-  <sq-checkbox [context]="context" property="timeseries.0.showDatapoints" label="Show datapoints"></sq-checkbox>
+  <uib-checkbox [context]="context" property="timeseries.0.showDatapoints" label="Show datapoints"></uib-checkbox>
 
-  <sq-color-picker [context]="context" property="timeseries.0.lineStyles.stroke" label="Line color"></sq-color-picker>
-  <sq-color-picker [context]="context" property="timeseries.0.areaStyles.fill" label="Area color"></sq-color-picker>
+  <uib-color-picker [context]="context" property="timeseries.0.lineStyles.stroke" label="Line color"></uib-color-picker>
+  <uib-color-picker [context]="context" property="timeseries.0.areaStyles.fill" label="Area color"></uib-color-picker>
 
-  <sq-checkbox [context]="context" property="showRecords" label="Show documents/records on the X axis"></sq-checkbox>
+  <uib-checkbox [context]="context" property="showRecords" label="Show documents/records on the X axis"></uib-checkbox>
 </div>
 `
 })

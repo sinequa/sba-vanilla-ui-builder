@@ -9,25 +9,25 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   <label for="height">Preview height</label>
   <input type="number" class="form-control mb-2" id="height" autocomplete="off" spellcheck="off" min="0" max="10000" [(ngModel)]="context.config.height" (ngModelChangeDebounced)="context.configChanged()">
 
-  <sq-checkbox [context]="context" property="highlightActions" label="Enable highlight options"></sq-checkbox>
-  <sq-checkbox [context]="context" property="highlightEntities" label="Highlight entities by default"></sq-checkbox>
-  <sq-checkbox [context]="context" property="highlightExtracts" label="Highlight extracts by default"></sq-checkbox>
+  <uib-checkbox [context]="context" property="highlightActions" label="Enable highlight options"></uib-checkbox>
+  <uib-checkbox [context]="context" property="highlightEntities" label="Highlight entities by default"></uib-checkbox>
+  <uib-checkbox [context]="context" property="highlightExtracts" label="Highlight extracts by default"></uib-checkbox>
 
   <label>Extract options</label>
   <p class="small text-muted m-0">Select which type of extracts should be highlighted.</p>
-  <sq-select-multi [options]="extractOptions" [(ngModel)]="context.config.extracts" (ngModelChange)="context.configChanged()" valueField="value" displayField="display">
-  </sq-select-multi>
+  <uib-multi-selector [options]="extractOptions" [(ngModel)]="context.config.extracts" (ngModelChange)="context.configChanged()" valueField="value" displayField="display">
+  </uib-multi-selector>
 
   <h6 class="mt-2">Metadata options</h6>
 
-  <sq-checkbox [context]="context" property="metadataShowTitle" label="Show metadata title"></sq-checkbox>
-  <sq-checkbox [context]="context" property="metadataShowIcon" label="Show metadata icon"></sq-checkbox>
-  <sq-checkbox [context]="context" property="metadataClickable" label="Metadata clickable"></sq-checkbox>
+  <uib-checkbox [context]="context" property="metadataShowTitle" label="Show metadata title"></uib-checkbox>
+  <uib-checkbox [context]="context" property="metadataShowIcon" label="Show metadata icon"></uib-checkbox>
+  <uib-checkbox [context]="context" property="metadataClickable" label="Metadata clickable"></uib-checkbox>
 
   <label>Metadata</label>
   <p class="small text-muted m-0">Select which metadata to display in the preview header. The order of the metadata can be changed by dragging the following options up and down.</p>
-  <sq-select-multi [options]="metadata" [enableReorder]="true" [(ngModel)]="context.config.metadata" (ngModelChange)="context.configChanged()">
-  </sq-select-multi>
+  <uib-multi-selector [options]="metadata" [enableReorder]="true" [(ngModel)]="context.config.metadata" (ngModelChange)="context.configChanged()">
+  </uib-multi-selector>
 
   `
 })

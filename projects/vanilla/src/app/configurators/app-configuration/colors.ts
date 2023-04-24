@@ -102,7 +102,7 @@ function RGBToHSL(r: number, g: number, b: number): [number, number, number] {
   // lightness
   l = (cmax + cmin) / 2;
 
-  // staturation
+  // saturation
   s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   s = +(s * 100).toFixed(0);

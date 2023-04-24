@@ -22,11 +22,11 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   </select>
 
   <label>All available fields</label>
-  <sq-select-multi
+  <uib-multi-selector
     [options]="metadata"
     [(ngModel)]="config.fields"
     (ngModelChange)="configChanged()">
-  </sq-select-multi>
+  </uib-multi-selector>
 </div>
 `
 })

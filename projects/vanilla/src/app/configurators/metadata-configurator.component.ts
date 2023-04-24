@@ -11,14 +11,14 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
   </select>
 
-  <sq-checkbox [context]="context" property="clickable" label="Clickable"></sq-checkbox>
-  <sq-checkbox [context]="context" property="showTitle" label="Show title"></sq-checkbox>
-  <sq-checkbox [context]="context" property="showIcon" label="Show icon"></sq-checkbox>
+  <uib-checkbox [context]="context" property="clickable" label="Clickable"></uib-checkbox>
+  <uib-checkbox [context]="context" property="showTitle" label="Show title"></uib-checkbox>
+  <uib-checkbox [context]="context" property="showIcon" label="Show icon"></uib-checkbox>
 
   <div *ngIf="isEntity">
     Entity options:
-    <sq-checkbox [context]="context" property="showCounts" label="Show counts"></sq-checkbox>
-    <sq-checkbox [context]="context" property="showEntityTooltip" label="Show tooltip"></sq-checkbox>
+    <uib-checkbox [context]="context" property="showCounts" label="Show counts"></uib-checkbox>
+    <uib-checkbox [context]="context" property="showEntityTooltip" label="Show tooltip"></uib-checkbox>
   </div>
 </div>
     `

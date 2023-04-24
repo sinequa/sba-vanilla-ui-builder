@@ -1,0 +1,10 @@
+{
+    "context": [
+        "/api",
+        "/xdownload",
+        "/saml/redirect"
+    ],
+    "target": "http://localhost",
+    "secure": true,
+    "changeOrigin": true
+}

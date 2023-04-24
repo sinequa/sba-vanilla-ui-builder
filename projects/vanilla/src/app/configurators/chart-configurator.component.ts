@@ -18,11 +18,11 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   </select>
 
   <label>Aggregations available to users</label>
-  <sq-select-multi
+  <uib-multi-selector
     [options]="aggregations"
     [(ngModel)]="config.aggregations"
     (ngModelChange)="configChanged()">
-  </sq-select-multi>
+  </uib-multi-selector>
 
   <label for="type">Chart Type</label>
   <select id="type" class="form-select mb-2" [(ngModel)]="config.chartType" (ngModelChange)="configChanged()">
@@ -30,17 +30,17 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   </select>
 
   <label>Chart Types available to users</label>
-  <sq-select-multi
+  <uib-multi-selector
     [options]="chartTypes"
     displayField="display"
     [compareWith]="compareChartTypes"
     [(ngModel)]="config.chartTypes"
     (ngModelChange)="configChanged()">
-  </sq-select-multi>
+  </uib-multi-selector>
 
-  <sq-color-picker [context]="context" property="defaultColor" label="Default color"></sq-color-picker>
-  <sq-color-picker [context]="context" property="filteredColor" label="Filtered color"></sq-color-picker>
-  <sq-color-picker [context]="context" property="selectedColor" label="Selected color"></sq-color-picker>
+  <uib-color-picker [context]="context" property="defaultColor" label="Default color"></uib-color-picker>
+  <uib-color-picker [context]="context" property="filteredColor" label="Filtered color"></uib-color-picker>
+  <uib-color-picker [context]="context" property="selectedColor" label="Selected color"></uib-color-picker>
 </div>
 `
 })

@@ -15,7 +15,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'home',
     type: '_container',
     classes: 'flex-column align-items-center',
-    items: ['home-logo', 'home-title', 'search-form-wrapper', 'home-actions', 'home-facets', 'global']
+    items: ['home-logo', 'home-title', 'search-form', 'home-actions', 'home-facets']
   },
   {
     id: 'home-logo',
@@ -27,12 +27,6 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'home-title',
     type: '_raw-html',
     rawHtml: "<h1>Vanilla Builder</h1>"
-  },
-  {
-    id: 'search-form-wrapper',
-    type: '_container',
-    classes: 'my-2',
-    items: ['search-form']
   },
   {
     id: 'home-facets',
@@ -65,16 +59,24 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     maxItems: 5
   },
   {
-    id: "global",
-    type: "global"
-  }
+    id: 'search-form',
+    type: 'search-form',
+    classes: 'col-8 col-md-7 col-lg-5 col-xl-4 app-search-form px-2',
+    autocompleteSources: ['suggests','baskets','recent-documents','recent-queries','saved-queries'],
+    enableVoiceRecognition: true,
+    keepTab: true,
+    enableKeepFilters: true,
+    keepFilters: true,
+    enableAdvancedForm: true,
+    keepAdvancedSearchFilters: true
+  },
 ];
 
 export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'navbar',
     type: '_container',
-    items: ['global','logo','search-form','menus'],
+    items: ['logo','nav-search-form','menus'],
     classes: 'flex-grow-1 align-items-center'
   },
   {
@@ -87,9 +89,9 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     logoDarkSm: "assets/sinequa-logo-dark-sm.png",
   },
   {
-    id: 'search-form',
+    id: 'nav-search-form',
     type: 'search-form',
-    classes: 'col-5 col-lg-5 app-search-form px-2',
+    classes: 'col-5 app-search-form px-2',
     autocompleteSources: ['suggests','baskets','recent-documents','recent-queries','saved-queries'],
     enableVoiceRecognition: true,
     keepTab: true,
@@ -134,7 +136,11 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
       "user-menu",
       "feedback-menu"
     ],
-    "classes": "w-100 justify-content-end align-items-center"
+    "classes": "w-100 align-items-center"
+  },
+  {
+    id:"global",
+    type: "global"
   }
 ];
 
@@ -375,6 +381,11 @@ export const RESULTS_VIEW_LIST_CONFIG: ComponentConfig[] = [
     classes: 'align-self-center ms-3',
     thumbnailColumn: 'sourcevarchar4',
     linkBehavior: 'action'
+  },
+  {
+    id: 'result-extracts',
+    type: 'result-extracts',
+    classes: 'overflow-hidden'
   }
 ];
 

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "tsc": "tsc",
-    "start": "ng serve vanilla --ssl=true --proxy-config=./projects/vanilla/src/proxy.conf.json",
+    "start": "ng serve vanilla --host=0.0.0.0 --ssl=true --proxy-config=./projects/vanilla/src/proxy.conf.json",
     "sq-update": "npm update @sinequa/core @sinequa/components @sinequa/analytics --legacy-peer-deps",
     "build": "ng build",
     "make-static": "ng generate @sinequa/ngx-ui-builder:make-static --app-module-dependencies=projects/vanilla/src/app-dependencies.json",

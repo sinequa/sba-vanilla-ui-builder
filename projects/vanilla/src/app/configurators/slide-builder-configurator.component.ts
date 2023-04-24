@@ -11,7 +11,7 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <sq-facet-header-configurator [context]="context"></sq-facet-header-configurator>
     <hr />
     <h6>Slide Builder configuration</h6>
-    <sq-checkbox [context]="context" property="enableSaveAsBasket" label="Enable saving as a basket"></sq-checkbox>
+    <uib-checkbox [context]="context" property="enableSaveAsBasket" label="Enable saving as a basket"></uib-checkbox>
   </div>
   `
 })
