@@ -9,7 +9,7 @@ import { ComponentConfig, ConfiguratorContext } from '@sinequa/ngx-ui-builder';
 
   <sq-icon-selector class="d-block mb-2" [config]="config" (configChanged)="configChanged()"></sq-icon-selector>
 
-  <sq-checkbox [context]="context" property="collapsible" label="Collapsible"></sq-checkbox>
+  <uib-checkbox [context]="context" property="collapsible" label="Collapsible"></uib-checkbox>
   `
 })
 export class FacetHeaderConfiguratorComponent {

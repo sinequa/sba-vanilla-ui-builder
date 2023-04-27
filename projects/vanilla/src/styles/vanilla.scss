@@ -6,7 +6,7 @@
 
 // SBA Components
 $dark-result-source-color: #a9c7b4;
-$dark-result-missing-temrms-color: #b8b2b2;
+$dark-result-missing-terms-color: #b8b2b2;
 
 // thin scrollbar
 ::-webkit-scrollbar {
@@ -34,6 +34,8 @@ body.dark .sq-light-mode {
 }
 
 app-search-form {
+
+  min-height: 40px;
 
   // Styling for the scope component (for a clean rendering within the search form)
   sq-scope>div {

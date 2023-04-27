@@ -19,17 +19,17 @@ export class AppConfigService {
     this.userSettingsService.events
       .subscribe(_ => {
         if (!this.sub) {
-          this.setInitalConfiguration();
+          this.setInitialConfiguration();
           this.configServiceSubscription();
         }
       });
   }
 
   reset() {
-    this.configService.set(this.getDefaultConfig());
+    this.configService.init(this.getDefaultConfig());
   }
 
-  private setInitalConfiguration() {
+  private setInitialConfiguration() {
     let config: ComponentConfig[];
     if(this.userSettingsService.userSettings?.['ui-builder']?.find(c => c.type === '_container')) {
       config = this.userSettingsService.userSettings?.['ui-builder'];

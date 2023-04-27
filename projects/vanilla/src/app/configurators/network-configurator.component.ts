@@ -17,7 +17,7 @@ import { NetworkConfig } from "../search/network.pipe";
 
     <sq-icon-selector [config]="type" (configChanged)="iconChanged(type, $event)"></sq-icon-selector>
 
-    <sq-color-picker [context]="context" property="nodeTypes.{{i}}.color" label="Color"></sq-color-picker>
+    <uib-color-picker [context]="context" property="nodeTypes.{{i}}.color" label="Color"></uib-color-picker>
   </div>
   <button class="btn btn-sm btn-primary mb-2" (click)="addNodeType()">Add Node Type</button>
 
@@ -35,11 +35,11 @@ import { NetworkConfig } from "../search/network.pipe";
         Cross-aggregations are configured by providing the 2 two columns (instead of 1) separated by a slash (/), eg. "person/company".
       </p>
       <label>Cross Aggregations</label>
-      <sq-select-multi
+      <uib-multi-selector
         [options]="aggregations"
         [(ngModel)]="provider.aggregations"
         (ngModelChange)="configChanged()">
-      </sq-select-multi>
+      </uib-multi-selector>
       <div *ngIf="!aggregations.length" class="alert alert-warning">
         Please configure at least one cross-aggregation in the query web service
       </div>
@@ -50,11 +50,11 @@ import { NetworkConfig } from "../search/network.pipe";
         Nodes are given by the records selected from the result list, and by the fields contained in these records.
       </p>
       <label>Fields</label>
-      <sq-select-multi
+      <uib-multi-selector
         [options]="metadata"
         [(ngModel)]="provider.fields"
         (ngModelChange)="configChanged()">
-      </sq-select-multi>
+      </uib-multi-selector>
     </div>
   </div>
   <button class="btn btn-sm btn-primary mb-2" (click)="addProvider()">Add Provider</button>

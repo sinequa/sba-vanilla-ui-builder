@@ -12,14 +12,14 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   </div>
 
   <div class="d-flex gap-2">
-    <sq-color-picker [context]="context" [defaultColor]="background" property="backgroundColor" label="Background" tooltip="Select the background color"></sq-color-picker>
-    <sq-color-picker [context]="context" [defaultColor]="gradient" property="gradientColor" label="Gradient" tooltip="Select last color to create a gradient backgound"></sq-color-picker>
+    <uib-color-picker [context]="context" [defaultColor]="background" property="backgroundColor" label="Background" tooltip="Select the background color"></uib-color-picker>
+    <uib-color-picker [context]="context" [defaultColor]="gradient" property="gradientColor" label="Gradient" tooltip="Select last color to create a gradient background"></uib-color-picker>
   </div>
 
   <div class="d-flex gap-2">
-    <sq-color-picker [context]="context" [defaultColor]="brand" property="brandingColor" label="Branding" tooltip="Select color for navigation and facet bar"></sq-color-picker>
-    <sq-color-picker [context]="context" [defaultColor]="primary" property="primaryColor" label="Primary" tooltip="Select primary color for buttons"></sq-color-picker>
-    <sq-color-picker [context]="context" [defaultColor]="secondary" property="secondaryColor" label="Secondary" tooltip="Select secondary color used by buttons"></sq-color-picker>
+    <uib-color-picker [context]="context" [defaultColor]="brand" property="brandingColor" label="Branding" tooltip="Select color for navigation and facet bar"></uib-color-picker>
+    <uib-color-picker [context]="context" [defaultColor]="primary" property="primaryColor" label="Primary" tooltip="Select primary color for buttons"></uib-color-picker>
+    <uib-color-picker [context]="context" [defaultColor]="secondary" property="secondaryColor" label="Secondary" tooltip="Select secondary color used by buttons"></uib-color-picker>
   </div>
 
   <!-- color variants -->
@@ -61,7 +61,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
-  <sq-img-selector [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></sq-img-selector>
+  <uib-image-selector [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></uib-image-selector>
 
   <label for="font">Font</label>
   <select id="font" class="form-select mb-2" [(ngModel)]="context.config.fontFamily" (ngModelChange)="context.configChanged()">

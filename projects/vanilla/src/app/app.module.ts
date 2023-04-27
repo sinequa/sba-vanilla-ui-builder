@@ -5,8 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { firstValueFrom } from "rxjs";
 import { StoreModule } from "@ngrx/store";
+import { TabsModule } from "ngx-bootstrap/tabs";
+import { firstValueFrom } from "rxjs";
 
 // @sinequa/core library
 import { WebServicesModule, StartConfigWebService, StartConfig } from "@sinequa/core/web-services";
@@ -60,8 +61,9 @@ import { PreviewComponent } from './preview/preview.component';
 import { AppSearchFormComponent } from './search-form/search-form.component';
 import { AutocompleteComponent } from './search-form/autocomplete.component';
 import { ToolbarComponent } from "./toolbar/toolbar.component";
-import { GlobalComponent } from "./global.component";
 import { NetworkPipe } from "./search/network.pipe";
+
+import { GlobalService } from "./configurators/app-configuration/global.service"
 
 // Application languages (intl service)
 import {LocalesConfig, Locale} from "@sinequa/core/intl";
@@ -73,9 +75,12 @@ import deLocale from "../locales/de";
 import { environment } from "../environments/environment";
 
 // UI Builder
-import { DynamicViewsModule, ConfiguratorModule } from "@sinequa/ngx-ui-builder";
+import {
+    icons,
+    SvgIconsModule,
+    uibModule
+} from '@sinequa/ngx-ui-builder';
 import { ConfiguratorsModule } from "./configurators/configurators.module";
-import { ConditionsModule } from "@sinequa/ngx-ui-builder";
 import { AppConfigService } from "./app-config.service";
 
 // standalone components
@@ -86,7 +91,7 @@ import { SearchFormComponent } from "@sinequa/components/search-form";
 export const startConfig: StartConfig = {
     // app: "training",
     production: environment.production,
-    //autoSAMLProvider: environment.autoSAMLProvider,
+    // autoSAMLProvider: environment.autoSAMLProvider,
     auditEnabled: true
 };
 
@@ -146,6 +151,7 @@ export const breakpoints = {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot({}),
+        TabsModule,
 
         WebServicesModule.forRoot(startConfig),
         IntlModule.forRoot(AppLocalesConfig),
@@ -183,10 +189,10 @@ export const breakpoints = {
         SearchFormComponent,
 
         // UI Builder
-        DynamicViewsModule,
-        ConfiguratorModule,
-        ConfiguratorsModule,
-        ConditionsModule
+        SvgIconsModule.forRoot({icons: icons}),
+        uibModule,
+
+        ConfiguratorsModule
     ],
     declarations: [
         AppComponent,
@@ -196,7 +202,6 @@ export const breakpoints = {
         AppSearchFormComponent,
         AutocompleteComponent,
         ToolbarComponent,
-        GlobalComponent,
         NetworkPipe
     ],
     providers: [
@@ -233,7 +238,11 @@ export const breakpoints = {
 export class AppModule {
 
     constructor(
+        _globalService: GlobalService,
         _recentQueriesService: RecentQueriesService,
         _RecentDocumentsService: RecentDocumentsService,
-        _appConfigService: AppConfigService) {}
+        _appConfigService: AppConfigService) {
+            // start listening global configuration changes
+            _globalService.startListening();
+        }
 }

@@ -94,7 +94,10 @@
         "entities": "Entities",
         "passages": "Passages",
         "searchText": "Search \"{text}\" in the document",
-        "pageTitle": "Document Navigator - {title}"
+        "pageTitle": "Document Navigator - {title}",
+        "back": "Back to the previous page",
+        "collapse":"Collapse panel",
+        "expand": "Expand panel"
     }
 
 }

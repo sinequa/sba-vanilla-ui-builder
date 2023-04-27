@@ -93,6 +93,9 @@
         "extracts": "Extraits",
         "entities": "Entités",
         "searchText": "Chercher \"{text}\" dans le document",
-        "pageTitle": "Navigateur de documents - {title}"
+        "pageTitle": "Navigateur de documents - {title}",
+        "back": "Retourner à la page précédente",
+        "collapse":"Réduire le panneau",
+        "expand": "Agrandir le panneau"
     }
 }

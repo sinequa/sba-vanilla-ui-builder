@@ -5,13 +5,13 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   selector: 'sq-search-form-configurator',
   template: `
   <h6>Autocomplete sources</h6>
-  <sq-select-multi
+  <uib-multi-selector
     [options]="sources"
     valueField="value"
     displayField="display"
     [(ngModel)]="context.config.autocompleteSources"
     (ngModelChange)="context.configChanged()">
-  </sq-select-multi>
+  </uib-multi-selector>
 
   <hr />
   `

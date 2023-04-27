@@ -56,19 +56,6 @@
             <sq-facet-baskets #facet [maxBaskets]="config.maxItems"></sq-facet-baskets>
         </sq-facet-card>
     </ng-template>
-
-    <ng-template uib-template="global" display="Global styles" title="An invisible component whose purpose is to inject global styles (colors, fonts, etc.) in the application" let-config>
-      <sq-global
-        [backgroundColor]="config.backgroundColor"
-        [gradientColor]="config.gradientColor"
-        [backgroundImage]="config.backgroundImage"
-        [brandingColor]="config.brandingColor"
-        [primaryColor]="config.primaryColor"
-        [secondaryColor]="config.secondaryColor"
-        [textColor]="config.textColor"
-        [fontFamily]="config.fontFamily"
-        [theme]="config.theme"></sq-global>
-    </ng-template>
 </uib-zone>
 
 <div class="uib-bootstrap" *ngIf="loginService.complete">
@@ -79,15 +66,18 @@
 
   <uib-configurator>
     <ng-template uib-template="home-logo" let-context>
-      <div class="p-1">
-        <h6>Light Mode</h6>
-        <sq-img-selector [context]="context" param="logoLight" description="Logo" class="d-block mb-3"></sq-img-selector>
-      </div>
-      <hr />
-      <div class="bg-dark text-white p-1">
-        <h6>Dark Mode</h6>
-        <sq-img-selector [context]="context" param="logoDark" description="Logo" class="d-block mb-3"></sq-img-selector>
-      </div>
+      <tabset>
+        <tab heading="Light Mode">
+          <div class="p-1">
+            <uib-image-selector [context]="context" param="logoLight" description="Logo" class="d-block mb-3"></uib-image-selector>
+          </div>
+        </tab>
+        <tab heading="Dark Mode">
+          <div class="bg-dark text-white p-1">
+            <uib-image-selector [context]="context" param="logoDark" description="Logo" class="d-block mb-3"></uib-image-selector>
+          </div>
+        </tab>
+      </tabset>
     </ng-template>
 
     <ng-template uib-template="search-form" let-context>

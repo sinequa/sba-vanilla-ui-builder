@@ -12,14 +12,14 @@ import { map } from "rxjs/operators";
   <hr />
 
   <h6>Select the facets to display</h6>
-  <sq-select-multi
+  <uib-multi-selector
     [options]="facets$ | async"
     displayField="name"
     [enableReorder]="true"
     [(ngModel)]="context.config.facets"
     [compareWith]="compareIds"
     (ngModelChange)="context.configChanged()">
-  </sq-select-multi>
+  </uib-multi-selector>
 `
 })
 export class FacetMultiConfiguratorComponent implements OnChanges {
