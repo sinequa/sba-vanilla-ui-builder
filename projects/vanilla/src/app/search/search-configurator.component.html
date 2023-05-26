@@ -1,0 +1,170 @@
+<div class="uib-bootstrap" *ngIf="loginService.complete">
+    <!-- bootstrap classes are now allowed here -->
+    <sq-ui-builder-toolbar></sq-ui-builder-toolbar>
+
+    <!-- CONFIGURATOR -->
+
+    <uib-configurator>
+      <ng-template uib-template="facet-list" let-context>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
+      </ng-template>
+
+      <ng-template uib-template="facet-tree" let-context>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
+      </ng-template>
+
+      <ng-template uib-template="facet-date" let-context>
+        <sq-facet-configurator [context]="context"></sq-facet-configurator>
+      </ng-template>
+
+      <ng-template uib-template="facet-multi" let-context>
+        <sq-facet-multi-configurator [context]="context"></sq-facet-multi-configurator>
+      </ng-template>
+
+      <ng-template uib-template="chart" let-context>
+        <sq-chart-configurator [context]="context"></sq-chart-configurator>
+      </ng-template>
+
+      <ng-template uib-template="timeline" let-context>
+        <sq-timeline-configurator [context]="context"></sq-timeline-configurator>
+      </ng-template>
+
+      <ng-template uib-template="heatmap" let-context>
+        <sq-heatmap-configurator [context]="context" [metadata]="metadata"></sq-heatmap-configurator>
+      </ng-template>
+
+      <ng-template uib-template="result-source" let-context>
+        <uib-checkbox [context]="context" property="displayTreepath" label="Display Treepath"></uib-checkbox>
+        <uib-checkbox [context]="context" property="displayUrl" label="Display URL"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="result-extracts" let-context>
+        <uib-checkbox [context]="context" property="showLongExtracts" label="Show long extracts"></uib-checkbox>
+        <label for="maxLongExtracts">Max long extracts</label>
+        <input type="text" class="form-control mb-1" id="maxLongExtracts" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.maxLongExtracts" (ngModelChangeDebounced)="context.configChanged()">
+        <uib-checkbox [context]="context" property="hideDate" label="Hide date"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="result-icon" let-context>
+        <label for="size">Size</label>
+        <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChangeDebounced)="context.configChanged()">
+      </ng-template>
+
+      <ng-template uib-template="result-labels" let-context>
+        <uib-checkbox [context]="context" property="public" label="Public labels"></uib-checkbox>
+        <uib-checkbox [context]="context" property="enableDelete" label="Enable delete"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="result-thumbnail" let-context>
+        <label for="thumbnailColumn">Custom thumbnail column</label>
+        <input type="text" class="form-control mb-2" id="thumbnailColumn" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.thumbnailColumn" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="defaultThumbnail">Default thumbnail URL</label>
+        <input type="text" class="form-control mb-2" id="defaultThumbnail" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.defaultThumbnail" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="linkBehavior">Click behavior</label>
+        <select id="linkBehavior" class="form-select mb-2" [(ngModel)]="context.config.linkBehavior" (ngModelChange)="context.configChanged()">
+            <option [ngValue]="'open'">Open original document</option>
+            <option [ngValue]="'action'">Custom action (or none)</option>
+        </select>
+        <label for="maxWidth">Max Width (pixels)</label>
+        <input type="number" class="form-control mb-2" id="maxWidth" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.maxWidth" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="maxHeight">Max Height (pixels)</label>
+        <input type="number" class="form-control mb-2" id="maxHeight" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.maxHeight" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="borderRadius">Border radius (pixels)</label>
+        <input type="number" class="form-control mb-2" id="borderRadius" autocomplete="off" spellcheck="off" min="0" [(ngModel)]="context.config.borderRadius" (ngModelChangeDebounced)="context.configChanged()">
+      </ng-template>
+
+      <ng-template uib-template="result-metadata" let-context>
+          <sq-metadata-configurator [context]="context" [metadata]="metadata"></sq-metadata-configurator>
+      </ng-template>
+
+      <ng-template uib-template="tabs" let-context>
+        <uib-checkbox [context]="context" property="hideCounts" label="Hide counts"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="sort-selector" let-context>
+        <uib-checkbox [context]="context" property="rightAligned" label="Right aligned"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="my-search" let-context>
+        <uib-checkbox [context]="context" property="allowDeletion" label="Allow delete"></uib-checkbox>
+      </ng-template>
+
+      <ng-template uib-template="search-form" let-context>
+        <sq-search-form-legacy-configurator [context]="context"></sq-search-form-legacy-configurator>
+      </ng-template>
+
+      <ng-template uib-template="logo" let-context>
+        <tabset type="pills">
+          <tab heading="Light Mode">
+              <div class="mt-1 p-1">
+                <uib-image-selector [context]="context" param="logoLightLg" description="Logo" class="d-block mb-3"></uib-image-selector>
+                <uib-image-selector [context]="context" param="logoLightSm" description="Logo (mobile devices)" class="d-block mb-3"></uib-image-selector>
+              </div>
+            </tab>
+            <tab heading="Dark Mode">
+              <div class="bg-dark text-white mt-1 p-1">
+                <uib-image-selector [context]="context" param="logoDarkLg" description="Logo" class="d-block mb-3"></uib-image-selector>
+                <uib-image-selector [context]="context" param="logoDarkSm" description="Logo (mobile devices)" class="d-block mb-3"></uib-image-selector>
+              </div>
+            </tab>
+          </tabset>
+      </ng-template>
+
+      <ng-template uib-template="_container" let-context>
+        <sq-predefined-results-layouts *ngIf="context.context.id === 'results'" class="d-block mb-3"></sq-predefined-results-layouts>
+      </ng-template>
+
+      <ng-template uib-template="baskets-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="saved-queries-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="alerts-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="labels-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="user-menu" let-context>
+        <sq-menu-configurator [context]="context"></sq-menu-configurator>
+      </ng-template>
+
+      <ng-template uib-template="preview" let-context>
+        <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
+      </ng-template>
+
+      <ng-template uib-template="slide-builder" let-context>
+        <sq-slide-builder-configurator [context]="context"></sq-slide-builder-configurator>
+      </ng-template>
+
+      <ng-template uib-template="comments" let-context>
+        <sq-comments-configurator [context]="context"></sq-comments-configurator>
+      </ng-template>
+
+      <ng-template uib-template="network" let-context>
+        <sq-network-configurator [context]="context" [metadata]="metadata"></sq-network-configurator>
+      </ng-template>
+
+      <ng-template uib-template="answer-card">
+        <div role="alert" class="alert alert-danger" *ngIf="!appService.isNeural()">
+          This component requires a Neural Search configuration set up on the Sinequa server.
+        </div>
+      </ng-template>
+
+      <ng-template uib-template="top-passages">
+        <div role="alert" class="alert alert-danger" *ngIf="!appService.isNeural()">
+          This component requires a Neural Search configuration set up on the Sinequa server.
+        </div>
+      </ng-template>
+
+      <ng-template uib-template="global" let-context>
+        <sq-global-configurator [context]="context"></sq-global-configurator>
+      </ng-template>
+
+    </uib-configurator>
+</div>

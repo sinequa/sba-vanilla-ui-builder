@@ -1,0 +1,47 @@
+<div class="uib-bootstrap" *ngIf="loginService.complete">
+  <!-- bootstrap classes are now allowed here -->
+  <sq-ui-builder-toolbar></sq-ui-builder-toolbar>
+
+  <!-- CONFIGURATOR -->
+
+  <uib-configurator>
+    <ng-template uib-template="home-logo" let-context>
+      <tabset>
+        <tab heading="Light Mode">
+          <div class="p-1">
+            <uib-image-selector [context]="context" param="logoLight" description="Logo" class="d-block mb-3"></uib-image-selector>
+          </div>
+        </tab>
+        <tab heading="Dark Mode">
+          <div class="bg-dark text-white p-1">
+            <uib-image-selector [context]="context" param="logoDark" description="Logo" class="d-block mb-3"></uib-image-selector>
+          </div>
+        </tab>
+      </tabset>
+    </ng-template>
+
+    <ng-template uib-template="search-form" let-context>
+      <sq-search-form-legacy-configurator [context]="context"></sq-search-form-legacy-configurator>
+    </ng-template>
+
+    <ng-template uib-template="recent-documents" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="recent-queries" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="saved-queries" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="baskets" let-context>
+      <sq-home-facet-configurator [context]="context"></sq-home-facet-configurator>
+    </ng-template>
+
+    <ng-template uib-template="global" let-context>
+      <sq-global-configurator [context]="context"></sq-global-configurator>
+    </ng-template>
+  </uib-configurator>
+</div>

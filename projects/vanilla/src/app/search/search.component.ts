@@ -12,8 +12,9 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
-import { FacetParams, PREVIEW_HIGHLIGHTS } from '../../config';
+import { FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
+import { MetadataConfig } from '@sinequa/components/metadata';
 
 @Component({
   selector: 'app-search',
@@ -42,7 +43,14 @@ export class SearchComponent implements OnInit {
     "date": BsFacetDate
   }
 
-  metadata: string[] = [];
+  /**
+   * Returns the configuration of the metadata displayed in the facet-preview component.
+   * The configuration from the config.ts file can be overridden by configuration from
+   * the app configuration on the server
+   */
+  public get metadata(): MetadataConfig[] {
+    return this.appService.app?.data?.metadata as any as MetadataConfig[] || METADATA_CONFIG;
+  }
 
   public results$: Observable<Results | undefined>;
 
@@ -100,11 +108,6 @@ export class SearchComponent implements OnInit {
     // consult RxJS documentation for additional functionality like combineLatest, etc.
     this.results$ = this.searchService.resultsStream
       .pipe(
-        tap(results => {
-          if (results?.records) {
-            this.updateMetadata(results?.records);
-          }
-        }),
         // Make it possible to display components conditionally based on the results (eg: tab) or query (eg: text)
         tap(results => this.conditionsData = { results, query: this.searchService.query }),
         tap(results => {
@@ -165,16 +168,6 @@ export class SearchComponent implements OnInit {
    */
   get showForm(): boolean {
     return this.ui.screenSizeIsGreaterOrEqual('sm') || this.showFilters;
-  }
-
-  updateMetadata(records: Record[]) {
-    const set = new Set(this.metadata);
-    records.forEach(r => {
-      Object.keys(r)
-        .filter(k => this.appService.getColumn(k))
-        .forEach(k => set.add(k));
-    });
-    this.metadata = [...set.values()]
   }
 
   onMetadataSelect(item: string, valueItem: ValueItem) {

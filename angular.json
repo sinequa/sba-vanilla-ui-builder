@@ -28,7 +28,8 @@
             },
             "assets": [
               "projects/vanilla/src/assests/favicon.ico",
-              "projects/vanilla/src/assets"
+              "projects/vanilla/src/assets",
+              "projects/vanilla/src/preview/preview.js"
             ],
             "styles": [
               {
@@ -36,7 +37,7 @@
                 "bundleName": "app"
               },
               {
-                "input": "projects/vanilla/src/styles/preview.scss",
+                "input": "projects/vanilla/src/preview/preview.scss",
                 "bundleName": "preview",
                 "inject": false
               }
