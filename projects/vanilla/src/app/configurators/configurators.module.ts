@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IntlModule } from "@sinequa/core/intl";
-import { CheckboxComponent, ColorPickerComponent, ImageSelectorComponent, MultiSelectComponent, NgModelChangeDebouncedDirective } from "@sinequa/ngx-ui-builder";
+import { CheckboxComponent, ColorPickerComponent, ImageSelectorComponent, MultiSelectComponent, NgModelChangeDebouncedDirective, uibModule } from "@sinequa/ngx-ui-builder";
 import { FacetHeaderConfiguratorComponent } from "./facet-header-configurator.component"
 import { FacetConfiguratorComponent } from "./facet-configurator.component";
 import { FacetMultiConfiguratorComponent } from "./facet-multi-configurator.component";
@@ -12,7 +12,7 @@ import { MenuConfiguratorComponent } from "./menu-configurator.component";
 import { MetadataConfiguratorComponent } from "./metadata-configurator.component";
 import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.component";
 import { PreviewConfiguratorComponent } from "./preview-configurator.component";
-import { SearchFormConfiguratorComponent } from "./search-form-configurator.component";
+import { SearchFormLegacyConfiguratorComponent } from "./search-form-legacy-configurator.component";
 import { ChartConfiguratorComponent } from "./chart-configurator.component";
 import { TimelineConfiguratorComponent } from "./timeline-configurator.component";
 import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
@@ -32,14 +32,15 @@ import { ControlsModule } from "./controls/controls.module";
     ColorPickerComponent,
     CheckboxComponent,
     MultiSelectComponent,
-    ImageSelectorComponent
+    ImageSelectorComponent,
+    uibModule
   ],
   declarations: [
     FacetHeaderConfiguratorComponent,
     FacetConfiguratorComponent,
     FacetMultiConfiguratorComponent,
     MetadataConfiguratorComponent,
-    SearchFormConfiguratorComponent,
+    SearchFormLegacyConfiguratorComponent,
     PredefinedResultsLayoutComponent,
     MenuConfiguratorComponent,
     HomeFacetConfiguratorComponent,
@@ -57,7 +58,7 @@ import { ControlsModule } from "./controls/controls.module";
     FacetConfiguratorComponent,
     FacetMultiConfiguratorComponent,
     MetadataConfiguratorComponent,
-    SearchFormConfiguratorComponent,
+    SearchFormLegacyConfiguratorComponent,
     PredefinedResultsLayoutComponent,
     MenuConfiguratorComponent,
     HomeFacetConfiguratorComponent,

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from "@angular/core";
+import { MetadataConfig } from "@sinequa/components/metadata";
 import { AppService } from "@sinequa/core/app-utils";
 import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
@@ -8,7 +9,7 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 <div class="form-group">
   <label for="item">Item</label>
   <select id="item" class="form-select mb-2" [(ngModel)]="config.item" (ngModelChange)="configChanged(true)">
-    <option *ngFor="let a of metadata" [ngValue]="a">{{a}}</option>
+    <option *ngFor="let a of metadata" [ngValue]="a.field">{{a.field}}</option>
   </select>
 
   <uib-checkbox [context]="context" property="clickable" label="Clickable"></uib-checkbox>
@@ -25,11 +26,15 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 })
 export class MetadataConfiguratorComponent implements OnChanges {
   @Input() context: ConfiguratorContext;
-  @Input() metadata: string[];
+  @Input() metadata: MetadataConfig[];
 
   isEntity: boolean;
 
-  constructor(public appService: AppService) { }
+  constructor(public appService: AppService) {}
+
+  ngOnInit() {
+    console.log("metadata", this.metadata);
+  }
 
   ngOnChanges(): void {
     this.isEntity = this.appService.isEntity(this.config.item);

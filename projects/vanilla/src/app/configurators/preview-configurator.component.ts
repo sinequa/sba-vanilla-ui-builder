@@ -6,12 +6,10 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   selector: 'sq-preview-configurator',
   template: `
   <h6>Preview options</h6>
-  <label for="height">Preview height</label>
-  <input type="number" class="form-control mb-2" id="height" autocomplete="off" spellcheck="off" min="0" max="10000" [(ngModel)]="context.config.height" (ngModelChangeDebounced)="context.configChanged()">
 
-  <uib-checkbox [context]="context" property="highlightActions" label="Enable highlight options"></uib-checkbox>
-  <uib-checkbox [context]="context" property="highlightEntities" label="Highlight entities by default"></uib-checkbox>
-  <uib-checkbox [context]="context" property="highlightExtracts" label="Highlight extracts by default"></uib-checkbox>
+  <uib-checkbox [context]="context" property="highlightActions" label="Show Highlight Actions" uib-tooltip="Should the <strong>Actions</strong> buttons will be displayed?"></uib-checkbox>
+  <uib-checkbox [context]="context" property="highlightEntities" label="Highlight entities by default" uib-tooltip="This setting will be overridden by the user settings"></uib-checkbox>
+  <uib-checkbox [context]="context" property="highlightExtracts" label="Highlight extracts by default" uib-tooltip="This setting will be overridden by the user settings"></uib-checkbox>
 
   <label>Extract options</label>
   <p class="small text-muted m-0">Select which type of extracts should be highlighted.</p>

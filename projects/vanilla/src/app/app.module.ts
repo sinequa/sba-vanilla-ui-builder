@@ -62,6 +62,8 @@ import { AppSearchFormComponent } from './search-form/search-form.component';
 import { AutocompleteComponent } from './search-form/autocomplete.component';
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { NetworkPipe } from "./search/network.pipe";
+import { HomeConfiguratorComponent } from "./home/home-configurator.component";
+import { SearchConfiguratorComponent } from "./search/search-configurator.component";
 
 import { GlobalService } from "./configurators/app-configuration/global.service"
 
@@ -192,12 +194,14 @@ export const breakpoints = {
         SvgIconsModule.forRoot({icons: icons}),
         uibModule,
 
-        ConfiguratorsModule
+        ConfiguratorsModule,
     ],
     declarations: [
         AppComponent,
         HomeComponent,
+        HomeConfiguratorComponent,
         SearchComponent,
+        SearchConfiguratorComponent,
         PreviewComponent,
         AppSearchFormComponent,
         AutocompleteComponent,

@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
 @Component({
-  selector: 'sq-search-form-configurator',
+  selector: 'sq-search-form-legacy-configurator',
   template: `
   <h6>Autocomplete sources</h6>
   <uib-multi-selector
@@ -11,12 +11,9 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     displayField="display"
     [(ngModel)]="context.config.autocompleteSources"
     (ngModelChange)="context.configChanged()">
-  </uib-multi-selector>
-
-  <hr />
-  `
+  </uib-multi-selector>  `
 })
-export class SearchFormConfiguratorComponent {
+export class SearchFormLegacyConfiguratorComponent {
   @Input() context: ConfiguratorContext;
 
   sources = [

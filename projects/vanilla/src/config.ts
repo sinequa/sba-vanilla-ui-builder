@@ -2,6 +2,7 @@ import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudPara
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
 import { PreviewHighlightColors } from '@sinequa/components/preview';
+import { MetadataConfig } from '@sinequa/components/metadata';
 
 
 /**
@@ -14,7 +15,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home',
     type: '_container',
-    classes: 'flex-column align-items-center',
+    classes: 'd-flex align-items-center flex-column w-100',
     items: ['home-logo', 'home-title', 'search-form', 'home-actions', 'home-facets']
   },
   {
@@ -31,7 +32,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home-facets',
     type: '_container',
-    classes: 'sq-home-facet-bar container row justify-content-center mt-5',
+    classes: 'sq-home-facet-bar d-flex gap-3 justify-content-center',
     items: ['recent-documents', 'recent-queries', 'saved-queries', 'baskets']
   },
   {
@@ -69,7 +70,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     keepFilters: true,
     enableAdvancedForm: true,
     keepAdvancedSearchFilters: true
-  },
+  }
 ];
 
 export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
@@ -77,7 +78,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'navbar',
     type: '_container',
     items: ['logo','nav-search-form','menus'],
-    classes: 'flex-grow-1 align-items-center'
+    classes: 'd-flex flex-grow-1 align-items-center'
   },
   {
     id: "logo",
@@ -129,6 +130,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     type: "_container",
     id: "menus",
     items: [
+      "spacer-menu",
       "labels-menu",
       "baskets-menu",
       "saved-queries-menu",
@@ -136,11 +138,17 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
       "user-menu",
       "feedback-menu"
     ],
-    "classes": "w-100 align-items-center"
+    "classes": "d-flex w-100 align-items-center"
   },
   {
     id:"global",
     type: "global"
+  },
+  {
+    type: "_container",
+    id: "spacer-menu",
+    classes: "w-100",
+    items: []
   }
 ];
 
@@ -151,7 +159,7 @@ export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'facets',
     type: '_container',
     items: ["facet-treepath", "facet-geo", "facet-company", "facet-person", "facet-docformat", "facet-modified", "facet-size", "facet-documentlanguages", "facet-concepts"],
-    classes: 'flex-column'
+    classes: 'd-flex flex-column gap-3'
   },
   {
     id: "facet-treepath",
@@ -305,7 +313,7 @@ export const TOOLBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'results-header',
     type: '_container',
     items: ['tabs', 'top-passages', 'toolbar','did-you-mean','sponsored-results', 'answer-card'],
-    classes: 'flex-column'
+    classes: 'd-flex flex-column'
   },
   {
     id: "tabs",
@@ -316,6 +324,7 @@ export const TOOLBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'toolbar',
     type: '_container',
     items: ['filters-view', 'result-counter', 'sort-selector'],
+    classes: "d-flex justify-content-end gap-2 align-items-center"
   },
   {
     id: 'filters-view',
@@ -341,13 +350,13 @@ export const RESULTS_VIEW_LIST_CONFIG: ComponentConfig[] = [
     id: 'result-left-side',
     type: '_container',
     items: ['result-title-container', 'result-source', 'result-extracts', 'result-metas', 'result-missing-terms'],
-    classes: 'flex-grow-1 flex-column'
+    classes: 'd-flex flex-column'
   },
   {
     id: 'result-title-container',
     type: '_container',
     items: ['result-selector', 'result-title'],
-    classes: 'align-items-center'
+    classes: 'd-flex align-items-center'
   },
   {
     id: 'result-title',
@@ -357,7 +366,8 @@ export const RESULTS_VIEW_LIST_CONFIG: ComponentConfig[] = [
   {
     id: 'result-metas',
     type: '_container',
-    items: ['result-labels-public', 'result-labels-private']
+    items: ['result-labels-public', 'result-labels-private'],
+    classes: "d-flex"
   },
   {
     id: 'result-labels-public',
@@ -411,7 +421,7 @@ export const RESULTS_VIEW_TILES_CONFIG: ComponentConfig[] = [
   {
     id: 'result-thumbnail',
     type: 'result-thumbnail',
-    classes: 'mt-2',
+    classes: 'align-self-center ms-3',
     thumbnailColumn: 'sourcevarchar4',
     linkBehavior: 'action'
   }
@@ -422,7 +432,7 @@ export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
     id: "panel-right",
     type: "_container",
     items: ['preview'],
-    classes: "flex-column align-items-stretch"
+    classes: "d-flex flex-column align-items-stretch"
   },
   {
     id: "preview",
@@ -493,3 +503,36 @@ export const PREVIEW_HIGHLIGHTS: PreviewHighlightColors[] = [
     bgColor: '#ff0'
   }
 ]
+
+export const METADATA_CONFIG: MetadataConfig[] = [
+  {
+      field: "authors",
+      label: "msg#metadata.authorsPluralLabel",
+      icon: "fas fa-user-edit"
+  },
+  {
+      field: "docformat",
+      label: "msg#metadata.docformatLabel",
+      icon: "fas fa-info-circle"
+  },
+  {
+      field: "modified",
+      label: "msg#metadata.modifiedLabel",
+      icon: "far fa-calendar-alt"
+  },
+  {
+      field: "size",
+      label: "msg#metadata.size_label",
+      icon: "fas fa-weight-hanging"
+  },
+  {
+      field: "treepath",
+      label: "msg#metadata.treepath_label",
+      icon: "fas fa-folder-open"
+  },
+  {
+      field: "filename",
+      label: "msg#metadata.filename_label",
+      icon: "far fa-file-alt"
+  }
+];
