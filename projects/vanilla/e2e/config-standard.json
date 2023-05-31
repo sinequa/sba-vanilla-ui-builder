@@ -1,15 +1,19 @@
 [
   {
+    "id": "global",
+    "type": "global",
+    "backgroundColor": "#f00f0f"
+  },
+  {
     "id": "home",
     "type": "_container",
     "classes": "flex-column align-items-center",
     "items": [
       "home-logo",
       "home-title",
-      "search-form-wrapper",
+      "search-form",
       "home-actions",
-      "home-facets",
-      "global"
+      "home-facets"
     ]
   },
   {
@@ -22,14 +26,6 @@
     "id": "home-title",
     "type": "_raw-html",
     "rawHtml": "<h1>Vanilla Builder</h1>"
-  },
-  {
-    "id": "search-form-wrapper",
-    "type": "_container",
-    "classes": "my-2",
-    "items": [
-      "search-form"
-    ]
   },
   {
     "id": "home-facets",
@@ -67,28 +63,19 @@
     "maxItems": 5
   },
   {
-    "id": "global",
-    "type": "global"
-  },
-  {
     "id": "navbar",
     "type": "_container",
     "items": [
-      "global",
       "logo",
-      "search-form",
-      "baskets-menu",
-      "saved-queries-menu",
-      "labels-menu",
-      "alerts-menu",
-      "user-menu",
-      "feedback-menu"
+      "nav-search-form",
+      "menus"
     ],
     "classes": "flex-grow-1 align-items-center"
   },
   {
     "id": "logo",
     "type": "logo",
+    "classes": "col-lg-3 col-xl-2",
     "logoLightLg": "assets/sinequa-logo-light-lg.png",
     "logoLightSm": "assets/sinequa-logo-light-sm.png",
     "logoDarkLg": "assets/sinequa-logo-dark-lg.png",
@@ -97,7 +84,7 @@
   {
     "id": "search-form",
     "type": "search-form",
-    "classes": "flex-grow-1 flex-basis-0 mx-3",
+    "classes": "col-8 col-md-7 col-lg-5 col-xl-4 app-search-form px-2",
     "autocompleteSources": [
       "suggests",
       "baskets",
@@ -136,6 +123,19 @@
     "id": "user-menu",
     "type": "user-menu",
     "classes": "navbar-nav navbar-right"
+  },
+  {
+    "type": "_container",
+    "id": "menus",
+    "items": [
+      "labels-menu",
+      "baskets-menu",
+      "saved-queries-menu",
+      "alerts-menu",
+      "user-menu",
+      "feedback-menu"
+    ],
+    "classes": "w-100 align-items-center"
   },
   {
     "id": "facets",
@@ -303,6 +303,7 @@
     "type": "_container",
     "items": [
       "tabs",
+      "top-passages",
       "toolbar",
       "did-you-mean",
       "sponsored-results",
@@ -311,18 +312,23 @@
     "classes": "flex-column"
   },
   {
+    "id": "tabs",
+    "type": "tabs",
+    "classes": "mb-3"
+  },
+  {
     "id": "toolbar",
     "type": "_container",
     "items": [
-      "my-search",
+      "filters-view",
       "result-counter",
       "sort-selector"
     ]
   },
   {
-    "id": "my-search",
-    "type": "my-search",
-    "classes": "flex-grow-1",
+    "id": "filters-view",
+    "type": "filters-view",
+    "classes": "flex-grow-1 small",
     "allowDeletion": true
   },
   {
@@ -397,6 +403,11 @@
     "linkBehavior": "action"
   },
   {
+    "id": "result-extracts",
+    "type": "result-extracts",
+    "classes": "overflow-hidden"
+  },
+  {
     "id": "panel-right",
     "type": "_container",
     "items": [
@@ -407,23 +418,28 @@
   {
     "id": "preview",
     "type": "preview",
-    "metadata": [
-      "authors",
-      "docformat",
-      "modified",
-      "size",
-      "treepath",
-      "filename"
+    "metadata": {
+      "layout": "table",
+      "items": [
+        "authors",
+        "docformat",
+        "modified",
+        "size",
+        "treepath",
+        "filename"
+      ]
+    },
+    "extracts": [
+      "matchlocations",
+      "extractslocations",
+      "matchingpassages"
     ],
     "highlightActions": true,
+    "highlightEntities": true,
+    "highlightExtracts": true,
+    "metadataShowIcon": true,
+    "metadataShowTitle": true,
     "height": 750,
-    "filters": [
-      "extractslocations",
-      "matchlocations",
-      "person",
-      "geo",
-      "company"
-    ],
     "condition": {
       "type": "equals",
       "field": "id",
@@ -437,24 +453,16 @@
     "classes": "mb-3"
   },
   {
-    "id": "result-selector",
-    "type": "result-selector"
-  },
-  {
-    "id": "result-extracts",
-    "type": "result-extracts"
-  },
-  {
-    "id": "result-missing-terms",
-    "type": "result-missing-terms"
+    "id": "home-actions",
+    "type": "home-actions"
   },
   {
     "id": "feedback-menu",
     "type": "feedback-menu"
   },
   {
-    "id": "tabs",
-    "type": "tabs"
+    "id": "top-passages",
+    "type": "top-passages"
   },
   {
     "id": "result-counter",
@@ -471,5 +479,65 @@
   {
     "id": "answer-card",
     "type": "answer-card"
+  },
+  {
+    "id": "result-selector",
+    "type": "result-selector"
+  },
+  {
+    "id": "result-missing-terms",
+    "type": "result-missing-terms"
+  },
+  {
+    "id": "search-form2",
+    "type": "search-form",
+    "classes": "col-5 app-search-form px-2",
+    "autocompleteSources": [
+      "suggests",
+      "baskets",
+      "recent-documents",
+      "recent-queries",
+      "saved-queries"
+    ],
+    "enableVoiceRecognition": true,
+    "keepTab": true,
+    "enableKeepFilters": true,
+    "keepFilters": true,
+    "enableAdvancedForm": true,
+    "keepAdvancedSearchFilters": true
+  },
+  {
+    "id": "nav-search-form",
+    "type": "search-form",
+    "classes": "col-5 app-search-form px-2",
+    "autocompleteSources": [
+      "suggests",
+      "baskets",
+      "recent-documents",
+      "recent-queries",
+      "saved-queries"
+    ],
+    "enableVoiceRecognition": true,
+    "keepTab": true,
+    "enableKeepFilters": true,
+    "keepFilters": true,
+    "enableAdvancedForm": true,
+    "keepAdvancedSearchFilters": true
+  },
+  {
+    "type": "facet-list",
+    "id": "facet-list-1",
+    "name": "My facet",
+    "title": "Tags",
+    "parameters": {
+      "showCount": true,
+      "searchable": false,
+      "allowOr": true,
+      "allowExclude": true,
+      "allowAnd": false,
+      "aggregation": "publicLabels"
+    },
+    "icon": "fas fa-tags",
+    "collapsible": true
   }
 ]

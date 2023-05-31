@@ -1,15 +1,21 @@
 [
   {
+    "id": "global",
+    "type": "global",
+    "backgroundColor": "#f6eeee",
+    "gradientColor": "#e2dfdf",
+    "fontFamily": "Georgia, serif"
+  },
+  {
     "id": "home",
     "type": "_container",
     "classes": "flex-column align-items-center",
     "items": [
       "home-logo",
       "home-title",
-      "search-form-wrapper",
+      "search-form",
       "home-actions",
-      "home-facets",
-      "global"
+      "home-facets"
     ]
   },
   {
@@ -22,14 +28,6 @@
     "id": "home-title",
     "type": "_raw-html",
     "rawHtml": "<h1>Vanilla Builder</h1>"
-  },
-  {
-    "id": "search-form-wrapper",
-    "type": "_container",
-    "classes": "my-2",
-    "items": [
-      "search-form"
-    ]
   },
   {
     "id": "home-facets",
@@ -67,25 +65,12 @@
     "maxItems": 5
   },
   {
-    "id": "global",
-    "type": "global",
-    "backgroundColor": "#f6eeee",
-    "gradientColor": "#e2dfdf",
-    "fontFamily": "Georgia, serif"
-  },
-  {
     "id": "navbar",
     "type": "_container",
     "items": [
-      "global",
       "logo",
-      "baskets-menu",
-      "saved-queries-menu",
-      "search-form",
-      "labels-menu",
-      "alerts-menu",
-      "user-menu",
-      "feedback-menu"
+      "nav-search-form",
+      "menus"
     ],
     "classes": "flex-grow-1 align-items-center"
   },
@@ -100,7 +85,7 @@
   {
     "id": "search-form",
     "type": "search-form",
-    "classes": "flex-grow-1 flex-basis-0 mx-3",
+    "classes": "col-8 col-md-7 col-lg-5 col-xl-4 app-search-form px-2",
     "autocompleteSources": [
       "suggests",
       "baskets",
@@ -139,6 +124,19 @@
     "id": "user-menu",
     "type": "user-menu",
     "classes": "navbar-nav navbar-right"
+  },
+  {
+    "type": "_container",
+    "id": "menus",
+    "items": [
+      "labels-menu",
+      "baskets-menu",
+      "saved-queries-menu",
+      "alerts-menu",
+      "user-menu",
+      "feedback-menu"
+    ],
+    "classes": "w-100 align-items-center"
   },
   {
     "id": "facets",
@@ -303,8 +301,8 @@
     "id": "results-header",
     "type": "_container",
     "items": [
-      "toolbar",
       "tabs",
+      "toolbar",
       "did-you-mean",
       "sponsored-results",
       "answer-card"
@@ -415,14 +413,18 @@
   {
     "id": "preview",
     "type": "preview",
-    "metadata": [
-      "authors",
-      "docformat",
-      "modified",
-      "size",
-      "treepath",
-      "filename"
-    ],
+    "metadata": {
+      "layout": "table",
+      "items": [
+        "authors",
+        "docformat",
+        "modified",
+        "size",
+        "treepath",
+        "filename"
+      ]
+    },
+
     "highlightActions": true,
     "height": 750,
     "filters": [

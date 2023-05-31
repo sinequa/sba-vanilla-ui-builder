@@ -437,13 +437,14 @@ export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: "preview",
     type: "preview",
-    metadata: ["authors", "docformat", "modified", "size", "treepath", "filename"],
+    metadata: {
+      items: ["authors", "docformat", "modified", "size", "treepath", "filename"],
+      layout: 'table'
+    },
     extracts: ["matchlocations", "extractslocations", "matchingpassages"],
     highlightActions: true,
     highlightEntities: true,
     highlightExtracts: true,
-    metadataShowIcon: true,
-    metadataShowTitle: true,
     height: 750,
     condition: { // This condition ensures the preview is only shown when a document is open
       type: 'equals',
