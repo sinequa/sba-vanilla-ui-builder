@@ -32,10 +32,6 @@ export class MetadataConfiguratorComponent implements OnChanges {
 
   constructor(public appService: AppService) {}
 
-  ngOnInit() {
-    console.log("metadata", this.metadata);
-  }
-
   ngOnChanges(): void {
     this.isEntity = this.appService.isEntity(this.config.item);
   }

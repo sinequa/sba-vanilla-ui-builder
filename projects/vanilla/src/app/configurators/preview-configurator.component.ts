@@ -18,13 +18,15 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <h6 class="mt-2">Metadata options</h6>
 
-  <uib-checkbox [context]="context" property="metadataShowTitle" label="Show metadata title"></uib-checkbox>
-  <uib-checkbox [context]="context" property="metadataShowIcon" label="Show metadata icon"></uib-checkbox>
-  <uib-checkbox [context]="context" property="metadataClickable" label="Metadata clickable"></uib-checkbox>
+  <label class="form-label" for="layout">Layout</label>
+  <select [(ngModel)]="context.config.metadata.layout" id="layout" class="form-select" (ngModelChange)="context.configChanged()">
+    <option value="">Inline</option>
+    <option value="table">Table</option>
+  </select>
 
-  <label>Metadata</label>
+  <label class="mt-2">Metadata</label>
   <p class="small text-muted m-0">Select which metadata to display in the preview header. The order of the metadata can be changed by dragging the following options up and down.</p>
-  <uib-multi-selector [options]="metadata" [enableReorder]="true" [(ngModel)]="context.config.metadata" (ngModelChange)="context.configChanged()">
+  <uib-multi-selector [options]="metadata" [enableReorder]="true" [(ngModel)]="context.config.metadata.items" (ngModelChange)="context.configChanged()">
   </uib-multi-selector>
 
   `
