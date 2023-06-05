@@ -1,6 +1,6 @@
 {
   "name": "vanilla-builder",
-  "version": "11.10.0",
+  "version": "11.10.1",
   "scripts": {
     "ng": "ng",
     "tsc": "tsc",
