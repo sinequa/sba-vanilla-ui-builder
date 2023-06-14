@@ -38,13 +38,13 @@ export class ToolbarComponent {
     const workspaceName = this.appService.app?.workspaceApp.split('/')[2]; // '/_sba/ws11.5.1.69/projects/vanilla-search/'
     if(workspaceName) {
       const config = this.configService.getAllConfig();
-      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName, config}, {params: {noNotify: true}})
+      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName, config}, {params: {noNotify: true}, responseType: "json"})
         .pipe(
           catchError(err => {
             this.notificationsService.error("Make sure you install the following JSON method plugin: https://github.com/sinequa/sba-vanilla-ui-builder/blob/develop/UiBuilderPlugin.cs")
             return throwError(err);
           }),
-          switchMap(value => {
+          switchMap((value:any) => {
             const zipName = value?.zipName;
             if(zipName) {
               return this.pluginService.post("DownloadExportedWorkspace", {workspaceName, zipName}, {observe: 'response', responseType: 'blob'});
