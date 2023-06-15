@@ -1,5 +1,5 @@
 import {LocaleData} from "@sinequa/core/intl";
-import d3Format from "d3-format/locale/fr-FR.json";
+const d3Format = require("d3-format/locale/fr-FR");
 import d3Time from "d3-time-format/locale/fr-FR.json";
 import {frCore} from "@sinequa/core";
 import appMessages from "./messages/fr.json";

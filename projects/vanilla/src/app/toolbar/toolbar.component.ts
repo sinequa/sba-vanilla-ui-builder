@@ -44,7 +44,7 @@ export class ToolbarComponent {
             this.notificationsService.error("Make sure you install the following JSON method plugin: https://github.com/sinequa/sba-vanilla-ui-builder/blob/develop/UiBuilderPlugin.cs")
             return throwError(err);
           }),
-          switchMap(value => {
+          switchMap((value:any) => {
             const zipName = value?.zipName;
             if(zipName) {
               return this.pluginService.post("DownloadExportedWorkspace", {workspaceName, zipName}, {observe: 'response', responseType: 'blob'});
