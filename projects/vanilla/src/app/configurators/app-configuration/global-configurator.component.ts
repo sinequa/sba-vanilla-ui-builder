@@ -6,11 +6,6 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   template: `
   <div role="alert" class="alert alert-warning">This component controls global styling options (colors, fonts, etc.). The component itself has no visible appearance.</div>
 
-  <div class="form-check mb-2">
-    <input class="form-check-input" type="checkbox" id="checkSinequaTheme" uib-tooltip="Activate The Sinequa Amazing Theme" [ngModel]="!!context.config.theme" [value]="!!context.config.theme" (click)="changeTheme($event)">
-    <label class="form-check-label" for="checkSinequaTheme">Sinequa Theme</label>
-  </div>
-
   <div class="d-flex gap-2">
     <uib-color-picker [context]="context" [defaultColor]="background" property="backgroundColor" label="Background" tooltip="Select the background color"></uib-color-picker>
     <uib-color-picker [context]="context" [defaultColor]="gradient" property="gradientColor" label="Gradient" tooltip="Select last color to create a gradient background"></uib-color-picker>
@@ -61,7 +56,15 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
-  <uib-image-selector [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></uib-image-selector>
+  <div>
+    <label for="appName" class="form-label">App Title</label>
+    <input type="text" id="appName" class="form-control" [(ngModel)]="context.config.appName" (ngModelChangeDebounced)="context.configChanged()" autocomplete="off" aria-describedby="appNameHelp">
+    <div id="appNameHelp" class="form-text">Set the application's name displayed on the browser tab</div>
+  </div>
+
+  <hr/>
+
+  <uib-image-selector [sizeable]="false" [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></uib-image-selector>
 
   <label for="font">Font</label>
   <select id="font" class="form-select mb-2" [(ngModel)]="context.config.fontFamily" (ngModelChange)="context.configChanged()">

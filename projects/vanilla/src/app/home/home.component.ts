@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { LoginService } from '@sinequa/core/login';
-import { IntlService } from '@sinequa/core/intl';
 import { SearchService } from '@sinequa/components/search';
 
 @Component({
@@ -9,21 +7,12 @@ import { SearchService } from '@sinequa/components/search';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   constructor(
     public loginService: LoginService,
-    public searchService: SearchService,
-    private titleService: Title,
-    private intlService: IntlService
+    public searchService: SearchService
   ) {}
-
-  /**
-   * On initialization set the page title
-   */
-  ngOnInit() {
-    this.titleService.setTitle(this.intlService.formatMessage("msg#app.name"));
-  }
 
   /**
    * Manage login and logout

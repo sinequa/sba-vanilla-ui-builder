@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -65,8 +65,6 @@ import { NetworkPipe } from "./search/network.pipe";
 import { HomeConfiguratorComponent } from "./home/home-configurator.component";
 import { SearchConfiguratorComponent } from "./search/search-configurator.component";
 
-import { GlobalService } from "./configurators/app-configuration/global.service"
-
 // Application languages (intl service)
 import {LocalesConfig, Locale} from "@sinequa/core/intl";
 import enLocale from "../locales/en";
@@ -83,6 +81,7 @@ import {
     uibModule
 } from '@sinequa/ngx-ui-builder';
 import { ConfiguratorsModule } from "./configurators/configurators.module";
+import { VanillaTitleStrategy } from "./configurators/app-configuration/title-strategy.service";
 import { AppConfigService } from "./app-config.service";
 
 // standalone components
@@ -233,7 +232,8 @@ export const breakpoints = {
         {provide: HTTP_INTERCEPTORS, useClass: NotificationsInterceptor, multi: true},
 
         {provide: SCREEN_SIZE_RULES, useValue: breakpoints},
-        {provide: SELECTION_OPTIONS, useValue: {storage: 'record'}}
+        {provide: SELECTION_OPTIONS, useValue: { storage: 'record'}},
+        {provide: TitleStrategy, useClass: VanillaTitleStrategy}
     ],
     bootstrap: [
         AppComponent
@@ -242,11 +242,7 @@ export const breakpoints = {
 export class AppModule {
 
     constructor(
-        _globalService: GlobalService,
         _recentQueriesService: RecentQueriesService,
         _RecentDocumentsService: RecentDocumentsService,
-        _appConfigService: AppConfigService) {
-            // start listening global configuration changes
-            _globalService.startListening();
-        }
+        _appConfigService: AppConfigService) {}
 }
