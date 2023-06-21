@@ -4,10 +4,10 @@
         <!-- Application logo -->
         <ng-template uib-template="logo" display="App logo" let-config>
             <a [routerLink]="['/home']" title="Home">
-                <img id="logo" [src]="config.logoLightLg" alt="sinequa logo" *ngIf="config.logoLightLg && !ui.isDark() && ui.screenSizeIsGreater('md')">
-                <img id="logo" [src]="config.logoLightSm" alt="sinequa logo" *ngIf="config.logoLightSm && !ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
-                <img id="logo" [src]="config.logoDarkLg" alt="sinequa logo" *ngIf="config.logoDarkLg && ui.isDark() && ui.screenSizeIsGreater('md')">
-                <img id="logo" [src]="config.logoDarkSm" alt="sinequa logo" *ngIf="config.logoDarkSm && ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
+                <img id="logo" [src]="config.images.logoLightLg.filename" [attr.width]="config.images.logoLightLg.width" [attr.height]="config.images.logoLightLg.height" alt="sinequa logo" *ngIf="config.images.logoLightLg && !ui.isDark() && ui.screenSizeIsGreater('md')">
+                <img id="logo" [src]="config.images.logoLightSm.filename" [attr.width]="config.images.logoLightSm.width" [attr.height]="config.images.logoLightSm.height" alt="sinequa logo" *ngIf="config.images.logoLightSm && !ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
+                <img id="logo" [src]="config.images.logoDarkLg.filename" [attr.width]="config.images.logoDarkLg.width" [attr.height]="config.images.logoDarkLg.height" alt="sinequa logo" *ngIf="config.images.logoDarkLg && ui.isDark() && ui.screenSizeIsGreater('md')">
+                <img id="logo" [src]="config.images.logoDarkSm.filename" [attr.width]="config.images.logoDarkSm.width" [attr.height]="config.images.logoDarkSm.height" alt="sinequa logo" *ngIf="config.images.logoDarkSm && ui.isDark() && ui.screenSizeIsLessOrEqual('md')">
             </a>
         </ng-template>
 

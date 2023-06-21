@@ -3,16 +3,18 @@ import { UserSettingsWebService } from '@sinequa/core/web-services';
 import { ComponentConfig, ConfigService, ToastService } from '@sinequa/ngx-ui-builder';
 import { Subscription } from 'rxjs';
 import { debounceTime, skip, switchMap } from 'rxjs/operators';
-import { VANILLA_BUILDER_DEFAULT_CONFIG } from '../config';
+import { GLOBAL_CONFIG, VANILLA_BUILDER_DEFAULT_CONFIG } from '../config';
+import { GlobalService } from './configurators/app-configuration/global.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppConfigService {
   sub?: Subscription;
 
   constructor(
-    public userSettingsService: UserSettingsWebService,
-    public configService: ConfigService,
-    public toastService: ToastService
+    private readonly userSettingsService: UserSettingsWebService,
+    private readonly configService: ConfigService,
+    private readonly toastService: ToastService,
+    private readonly globalService: GlobalService
   ) {
 
     // using userSettingsService.events observable don't works when we land in the home page first
@@ -21,6 +23,7 @@ export class AppConfigService {
         if (!this.sub) {
           this.setInitialConfiguration();
           this.configServiceSubscription();
+          this.globalService.startListening();
         }
       });
   }
@@ -53,8 +56,18 @@ export class AppConfigService {
       });
   }
 
+  /**
+   * This function returns a default configuration array, which is either the
+   * global configuration or the default configuration for a vanilla builder.
+   * @returns The `getDefaultConfig()` function is returning an array that is a
+   * concatenation of two arrays: `GLOBAL_CONFIG` and
+   * `VANILLA_BUILDER_DEFAULT_CONFIG`. If `GLOBAL_CONFIG` is undefined or null, it
+   * will only return `VANILLA_BUILDER_DEFAULT_CONFIG`.
+   *
+   * `GLOBAL_CONFIG` is usually defined when the make-static schematic is executed.
+   */
   getDefaultConfig() {
-    return [...VANILLA_BUILDER_DEFAULT_CONFIG];
+    return GLOBAL_CONFIG || [...VANILLA_BUILDER_DEFAULT_CONFIG];
   }
 
 }
