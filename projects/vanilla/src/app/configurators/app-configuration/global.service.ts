@@ -1,8 +1,10 @@
-import { inject, Injectable, OnDestroy } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { ConfigService } from "@sinequa/ngx-ui-builder";
 
 import { hexToHSL, hexToRGBA, RGBAToHexA, shadeColor, tintColor } from "./colors";
 import { Subscription } from "rxjs";
+import { IntlService } from "@sinequa/core/intl";
+import { Title } from "@angular/platform-browser";
 
 type ColorVariants = "primary" | "secondary" | "brand";
 
@@ -13,7 +15,14 @@ export const configFactory = (global: GlobalService) => {
 @Injectable({ providedIn: "root"})
 export class GlobalService implements OnDestroy {
 
+  appName = "";
+
   private subscription: Subscription;
+
+  constructor(
+    private readonly titleService: Title,
+    private readonly intlService: IntlService,
+    private readonly configService: ConfigService) {}
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -23,13 +32,21 @@ export class GlobalService implements OnDestroy {
 
   startListening() {
     if (!this.subscription) {
-      const configService = inject(ConfigService);
-      this.subscription = configService.watchConfig("global")
+      this.subscription = this.configService.watchConfig("global")
         .subscribe(value => this.changes(value as any));
     }
   }
 
-  changes({backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor}): void {
+  changes(changes): void {
+
+    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor } = changes;
+    const { appName } = changes;
+
+    if (this.appName !== appName) {
+      this.appName = appName;
+      this.setTitle();
+    }
+
     if (theme) {
       document.body.classList.add("sinequa");
     }
@@ -41,8 +58,8 @@ export class GlobalService implements OnDestroy {
       document.documentElement.style.removeProperty("--bs-body-font-family");
     }
 
-    if(backgroundImage) {
-      document.body.style.backgroundImage = `url(${backgroundImage})`;
+    if(changes.images.backgroundImage) {
+      document.body.style.backgroundImage = `url(${changes.images.backgroundImage.filename})`;
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundPosition = '50%';
       document.body.style.backgroundSize = 'cover';
@@ -170,5 +187,9 @@ export class GlobalService implements OnDestroy {
     for (let index = 1; index < 6; index++) {
       document.documentElement.style.removeProperty(`--${name}-${index * 100}`);
     }
+  }
+
+  setTitle() {
+    this.titleService.setTitle(this.intlService.formatMessage(this.appName));
   }
 }

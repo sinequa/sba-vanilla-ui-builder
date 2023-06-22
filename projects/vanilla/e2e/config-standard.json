@@ -19,8 +19,10 @@
   {
     "id": "home-logo",
     "type": "home-logo",
-    "logoLight": "assets/vanilla-logo.png",
-    "logoDark": "assets/vanilla-logo-dark.png"
+    "images": {
+      "logoLight": {"filename": "assets/vanilla-logo.png"},
+      "logoDark": {"filename": "assets/vanilla-logo-dark.png"}
+    }
   },
   {
     "id": "home-title",
@@ -76,10 +78,12 @@
     "id": "logo",
     "type": "logo",
     "classes": "col-lg-3 col-xl-2",
-    "logoLightLg": "assets/sinequa-logo-light-lg.png",
-    "logoLightSm": "assets/sinequa-logo-light-sm.png",
-    "logoDarkLg": "assets/sinequa-logo-dark-lg.png",
-    "logoDarkSm": "assets/sinequa-logo-dark-sm.png"
+    "images": {
+      "logoLightLg": {"filename": "assets/sinequa-logo-light-lg.png", "height":40},
+      "logoLightSm": {"filename": "assets/sinequa-logo-light-sm.png", "height":40},
+      "logoDarkLg": {"filename": "assets/sinequa-logo-dark-lg.png", "height":40},
+      "logoDarkSm": {"filename": "assets/sinequa-logo-dark-sm.png", "height":40}
+    }
   },
   {
     "id": "search-form",

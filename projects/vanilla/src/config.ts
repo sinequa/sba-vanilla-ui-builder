@@ -1,4 +1,3 @@
-import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from '@sinequa/components/facet';
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
 import { PreviewHighlightColors } from '@sinequa/components/preview';
@@ -10,6 +9,14 @@ import { MetadataConfig } from '@sinequa/components/metadata';
  * the configuration store in user settings
  */
 export const FORCE_LOCAL_CONFIG = false;
+export const GLOBAL_CONFIG = undefined;
+
+export const GLOBAL_DEFAULT_CONFIG = {
+  id: "global",
+  type: "global",
+  appName: "msg#app.name",
+  images: { backgroundImage: { filename: '' } }
+}
 
 export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
@@ -21,8 +28,10 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home-logo',
     type: 'home-logo',
-    logoLight: 'assets/vanilla-logo.png',
-    logoDark: 'assets/vanilla-logo-dark.png'
+    images: {
+      logoLight: { filename: 'assets/vanilla-logo.png' },
+      logoDark: { filename: 'assets/vanilla-logo-dark.png' }
+    }
   },
   {
     id: 'home-title',
@@ -32,7 +41,7 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home-facets',
     type: '_container',
-    classes: 'sq-home-facet-bar d-flex gap-3 justify-content-center',
+    classes: 'sq-home-facet-bar col-9 d-flex gap-3 justify-content-center',
     items: ['recent-documents', 'recent-queries', 'saved-queries', 'baskets']
   },
   {
@@ -84,10 +93,12 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     id: "logo",
     type: "logo",
     classes: "col-lg-3 col-xl-2",
-    logoLightLg: "assets/sinequa-logo-light-lg.png",
-    logoLightSm: "assets/sinequa-logo-light-sm.png",
-    logoDarkLg: "assets/sinequa-logo-dark-lg.png",
-    logoDarkSm: "assets/sinequa-logo-dark-sm.png",
+    images: {
+      logoLightLg: { filename: "assets/sinequa-logo-light-lg.png", height: 40 },
+      logoLightSm: { filename: "assets/sinequa-logo-light-sm.png", height: 40 },
+      logoDarkLg: { filename: "assets/sinequa-logo-dark-lg.png", height: 40 },
+      logoDarkSm: { filename: "assets/sinequa-logo-dark-sm.png", height: 40 }
+    }
   },
   {
     id: 'nav-search-form',
@@ -141,19 +152,13 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     "classes": "d-flex w-100 align-items-center"
   },
   {
-    id:"global",
-    type: "global"
-  },
-  {
     type: "_container",
     id: "spacer-menu",
     classes: "w-100",
     items: []
   }
 ];
-
-export type FacetParams = FacetListParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
-
+export type FacetParams = FacetDateParams;
 export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'facets',
@@ -456,6 +461,7 @@ export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
 ];
 
 export const VANILLA_BUILDER_DEFAULT_CONFIG: ComponentConfig[] = [
+  GLOBAL_DEFAULT_CONFIG,
   ...HOME_DEFAULT_CONFIG,
   ...NAVBAR_DEFAULT_CONFIG,
   ...FACETS_DEFAULT_CONFIG,

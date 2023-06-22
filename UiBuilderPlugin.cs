@@ -74,7 +74,7 @@ namespace Sinequa.Plugin
 			}
 
 			// Run schematic "make-static" to transform the workspace folder
-			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName} --app-module-dependencies=projects/vanilla/src/app-dependencies.json";
+			string arguments = $"run --scripts-prepend-node-path=true ng generate @sinequa/ngx-ui-builder:make-static -- --config={configFileName} --config-path=projects/vanilla/src/config.ts --config-identifier=GLOBAL_CONFIG --app-module-dependencies=projects/vanilla/src/app-dependencies.json";
 
 			int exitcode = Sys.RunWithOutputs(npm, arguments, workspacePath, out string result, out string error);
 
