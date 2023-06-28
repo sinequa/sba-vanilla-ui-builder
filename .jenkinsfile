@@ -18,7 +18,7 @@ sba_version   = "${params.SBA_VERSION}"
 // .npmrc variables for verdaccio connection
 scope  = "@sinequa"
 fnpmrc = '.npmrc'
-anpmrc = ['node-options="--max-old-space-size=8192"', "always-auth=true", "registry=https://${url}/", "scope=${scope}"]
+anpmrc = ['node-options="--max-old-space-size=8192"', "always-auth=true", "registry=${url}/", "scope=${scope}"]
 
 // Pipeline workflow (main)
 node (params.SBA_NODE) {
