@@ -46,6 +46,10 @@ node (params.SBA_NODE) {
             // delete dependency modules 
             def nmfolder = "node_modules"
             bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"
+			
+			// clean the npm cache
+			echo ".Cache clean force"
+			bat "npm cache clean --force"
         }
         
         stage('Create user') {
@@ -68,17 +72,7 @@ node (params.SBA_NODE) {
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
-            def ret = bat (script: "npm install --legacy-peer-deps", returnStatus: true)
-            if (ret) {
-                // set .npmrc file as original
-                // check registry
-                // install again
-                bat """
-                  call git restore .npmrc
-                  call npm config get registry
-                  call npm install --legacy-peer-deps
-                """
-            }
+            bat "npm ci"
         }
         
         // Build the app
