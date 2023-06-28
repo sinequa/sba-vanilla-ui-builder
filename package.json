@@ -34,7 +34,7 @@
     "@sinequa/analytics": "rel_11.10.0",
     "@sinequa/components": "rel_11.10.0",
     "@sinequa/core": "rel_11.10.0",
-    "@sinequa/ngx-ui-builder": "^0.2.1",
+    "@sinequa/ngx-ui-builder": "^0.2.3",
     "@swimlane/ngx-charts": "^20.1.0",
     "ag-grid-angular": "^25.2.0",
     "ag-grid-community": "^25.2.0",
