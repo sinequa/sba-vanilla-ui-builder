@@ -46,6 +46,10 @@ node (params.SBA_NODE) {
             // delete dependency modules 
             def nmfolder = "node_modules"
             bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"
+			
+			// clean the npm cache
+			echo ".Cache clean force"
+			bat "npm cache clean --force"
         }
         
         stage('Create user') {
@@ -74,10 +78,14 @@ node (params.SBA_NODE) {
                 // check registry
                 // install again
                 bat """
-                  call git restore .npmrc
-                  call npm config get registry
-                  call npm ci
-                """
+				  echo "----------"
+				  echo "restore .npmrc file"
+				  call git restore .npmrc
+				  echo "verify the registry"
+				  call npm config get registry
+				  echo "npm install again"
+				  call npm install
+				"""
             }
         }
         
