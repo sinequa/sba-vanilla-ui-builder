@@ -72,7 +72,7 @@ node (params.SBA_NODE) {
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
-            bat (script: "npm ci", returnStatus: true)
+            bat "npm ci"
         }
         
         // Build the app
