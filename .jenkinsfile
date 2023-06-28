@@ -68,7 +68,7 @@ node (params.SBA_NODE) {
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
-            def ret = bat (script: "npm install --legacy-peer-deps", returnStatus: true)
+            def ret = bat (script: "npm ci --legacy-peer-deps", returnStatus: true)
             if (ret) {
                 // set .npmrc file as original
                 // check registry
@@ -76,7 +76,7 @@ node (params.SBA_NODE) {
                 bat """
                   call git restore .npmrc
                   call npm config get registry
-                  call npm install --legacy-peer-deps
+                  call npm ci --legacy-peer-deps
                 """
             }
         }
