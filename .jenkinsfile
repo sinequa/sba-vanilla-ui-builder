@@ -72,21 +72,7 @@ node (params.SBA_NODE) {
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
-            def ret = bat (script: "npm ci", returnStatus: true)
-            if (ret) {
-                // set .npmrc file as original
-                // check registry
-                // install again
-                bat """
-				  echo "----------"
-				  echo "restore .npmrc file"
-				  call git restore .npmrc
-				  echo "verify the registry"
-				  call npm config get registry
-				  echo "npm install again"
-				  call npm install
-				"""
-            }
+            bat (script: "npm ci", returnStatus: true)
         }
         
         // Build the app
