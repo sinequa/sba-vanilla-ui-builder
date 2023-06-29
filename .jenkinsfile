@@ -45,11 +45,7 @@ node (params.SBA_NODE) {
         stage('Clean') {
             // delete dependency modules 
             def nmfolder = "node_modules"
-            bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"
-			
-			// clean the npm cache
-			echo ".Cache clean force"
-			bat "npm cache clean --force"
+            bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"			
         }
         
         stage('Create user') {
