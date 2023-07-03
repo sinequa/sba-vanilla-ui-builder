@@ -55,22 +55,4 @@ def appendFile(afile, what) {
     }
 }
 
-// function to update sinequa package version in package.json file
-def updatePackage(version) {
-    withEnv(["pkgVersion=${version}"]) {
-        echo "pkgVersion = ${env.pkgVersion}"
-        powershell ('''
-            $file = 'package.json'
-            write-host "Update: $file packages: @sinequa with pkgVersion: $env:pkgVersion"
-            $regex1 = '\\"\\@sinequa/core\\".*'
-            $regex2 = '\\"\\@sinequa/components\\".*'
-            $regex3 = '\\"\\@sinequa/analytics\\".*'
-            $s1 = '"@sinequa/core": "' + $env:pkgVersion + '",'
-            $s2 = '"@sinequa/components": "' + $env:pkgVersion + '",'
-            $s3 = '"@sinequa/analytics": "' + $env:pkgVersion + '",'
-            (Get-Content $file) -replace $regex1, $s1 -replace $regex2, $s2 -replace $regex3, $s3 | Set-Content $file
-            ''')
-    }
-}
-
 return this
