@@ -45,7 +45,7 @@ node (params.SBA_NODE) {
         stage('Clean') {
             // delete dependency modules 
             def nmfolder = "node_modules"
-            bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"			
+            bat "if exist ${nmfolder} ( rmdir /s /q ${nmfolder} )"
         }
         
         stage('Create user') {
@@ -56,26 +56,25 @@ node (params.SBA_NODE) {
             // check the connection
             bat "npm whoami"
         }
-    
-        // Validate app fired
-        if (modeCallFromSbaInternal) {
-            // Validate app fired on merge event
-            stage('Update package') {
-                // update package.json with version
-                jf.updatePackage(sba_version)
-            }
-        }
+   
         // install dependencies, fallback to official registry
         // and retry if get on internal repo fails
         stage('NPM Install') {
+            echo "npm ci --legacy-peer-deps"
             bat "npm ci --legacy-peer-deps"
         }
         
+        stage('Install @sinequa pkg') {
+            if (modeCallFromSbaInternal) {
+                echo "npm install @sinequa/core@${sba_version} @sinequa/components@${sba_version} @sinequa/analytics@${sba_version} --legacy-peer-deps"
+                bat  "npm install @sinequa/core@${sba_version} @sinequa/components@${sba_version} @sinequa/analytics@${sba_version} --legacy-peer-deps"
+            }
+        }
+
         // Build the app
         stage('Build initial') {
-            bat """
-              call npm run build
-            """
+            echo ".call npm run build"
+            bat "call npm run build"
         }
         // Build the app with config-standard
         stage('Build config-standard') {
