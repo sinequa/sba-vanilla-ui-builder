@@ -1,8 +1,8 @@
 <uib-zone id="home" *ngIf="loginService.complete" class="home">
 
      <ng-template uib-template="home-logo" display="Homepage logo" let-config>
-        <img id="logo" [src]="config.images.logoLight.filename" [attr.width]="config.images.logoLight.width" [attr.height]="config.images.logoLight.height" *ngIf="config.images.logoLight && !isDark()">
-        <img id="logo" [src]="config.images.logoDark.filename" *ngIf="config.images.logoDark && isDark()">
+        <img id="logo" [src]="config.images.logoLight.filename" [attr.width]="config.images.logoLight.width" [attr.height]="config.images.logoLight.height" *ngIf="config.images && !isDark()">
+        <img id="logo" [src]="config.images.logoDark.filename" *ngIf="config.images && isDark()">
     </ng-template>
 
     <ng-template uib-template="search-form" display="Search form" let-config>

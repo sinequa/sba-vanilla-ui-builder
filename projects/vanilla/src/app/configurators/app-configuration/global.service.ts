@@ -58,7 +58,7 @@ export class GlobalService implements OnDestroy {
       document.documentElement.style.removeProperty("--bs-body-font-family");
     }
 
-    if(changes.images.backgroundImage) {
+    if(changes?.images?.backgroundImage) {
       document.body.style.backgroundImage = `url(${changes.images.backgroundImage.filename})`;
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundPosition = '50%';
