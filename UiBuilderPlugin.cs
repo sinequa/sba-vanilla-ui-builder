@@ -65,7 +65,7 @@ namespace Sinequa.Plugin
 				return;
 			}
 			versions.Sort(SortFlags.SortAlphaNum); // Most recent is last
-			var npm = Path.Combine(node, versions.GetLast(), "npm.cmd");
+			var npm = Path.Combine(node, versions.GetLast(), "npm-sinequa.cmd");
 
 			if(!File.Exists(npm)) {
 				JsonResponse.Set("error", $"Could not find npm installed in {npm}");
