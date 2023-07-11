@@ -10,7 +10,7 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   <sq-facet-header-configurator [context]="context"></sq-facet-header-configurator>
   <hr />
 
-  <h6>{{context.context.templates?.[config.type]?.display || config.type}}</h6>
+  <h6>{{context.context?.templates?.[config.type]?.display || config.type}}</h6>
 
   <label for="aggregation">Aggregation</label>
   <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.aggregation" (ngModelChange)="configChanged()">
