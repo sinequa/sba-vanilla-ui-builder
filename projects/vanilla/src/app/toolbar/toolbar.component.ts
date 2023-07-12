@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { AppService } from "@sinequa/core/app-utils";
-import { NotificationsService } from "@sinequa/core/notification";
+import { NotificationType, NotificationsService } from "@sinequa/core/notification";
 import { DownloadWebService, JsonMethodPluginService } from "@sinequa/core/web-services";
 import { ConfigService, ConfigurableService } from "@sinequa/ngx-ui-builder";
-import { throwError } from "rxjs";
-import { catchError, finalize, switchMap } from "rxjs/operators";
+import { of, throwError } from "rxjs";
+import { catchError, finalize, map, switchMap } from "rxjs/operators";
 import { AppConfigService } from "../app-config.service";
 
 @Component({
@@ -34,26 +34,28 @@ export class ToolbarComponent {
   exportInProgress: boolean;
   exportApp() {
     if(this.exportInProgress) return;
-    this.exportInProgress = true;
     const workspaceName = this.appService.app?.workspaceApp.split('/')[2]; // '/_sba/ws11.5.1.69/projects/vanilla-search/'
     if(workspaceName) {
+      this.exportInProgress = true;
       const config = this.configService.getAllConfig();
-      const download$ = this.pluginService.post("MakeStaticWorkspace", {workspaceName, config}, {params: {noNotify: true}, responseType: "json"})
+      this.pluginService.post("MakeStaticWorkspace", { workspaceName, config }, { params: { noNotify: true }, responseType: "json" })
         .pipe(
           catchError(err => {
             this.notificationsService.error("Make sure you install the following JSON method plugin: https://github.com/sinequa/sba-vanilla-ui-builder/blob/develop/UiBuilderPlugin.cs")
             return throwError(err);
           }),
-          switchMap((value:any) => {
+          switchMap((value: any) => {
             const zipName = value?.zipName;
-            if(zipName) {
-              return this.pluginService.post("DownloadExportedWorkspace", {workspaceName, zipName}, {observe: 'response', responseType: 'blob'});
+            if (zipName) {
+              return this.pluginService.post("DownloadExportedWorkspace", { workspaceName, zipName }, { observe: 'response', responseType: 'blob' })
+                .pipe(map(x => this.downloadService.download(of(x), zipName)));
             }
             throw "Missing Zip file name from response";
           }),
           finalize(() => this.exportInProgress = false)
-        );
-      this.downloadService.download(download$).subscribe();
+        ).subscribe();
+    } else {
+      this.notificationsService.notify(NotificationType.Error, "No workspace name set!");
     }
   }
 
