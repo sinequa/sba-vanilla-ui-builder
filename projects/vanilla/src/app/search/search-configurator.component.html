@@ -74,7 +74,7 @@
       </ng-template>
 
       <ng-template uib-template="result-metadata" let-context>
-          <sq-metadata-configurator [context]="context" [metadata]="metadata"></sq-metadata-configurator>
+          <sq-metadata-configurator [context]="context" [metadata]="metadata" [metadataConfig]="metadataConfig"></sq-metadata-configurator>
       </ng-template>
 
       <ng-template uib-template="tabs" let-context>
@@ -135,7 +135,7 @@
       </ng-template>
 
       <ng-template uib-template="preview" let-context>
-        <sq-preview-configurator [context]="context" [metadata]="metadata"></sq-preview-configurator>
+        <sq-preview-configurator [context]="context" [metadata]="metadata" [metadataConfig]="metadataConfig"></sq-preview-configurator>
       </ng-template>
 
       <ng-template uib-template="slide-builder" let-context>

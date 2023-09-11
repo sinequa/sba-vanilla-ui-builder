@@ -18,10 +18,11 @@ export class SearchConfiguratorComponent implements OnDestroy {
    * The configuration from the config.ts file can be overridden by configuration from
    * the app configuration on the server
    */
-  public get metadata(): string[] {
-    const m = this.appService.app?.data?.metadata as any as MetadataConfig[] || METADATA_CONFIG;
-    return m.map(i => i.field);
+  public get metadataConfig(): MetadataConfig[] {
+    return this.appService.app?.data?.metadata as any as MetadataConfig[] || METADATA_CONFIG;
   }
+
+  metadata: string[] = [];
 
   loginService = inject(LoginService);
   appService = inject(AppService);
@@ -35,18 +36,17 @@ export class SearchConfiguratorComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.subs) this.subs.unsubscribe();
+    if (this.subs) this.subs.unsubscribe();
   }
 
   private updateMetadata(records: Record[]) {
-    return;
-    // const set = new Set(this.metadata);
-    // records.forEach(r => {
-    //   Object.keys(r)
-    //     .filter(k => this.appService.getColumn(k))
-    //     .forEach(k => set.add(k));
-    // });
-    // this.metadata = [...set.values()]
+    const set = new Set(this.metadata);
+    records.forEach(r => {
+      Object.keys(r)
+      .filter(k => this.appService.getColumn(k))
+      .forEach(k => set.add(k));
+    });
+    return this.metadata = [...set.values()];
   }
 
 }
