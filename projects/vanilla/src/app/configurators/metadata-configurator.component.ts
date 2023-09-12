@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { MetadataConfig } from "@sinequa/components/metadata";
 import { AppService } from "@sinequa/core/app-utils";
 import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
@@ -81,7 +81,7 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 </div>
     `
 })
-export class MetadataConfiguratorComponent {
+export class MetadataConfiguratorComponent implements OnChanges {
   @Input() context: ConfiguratorContext;
   @Input() metadata: string[];
 
@@ -93,6 +93,12 @@ export class MetadataConfiguratorComponent {
   isEntity: boolean;
 
   constructor(public appService: AppService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.context && this.metadataToModify) {
+      this.metadataToModify = this.config.metadataConfig.find(m => m.field === this.metadataToModify.field);
+    }
+  }
 
   get config(): ComponentConfig {
     return this.context.config;
@@ -106,11 +112,6 @@ export class MetadataConfiguratorComponent {
  /** Update the whole config */
   configChanged() {
     this.context.configChanged();
-    setTimeout(() => {
-      if (this.metadataToModify) {
-        this.metadataToModify = this.config.metadataConfig.find(m => m.field === this.metadataToModify.field);
-      }
-    })
   }
 
   /** Selecting a metadata to update */
