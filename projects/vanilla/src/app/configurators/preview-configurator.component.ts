@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { MetadataConfig } from "@sinequa/components/metadata";
 import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
@@ -19,14 +18,13 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <h6 class="mt-2">Metadata options</h6>
 
-  <sq-metadata-configurator [context]="context" [metadata]="metadata" [metadataConfig]="metadataConfig"></sq-metadata-configurator>
+  <sq-metadata-configurator [context]="context" [metadata]="metadata"></sq-metadata-configurator>
 
   `
 })
 export class PreviewConfiguratorComponent implements OnInit {
   @Input() context: ConfiguratorContext;
   @Input() metadata: string[];
-  @Input() metadataConfig: MetadataConfig[];
 
   highlights: string[];
   extractOptions = [

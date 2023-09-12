@@ -13,10 +13,11 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   </uib-multi-selector>
 
   <div *ngIf="config.items?.length">
+    <label class="form-label" for="metadataString">Insert a static string</label>
     <div class="input-group mb-2">
-      <input type="text" class="form-control" [(ngModel)]="metadataString" placeholder="Type a string to insert between metadatas">
+      <input type="text" class="form-control" [(ngModel)]="metadataString" id="metadataString" placeholder="Type the string to insert">
       <div class="input-group-append">
-        <button class="btn btn-secondary" (click)="insertString()">Insert a string</button>
+        <button class="btn btn-secondary" (click)="insertString()">Add</button>
       </div>
     </div>
 
@@ -29,11 +30,20 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     </div>
 
     <label class="form-label mt-2" for="item">Customize</label>
-    <select id="item" class="form-select mb-2" [(ngModel)]="modifiedMetadata" (ngModelChangeDebounced)="changedMetadata()">
+    <select id="item" class="form-select mb-2" [(ngModel)]="modifiedMetadata" (ngModelChangeDebounced)="selectedMetadata()">
       <option [value]="undefined">Select a metadata</option>
-      <option *ngFor="let conf of updatableMetadata" [value]="conf.field">{{conf.field}}</option>
+      <option *ngFor="let conf of config.metadataConfig" [value]="conf.field || conf">{{conf.field || conf}}</option>
     </select>
 
+    <!-- Simple string metadata -->
+    <ng-container *ngIf="stringToModify">
+    <div class="mb-2">
+        <label class="form-label" for="stringUpdate">Update the string</label>
+        <input type="text" class="form-control mb-1" id="stringUpdate" [(ngModel)]="newString" (ngModelChangeDebounced)="changedString()">
+      </div>
+    </ng-container>
+
+    <!-- MetadataConfig metadata -->
     <ng-container *ngIf="metadataToModify">
       <div class="mb-2">
         <label class="form-label" for="label">Label</label>
@@ -74,11 +84,12 @@ import { ComponentConfig, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 export class MetadataConfiguratorComponent {
   @Input() context: ConfiguratorContext;
   @Input() metadata: string[];
-  @Input() metadataConfig: MetadataConfig[];
 
   modifiedMetadata: string;
   metadataString: string;
   metadataToModify: MetadataConfig;
+  stringToModify?: string;
+  newString: string;
   isEntity: boolean;
 
   constructor(public appService: AppService) { }
@@ -92,19 +103,7 @@ export class MetadataConfiguratorComponent {
     return this.metadata.concat(stringItems);
   }
 
-  get updatableMetadata(): MetadataConfig[] {
-    return this.config.metadataConfig?.filter(c => !!c.field) || [];
-  }
-
-  insertString() {
-      if (this.metadataString.trim() !== "") {
-        this.config.metadataConfig.push(this.metadataString);
-        this.config.items.push(this.metadataString);
-        this.metadataString = '';
-        this.configChanged();
-      }
-  }
-
+ /** Update the whole config */
   configChanged() {
     this.context.configChanged();
     setTimeout(() => {
@@ -114,23 +113,53 @@ export class MetadataConfiguratorComponent {
     })
   }
 
-  updatedList() {
-    const allMetadata = [...(this.config.metadataConfig || [])].concat(this.metadataConfig);
-    this.config.metadataConfig = this.config.items.map(item => {
-      let metadata: MetadataConfig = allMetadata.find(m => m.field === item || !m.field);
-      if (!metadata) {
-        metadata = { field: item };
+  /** Selecting a metadata to update */
+  selectedMetadata() {
+    this.metadataToModify = this.config.metadataConfig.find(m => m.field === this.modifiedMetadata);
+    this.stringToModify = this.metadataToModify ? undefined : this.modifiedMetadata;
+    this.newString = String(this.stringToModify);
+    this.isEntity = this.metadataToModify && this.appService.isEntity(this.metadataToModify.field);
+  }
+
+  /** Insert a static string inside the metadata list */
+  insertString() {
+      if (this.metadataString.trim() !== "") {
+        this.config.metadataConfig.push(this.metadataString);
+        this.config.items.push(this.metadataString);
+        this.metadataString = '';
+        this.configChanged();
       }
-      return metadata;
+  }
+
+  /** Update a static string */
+  changedString() {
+    if (this.newString) {
+      let metadataConfigValue = this.config.metadataConfig.find(m => m === this.stringToModify);
+      let itemsValue = this.config.items.find(m => m === this.stringToModify);
+
+      this.config.metadataConfig[this.config.metadataConfig.indexOf(metadataConfigValue)] = this.newString;
+      this.config.items[this.config.items.indexOf(itemsValue)] = this.newString;
+      this.modifiedMetadata = this.newString;
+      this.stringToModify = this.newString;
+
+      this.configChanged();
+    }
+  }
+
+  /** Update the metadata list after reorganizing it */
+  updatedList() {
+    const allMetadata = [...(this.config.metadataConfig || [])];
+    this.config.metadataConfig = this.config.items.map(item => {
+      let metadata: MetadataConfig = allMetadata.find(m => m.field === item);
+      if (!metadata && !!this.metadata.find(m => m === item)) {
+        metadata = {field: item};
+      }
+      return metadata || item;
     });
     this.configChanged();
   }
 
-  changedMetadata() {
-    this.metadataToModify = this.config.metadataConfig.find(m => m.field === this.modifiedMetadata);
-    this.isEntity = this.appService.isEntity(this.metadataToModify.field);
-  }
-
+  /** Update a metadata icon */
   iconChanged(metadata: any, change: { icon: string, iconCode: string }) {
     Object.assign(metadata, change);
     this.configChanged();
