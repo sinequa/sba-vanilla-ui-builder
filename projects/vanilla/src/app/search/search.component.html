@@ -198,7 +198,7 @@
                 </ng-template>
 
                 <ng-template uib-template="result-missing-terms" display="Missing Terms" let-config let-record="data">
-                    <sq-result-missing-terms [record]="record"></sq-result-missing-terms>
+                    <sq-result-missing-terms [record]="record" [showMustInclude]="config.showMustInclude"></sq-result-missing-terms>
                 </ng-template>
 
                 <ng-template uib-template="result-labels" display="Labels" let-config let-record="data">
