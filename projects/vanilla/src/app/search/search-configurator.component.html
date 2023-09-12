@@ -50,6 +50,10 @@
         <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChangeDebounced)="context.configChanged()">
       </ng-template>
 
+      <ng-template uib-template="result-missing-terms" let-context>
+        <uib-checkbox [context]="context" property="showMustInclude" label="Should show 'Must include'" (modelChanged)="context.configChanged()"></uib-checkbox>
+      </ng-template>
+
       <ng-template uib-template="result-labels" let-context>
         <uib-checkbox [context]="context" property="public" label="Public labels"></uib-checkbox>
         <uib-checkbox [context]="context" property="enableDelete" label="Enable delete"></uib-checkbox>
