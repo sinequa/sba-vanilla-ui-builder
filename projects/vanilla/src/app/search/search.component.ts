@@ -274,16 +274,4 @@ export class SearchComponent implements OnInit {
       this.openPreviewIfNoUrl(value.item.$record, value.isLink);
     }
   }
-
-  getMetadata(metadata: string[]): MetadataConfig[] {
-    // we need to respect the metadata order set
-    const list = metadata.reduce((acc, meta) => {
-      const m = this.metadata.find(m => m.field === meta);
-      if (m) {
-        acc.push(m)
-      }
-      return acc;
-    }, [] as MetadataConfig[]);
-    return list;
-  }
 }
