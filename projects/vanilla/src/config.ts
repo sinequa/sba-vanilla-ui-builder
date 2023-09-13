@@ -170,7 +170,7 @@ export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
     id: "facet-treepath",
     name: "treepath",
     title: "msg#facet.treepath.title",
-    type: "facet-tree",
+    type: "facet-list",
     icon: "fas fa-sitemap",
     parameters: {
       aggregation: "Treepath",
@@ -180,6 +180,8 @@ export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
       allowOr: true,
       allowAnd: false,
       displayEmptyDistributionIntervals: false,
+      acceptNonAggregationItemFilter: true,
+      expandedLevel: 2
     }
   },
   {

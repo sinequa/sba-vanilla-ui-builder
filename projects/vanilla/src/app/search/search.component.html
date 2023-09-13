@@ -69,19 +69,9 @@
                             [allowOr]="config.parameters.allowOr"
                             [allowAnd]="config.parameters.allowAnd"
                             [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
-                        ></sq-facet-list>
-                    </sq-facet-card>
-                </ng-template>
-
-                <ng-template uib-template="facet-tree" display="Tree facet" title="A component that displays a tree-structured metadata to filter the results" let-config>
-                    <sq-facet-card class="d-block" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
-                        <sq-facet-list #facet
-                            [results]="results"
-                            [aggregation]="config.parameters.aggregation"
-                            [showCount]="config.parameters.showCount"
-                            [searchable]="config.parameters.searchable"
-                            [allowExclude]="config.parameters.allowExclude"
-                            [allowOr]="config.parameters.allowOr"
+                            [acceptNonAggregationItemFilter]="config.parameters.acceptNonAggregationItemFilter"
+                            [replaceCurrent]="config.parameters.replaceCurrent"
+                            [expandedLevel]="config.parameters.expandedLevel"
                         ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>

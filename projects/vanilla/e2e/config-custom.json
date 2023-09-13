@@ -173,7 +173,7 @@
     "id": "facet-treepath",
     "name": "treepath",
     "title": "msg#facet.treepath.title",
-    "type": "facet-tree",
+    "type": "facet-list",
     "icon": "fas fa-sitemap",
     "parameters": {
       "aggregation": "Treepath",
@@ -182,7 +182,9 @@
       "allowExclude": true,
       "allowOr": true,
       "allowAnd": false,
-      "displayEmptyDistributionIntervals": false
+      "displayEmptyDistributionIntervals": false,
+      "acceptNonAggregationItemFilter": true,
+      "expandedLevel": 2
     }
   },
   {
