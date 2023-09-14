@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { SearchService } from "@sinequa/components/search";
-import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
 
 @Component({
@@ -62,8 +61,7 @@ export class FacetConfiguratorComponent implements OnChanges {
   isTree: boolean;
 
   constructor(
-    public searchService: SearchService,
-    private appService: AppService
+    public searchService: SearchService
   ) { }
 
   ngOnChanges(): void {
