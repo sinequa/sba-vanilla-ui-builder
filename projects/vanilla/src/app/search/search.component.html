@@ -208,7 +208,7 @@
                 </ng-template>
 
                 <ng-template uib-template="result-metadata" display="Metadata" let-config let-record="data">
-                    <sq-metadata [record]="record" [config]="metadata" [query]="searchService.query"></sq-metadata>
+                    <sq-metadata [record]="record" [config]="config.metadataConfig" [layout]="config.layout" [query]="searchService.query"></sq-metadata>
                 </ng-template>
             </uib-zone>
 
@@ -242,7 +242,7 @@
                         </ng-template>
 
                         <ng-template #subHeaderTpl>
-                            <sq-metadata [record]="record" [config]="getMetadata(config.metadata.items)" [layout]="config.metadata.layout" [query]="searchService.query"></sq-metadata>
+                            <sq-metadata [record]="record" [config]="config.metadataConfig" [layout]="config.layout" [query]="searchService.query"></sq-metadata>
                         </ng-template>
 
                         <ng-template [sqFacetView]="{text: 'msg#preview.viewPassages'}" [default]="true" *ngIf="openedDoc?.$hasPassages" #passagesList>

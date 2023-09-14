@@ -1,27 +1,18 @@
 import { Component, OnDestroy, inject } from "@angular/core";
-import { MetadataConfig } from "@sinequa/components/metadata";
 import { SearchService } from "@sinequa/components/search";
 import { UIService } from "@sinequa/components/utils";
 import { AppService } from "@sinequa/core/app-utils";
 import { LoginService } from "@sinequa/core/login";
 import { Record, Results } from "@sinequa/core/web-services";
 import { Subscription } from "rxjs";
-import { METADATA_CONFIG } from "../../config";
 
 @Component({
   selector: 'app-search-configurator',
   templateUrl: './search-configurator.component.html'
 })
 export class SearchConfiguratorComponent implements OnDestroy {
-  /**
-   * Returns the configuration of the metadata displayed in the facet-preview component.
-   * The configuration from the config.ts file can be overridden by configuration from
-   * the app configuration on the server
-   */
-  public get metadata(): string[] {
-    const m = this.appService.app?.data?.metadata as any as MetadataConfig[] || METADATA_CONFIG;
-    return m.map(i => i.field);
-  }
+
+  metadata: string[] = [];
 
   loginService = inject(LoginService);
   appService = inject(AppService);
@@ -35,18 +26,17 @@ export class SearchConfiguratorComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.subs) this.subs.unsubscribe();
+    if (this.subs) this.subs.unsubscribe();
   }
 
   private updateMetadata(records: Record[]) {
-    return;
-    // const set = new Set(this.metadata);
-    // records.forEach(r => {
-    //   Object.keys(r)
-    //     .filter(k => this.appService.getColumn(k))
-    //     .forEach(k => set.add(k));
-    // });
-    // this.metadata = [...set.values()]
+    const set = new Set(this.metadata);
+    records.forEach(r => {
+      Object.keys(r)
+      .filter(k => this.appService.getColumn(k))
+      .forEach(k => set.add(k));
+    });
+    return this.metadata = [...set.values()];
   }
 
 }
