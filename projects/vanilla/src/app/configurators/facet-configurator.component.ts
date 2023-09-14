@@ -94,13 +94,9 @@ export class FacetConfiguratorComponent implements OnChanges {
       }
     }
     // Update the list of available aggregations
-    this.aggregations = this.searchService.results?.aggregations
-      .map(agg => agg.name) || [];
-
-    if (this.config.parameters?.aggregation) {
-      const column = this.appService.getColumn(this.config.parameters.aggregation);
-      this.isTree = !!column && AppService.isTree(column);
-    }
+    const aggregations = this.searchService.results?.aggregations;
+    this.aggregations = aggregations?.map(agg => agg.name) || [];
+    this.isTree = !!aggregations?.find(a => a.name === this.config.parameters?.aggregation)?.isTree;
   }
 
   configChanged() {
