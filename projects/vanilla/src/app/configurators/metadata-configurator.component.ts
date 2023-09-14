@@ -124,7 +124,7 @@ export class MetadataConfiguratorComponent implements OnChanges {
 
   /** Insert a static string inside the metadata list */
   insertString() {
-      if (this.metadataString.trim() !== "") {
+      if (this.metadataString?.trim() !== "") {
         this.config.metadataConfig.push(this.metadataString);
         this.config.items.push(this.metadataString);
         this.metadataString = '';

@@ -17,7 +17,7 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   <input type="text" class="form-control mb-2" id="name" autocomplete="off" spellcheck="off" [(ngModel)]="config.name" (ngModelChangeDebounced)="configChanged()">
 
   <label for="aggregation">Aggregation</label>
-  <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.parameters.aggregation" (ngModelChange)="changedAggregation($event)">
+  <select id="aggregation" class="form-select mb-2" [(ngModel)]="config.parameters.aggregation" (ngModelChange)="configChanged()">
     <option *ngFor="let a of aggregations" [ngValue]="a">{{a}}</option>
   </select>
 
@@ -95,18 +95,16 @@ export class FacetConfiguratorComponent implements OnChanges {
     }
     // Update the list of available aggregations
     this.aggregations = this.searchService.results?.aggregations
-      .filter(agg => !!agg.isTree === (this.config.type === 'facet-list'))
       .map(agg => agg.name) || [];
+
+    if (this.config.parameters?.aggregation) {
+      const column = this.appService.getColumn(this.config.parameters.aggregation);
+      this.isTree = !!column && AppService.isTree(column);
+    }
   }
 
   configChanged() {
     this.context.configChanged();
-  }
-
-  changedAggregation(item: string) {
-    const column = this.appService.getColumn(item);
-    this.isTree = !!column && AppService.isTree(column);
-    this.configChanged();
   }
 
 }
