@@ -26,7 +26,7 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   <ng-container *ngIf="config.type !== 'facet-date'">
     <uib-checkbox [context]="context" property="parameters.searchable" label="Searchable"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.allowOr" label="Allow Multi-selecting with OR"></uib-checkbox>
-    <uib-checkbox [context]="context" property="parameters.allowAnd" label="Allow Multi-selecting with AND" *ngIf="!isTree"></uib-checkbox>
+    <uib-checkbox [context]="context" property="parameters.allowAnd" label="Allow Multi-selecting with AND"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.allowExclude" label="Allow Excluding Items"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.displayEmptyDistributionIntervals" label="Display empty distribution intervals"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.acceptNonAggregationItemFilter" label="Accept non aggregation item filters"></uib-checkbox>
