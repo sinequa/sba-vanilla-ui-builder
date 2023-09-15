@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { PreviewHighlightColors } from "@sinequa/components/preview";
+import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
 @Component({
@@ -70,17 +72,34 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   <select id="font" class="form-select mb-2" [(ngModel)]="context.config.fontFamily" (ngModelChange)="context.configChanged()">
     <option *ngFor="let font of fonts" [ngValue]="font.value">{{font.name}}</option>
   </select>
+
+  <hr/>
+
+  <div class="d-flex flex-column gap-1">
+    <h6>Entities Highlights</h6>
+    <select id="font" class="form-select mb-2" [(ngModel)]="entity" (ngModelChange)="onSelectedEntity()">
+      <option *ngFor="let entity of entities">{{entity}}</option>
+    </select>
+    <div *ngIf="entityHighlights">
+      <label for="color" class="form-label">Color</label>
+      <input type="color" id="color" class="form-control" [(ngModel)]="entityHighlights.color" (ngModelChangeDebounced)="context.configChanged()">
+    </div>
+    <div *ngIf="entityHighlights">
+      <label for="bgColor" class="form-label">Background Color</label>
+      <input type="color" id="bgColor" class="form-control" [(ngModel)]="entityHighlights.bgColor" (ngModelChangeDebounced)="context.configChanged()">
+    </div>
+  </div>
   `
 })
-export class GlobalConfiguratorComponent implements OnInit {
+export class GlobalConfiguratorComponent implements OnInit, OnChanges {
   @Input() context: ConfiguratorContext;
 
   fonts = [
-    {name: "System (default)", value: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'},
-    {name: "Serif", value: "Georgia, serif"},
-    {name: "Cursive", value: "cursive"},
-    {name: "Monospace", value: 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'},
-    {name: "Fantasy", value: "fantasy"}
+    { name: "System (default)", value: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"' },
+    { name: "Serif", value: "Georgia, serif" },
+    { name: "Cursive", value: "cursive" },
+    { name: "Monospace", value: 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace' },
+    { name: "Fantasy", value: "fantasy" }
   ]
 
   textColors = ['darker', 'neutral', 'lighter'];
@@ -92,6 +111,12 @@ export class GlobalConfiguratorComponent implements OnInit {
   primary?;
   secondary?;
 
+  entities: string[];
+  entity: string;
+  entityHighlights: PreviewHighlightColors;
+
+  constructor(private appService: AppService) { }
+
   ngOnInit(): void {
     this.background = getComputedStyle(document.body).getPropertyValue('--background-color').trim();
     this.gradient = getComputedStyle(document.body).getPropertyValue('--gradient-color').trim();
@@ -99,18 +124,46 @@ export class GlobalConfiguratorComponent implements OnInit {
     this.brand = getComputedStyle(document.body).getPropertyValue('--brand-300').trim();
     this.primary = getComputedStyle(document.body).getPropertyValue('--primary-300').trim();
     this.secondary = getComputedStyle(document.body).getPropertyValue('--secondary-300').trim();
+
+    this.setupHighlights();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.context && this.entityHighlights && this.entity) {
+      this.entityHighlights = this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === this.entity);
+    }
   }
 
   setTextColor(index: number) {
-    this.context.config.textColor = `text${index+1}`;
+    this.context.config.textColor = `text${index + 1}`;
     this.context.configChanged();
   }
 
   changeTheme(event) {
-    const checked =  event.target.checked;
+    const checked = event.target.checked;
     this.context.config.theme = checked;
     this.context.configChanged();
 
     document.body.classList.toggle("sinequa");
+  }
+
+  onSelectedEntity() {
+    const highlight = this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === this.entity);
+    if (highlight) {
+      this.entityHighlights = highlight;
+    } else {
+      this.entityHighlights = { name: this.entity };
+      this.context.config.entityHighlights.push(this.entityHighlights);
+    }
+  }
+
+  private setupHighlights() {
+    const preview = this.appService.app?.preview?.split(',')?.[0];
+    if (preview) {
+      this.entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
+    }
+    if (!this.context.config.entityHighlights) {
+      this.context.config.entityHighlights = [];
+    }
   }
 }

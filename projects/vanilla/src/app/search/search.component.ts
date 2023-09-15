@@ -15,6 +15,7 @@ import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } 
 import { FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 import { MetadataConfig } from '@sinequa/components/metadata';
+import { GlobalService } from '../configurators/app-configuration/global.service';
 
 @Component({
   selector: 'app-search',
@@ -75,6 +76,7 @@ export class SearchComponent implements OnInit {
     public loginService: LoginService,
     public auditService: AuditWebService,
     public ui: UIService,
+    private globalService: GlobalService
   ) {
 
     const expandAction = new Action({
@@ -182,7 +184,8 @@ export class SearchComponent implements OnInit {
   }
 
   public get previewHighlights(): PreviewHighlightColors[] {
-    return this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
+    const highlights = this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
+    return this.globalService.entityHighlights.concat(highlights.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
   }
 
   /**

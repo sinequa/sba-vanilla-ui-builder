@@ -11,6 +11,7 @@ import { PreviewService, PreviewHighlightColors, Preview } from '@sinequa/compon
 import { SearchService } from '@sinequa/components/search';
 import { IntlService } from '@sinequa/core/intl';
 import { PREVIEW_HIGHLIGHTS } from '../../config';
+import { GlobalService } from '../configurators/app-configuration/global.service';
 
 export interface EntitiesState {
   count: number;
@@ -71,7 +72,8 @@ export class PreviewComponent implements OnDestroy {
     public previewService: PreviewService,
     public searchService: SearchService,
     public appService: AppService,
-    public cdRef: ChangeDetectorRef
+    public cdRef: ChangeDetectorRef,
+    private globalService: GlobalService
   ) {
 
     // The URL can be changed when searching within the page
@@ -163,6 +165,8 @@ export class PreviewComponent implements OnDestroy {
   }
 
   public get previewHighlights(): PreviewHighlightColors[] {
-    return this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
+    const highlights = this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
+    return this.globalService.entityHighlights.concat(highlights.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
+
   }
 }
