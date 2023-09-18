@@ -12,7 +12,7 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
-import { FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
+import { FACETS, FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 import { MetadataConfig } from '@sinequa/components/metadata';
 
@@ -123,6 +123,10 @@ export class SearchComponent implements OnInit {
           }
         })
       );
+  }
+
+  public get facets(): FacetConfig<FacetParams>[] {
+    return this.appService.app?.data?.facets as any as FacetConfig<FacetParams>[] || FACETS;
   }
 
   getMultiFacetIcon(id: string, def: string) {
