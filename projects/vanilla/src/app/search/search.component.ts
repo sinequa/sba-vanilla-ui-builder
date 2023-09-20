@@ -184,8 +184,7 @@ export class SearchComponent implements OnInit {
   }
 
   public get previewHighlights(): PreviewHighlightColors[] {
-    const highlights = this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
-    return this.globalService.entityHighlights.concat(highlights.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
+    return this.globalService.entityHighlights.concat(PREVIEW_HIGHLIGHTS.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
   }
 
   /**

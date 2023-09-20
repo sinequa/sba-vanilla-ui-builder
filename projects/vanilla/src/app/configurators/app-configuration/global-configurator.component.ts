@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { PreviewHighlightColors } from "@sinequa/components/preview";
 import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
+import { GlobalService } from "./global.service";
+import { PREVIEW_HIGHLIGHTS } from "projects/vanilla/src/config";
 
 @Component({
   selector: "sq-global-configurator",
@@ -77,21 +79,21 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <div class="d-flex flex-column gap-1">
     <h6>Entities Highlights</h6>
-    <select id="font" class="form-select mb-2" [(ngModel)]="entity" (ngModelChange)="onSelectedEntity()">
-      <option *ngFor="let entity of entities">{{entity}}</option>
-    </select>
-    <div *ngIf="entityHighlights">
-      <label for="color" class="form-label">Color</label>
-      <input type="color" id="color" class="form-control" [(ngModel)]="entityHighlights.color" (ngModelChangeDebounced)="context.configChanged()">
-    </div>
-    <div *ngIf="entityHighlights">
-      <label for="bgColor" class="form-label">Background Color</label>
-      <input type="color" id="bgColor" class="form-control" [(ngModel)]="entityHighlights.bgColor" (ngModelChangeDebounced)="context.configChanged()">
+    <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
+      <strong>{{entity.name}}</strong>
+      <div class="col-6">
+        <label for="color" class="form-label">Color</label>
+        <input type="color" id="color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-6">
+        <label for="bgColor" class="form-label">Background Color</label>
+        <input type="color" id="bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
     </div>
   </div>
   `
 })
-export class GlobalConfiguratorComponent implements OnInit, OnChanges {
+export class GlobalConfiguratorComponent implements OnInit {
   @Input() context: ConfiguratorContext;
 
   fonts = [
@@ -111,11 +113,9 @@ export class GlobalConfiguratorComponent implements OnInit, OnChanges {
   primary?;
   secondary?;
 
-  entities: string[];
-  entity: string;
-  entityHighlights: PreviewHighlightColors;
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    public globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.background = getComputedStyle(document.body).getPropertyValue('--background-color').trim();
@@ -126,12 +126,6 @@ export class GlobalConfiguratorComponent implements OnInit, OnChanges {
     this.secondary = getComputedStyle(document.body).getPropertyValue('--secondary-300').trim();
 
     this.setupHighlights();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.context && this.entityHighlights && this.entity) {
-      this.entityHighlights = this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === this.entity);
-    }
   }
 
   setTextColor(index: number) {
@@ -147,23 +141,22 @@ export class GlobalConfiguratorComponent implements OnInit, OnChanges {
     document.body.classList.toggle("sinequa");
   }
 
-  onSelectedEntity() {
-    const highlight = this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === this.entity);
-    if (highlight) {
-      this.entityHighlights = highlight;
-    } else {
-      this.entityHighlights = { name: this.entity };
-      this.context.config.entityHighlights.push(this.entityHighlights);
-    }
-  }
-
   private setupHighlights() {
+    if (!this.context.config.entityHighlights) {
+      this.context.config.entityHighlights = [...PREVIEW_HIGHLIGHTS];
+    }
+
     const preview = this.appService.app?.preview?.split(',')?.[0];
     if (preview) {
-      this.entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
-    }
-    if (!this.context.config.entityHighlights) {
-      this.context.config.entityHighlights = [];
+      const entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
+      const length = this.context.config.entityHighlights.length;
+
+      // add any entities from the preview that aren't contained in context.config.entityHighlights
+      entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e))
+        .forEach((e: string) => this.context.config.entityHighlights.push({ name: e }));
+        if (length < this.context.config.entityHighlights.length) {
+          this.context.configChanged();
+        }
     }
   }
 }
