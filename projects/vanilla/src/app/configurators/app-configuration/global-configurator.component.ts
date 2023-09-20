@@ -79,13 +79,17 @@ import { PREVIEW_HIGHLIGHTS } from "projects/vanilla/src/config";
 
   <div class="d-flex flex-column gap-1">
     <h6>Entities Highlights</h6>
+    <small class="text-muted">Entity highlights must be configured in the preview web service in the Sinequa administration UI</small>
     <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
-      <strong>{{entity.name}}</strong>
-      <div class="col-6">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="{{entity}}-enabled" [(ngModel)]="entity.$enabled" (ngModelChangeDebounced)="enableHighlight(entity)">
+        <label class="form-check-label" for="excludable">{{entity.name}}</label>
+      </div>
+      <div class="col-6" *ngIf="entity.$enabled">
         <label for="{{entity}}-color" class="form-label">Color</label>
         <input type="color" id="{{entity}}-color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
       </div>
-      <div class="col-6">
+      <div class="col-6" *ngIf="entity.$enabled">
         <label for="{{entity}}-bgColor" class="form-label">Background Color</label>
         <input type="color" id="{{entity}}-bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
       </div>
@@ -141,9 +145,17 @@ export class GlobalConfiguratorComponent implements OnInit {
     document.body.classList.toggle("sinequa");
   }
 
+  enableHighlight(highlight: PreviewHighlightColors) {
+    if (!highlight['$enabled']) {
+      highlight.bgColor = undefined;
+      highlight.color = undefined;
+    }
+    this.context.configChanged();
+  }
+
   private setupHighlights() {
     if (!this.context.config.entityHighlights) {
-      this.context.config.entityHighlights = [...PREVIEW_HIGHLIGHTS];
+      this.context.config.entityHighlights = [...PREVIEW_HIGHLIGHTS].map(h => h['$enabled'] = true);
     }
 
     const preview = this.appService.app?.preview?.split(',')?.[0];
@@ -153,7 +165,7 @@ export class GlobalConfiguratorComponent implements OnInit {
 
       // add any entities from the preview that aren't contained in context.config.entityHighlights
       entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e))
-        .forEach((e: string) => this.context.config.entityHighlights.push({ name: e }));
+        .forEach((e: string) => this.context.config.entityHighlights.push({ name: e, $enabled: true }));
         if (length < this.context.config.entityHighlights.length) {
           this.context.configChanged();
         }
