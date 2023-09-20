@@ -191,6 +191,23 @@
                     <sq-result-missing-terms [record]="record" [showMustInclude]="config.showMustInclude"></sq-result-missing-terms>
                 </ng-template>
 
+                <ng-template uib-template="result-duplicates" display="Duplicates" let-config let-record="data">
+                    <sq-result-duplicates [record]="record"></sq-result-duplicates>
+                </ng-template>
+
+                <ng-template uib-template="result-duplicates-spacer" display="Duplicates Spacer" let-config let-record="data">
+                    <sq-result-duplicates-spacer [record]="record"></sq-result-duplicates-spacer>
+                </ng-template>
+
+                <ng-template uib-template="result-duplicates-list" display="Duplicates List" let-config let-record="data">
+                    <sq-result-duplicates-list [record]="record">
+                        <ng-template let-duplicate>
+                            <sq-result-title [record]="record" (titleClicked)="openPreviewIfNoUrl(duplicate, $event)"></sq-result-title>
+                            <sq-result-source [record]="record" [displayTreepath]="true"></sq-result-source>
+                        </ng-template>
+                    </sq-result-duplicates-list>
+                </ng-template>
+
                 <ng-template uib-template="result-labels" display="Labels" let-config let-record="data">
                     <sq-labels [record]="record" [public]="config.public" [enableDelete]="config.enableDelete"></sq-labels>
                 </ng-template>
