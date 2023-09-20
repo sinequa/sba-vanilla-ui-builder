@@ -82,12 +82,12 @@ import { PREVIEW_HIGHLIGHTS } from "projects/vanilla/src/config";
     <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
       <strong>{{entity.name}}</strong>
       <div class="col-6">
-        <label for="color" class="form-label">Color</label>
-        <input type="color" id="color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="{{entity}}-color" class="form-label">Color</label>
+        <input type="color" id="{{entity}}-color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
       </div>
       <div class="col-6">
-        <label for="bgColor" class="form-label">Background Color</label>
-        <input type="color" id="bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
+        <label for="{{entity}}-bgColor" class="form-label">Background Color</label>
+        <input type="color" id="{{entity}}-bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
       </div>
     </div>
   </div>
