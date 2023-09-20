@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
 import { BsFacetCard, DEFAULT_FACET_COMPONENTS, FacetConfig, FacetViewDirective } from '@sinequa/components/facet';
-import { PreviewHighlightColors, PreviewService } from '@sinequa/components/preview';
+import { PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
 import { UIService } from '@sinequa/components/utils';
@@ -12,7 +12,7 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
-import { FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
+import { FacetParams, METADATA_CONFIG } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 import { MetadataConfig } from '@sinequa/components/metadata';
 import { GlobalService } from '../configurators/app-configuration/global.service';
@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit {
     public loginService: LoginService,
     public auditService: AuditWebService,
     public ui: UIService,
-    private globalService: GlobalService
+    public globalService: GlobalService
   ) {
 
     const expandAction = new Action({
@@ -181,10 +181,6 @@ export class SearchComponent implements OnInit {
     if (item.$record) {
       this.openMiniPreview(item.$record);
     }
-  }
-
-  public get previewHighlights(): PreviewHighlightColors[] {
-    return this.globalService.entityHighlights.concat(PREVIEW_HIGHLIGHTS.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
   }
 
   /**

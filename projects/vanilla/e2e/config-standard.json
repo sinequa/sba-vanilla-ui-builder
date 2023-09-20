@@ -2,7 +2,34 @@
   {
     "id": "global",
     "type": "global",
-    "backgroundColor": "#f00f0f"
+    "backgroundColor": "#f00f0f",
+    "entityHighlights": [
+      {
+        "name": "company",
+        "color": "white",
+        "bgColor": "#FF7675"
+      },
+      {
+        "name": "geo",
+        "color": "white",
+        "bgColor": "#74B9FF"
+      },
+      {
+        "name": "person",
+        "color": "white",
+        "bgColor": "#00ABB5"
+      },
+      {
+        "name": "extractslocations",
+        "color": "black",
+        "bgColor": "#fffacd"
+      },
+      {
+        "name": "matchlocations",
+        "color": "black",
+        "bgColor": "#ff0"
+      }
+    ]
   },
   {
     "id": "home",

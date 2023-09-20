@@ -7,10 +7,9 @@ import { Subscription, filter } from 'rxjs';
 import { AuditEventType, PreviewData, Tab } from '@sinequa/core/web-services';
 import { AppService, Query } from '@sinequa/core/app-utils';
 import { Action } from '@sinequa/components/action';
-import { PreviewService, PreviewHighlightColors, Preview } from '@sinequa/components/preview';
+import { PreviewService, Preview } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { IntlService } from '@sinequa/core/intl';
-import { PREVIEW_HIGHLIGHTS } from '../../config';
 import { GlobalService } from '../configurators/app-configuration/global.service';
 
 export interface EntitiesState {
@@ -73,7 +72,7 @@ export class PreviewComponent implements OnDestroy {
     public searchService: SearchService,
     public appService: AppService,
     public cdRef: ChangeDetectorRef,
-    private globalService: GlobalService
+    public globalService: GlobalService
   ) {
 
     // The URL can be changed when searching within the page
@@ -162,10 +161,5 @@ export class PreviewComponent implements OnDestroy {
       value: panel,
       count: 1
     }
-  }
-
-  public get previewHighlights(): PreviewHighlightColors[] {
-    return this.globalService.entityHighlights.concat(PREVIEW_HIGHLIGHTS.filter(highlight => !this.globalService.entityHighlights.find(h => h.name === highlight.name)));
-
   }
 }

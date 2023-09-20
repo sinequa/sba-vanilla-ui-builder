@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { PreviewHighlightColors } from "@sinequa/components/preview";
 import { AppService } from "@sinequa/core/app-utils";
-import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
-import { GlobalService } from "./global.service";
-import { PREVIEW_HIGHLIGHTS } from "projects/vanilla/src/config";
+import { ConfigService, ConfiguratorContext } from "@sinequa/ngx-ui-builder";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "sq-global-configurator",
@@ -97,7 +96,7 @@ import { PREVIEW_HIGHLIGHTS } from "projects/vanilla/src/config";
   </div>
   `
 })
-export class GlobalConfiguratorComponent implements OnInit {
+export class GlobalConfiguratorComponent implements OnInit, OnDestroy {
   @Input() context: ConfiguratorContext;
 
   fonts = [
@@ -117,9 +116,10 @@ export class GlobalConfiguratorComponent implements OnInit {
   primary?;
   secondary?;
 
+  private subscription: Subscription;
 
   constructor(private appService: AppService,
-    public globalService: GlobalService) { }
+    private configService: ConfigService) { }
 
   ngOnInit(): void {
     this.background = getComputedStyle(document.body).getPropertyValue('--background-color').trim();
@@ -130,6 +130,10 @@ export class GlobalConfiguratorComponent implements OnInit {
     this.secondary = getComputedStyle(document.body).getPropertyValue('--secondary-300').trim();
 
     this.setupHighlights();
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   setTextColor(index: number) {
@@ -154,21 +158,24 @@ export class GlobalConfiguratorComponent implements OnInit {
   }
 
   private setupHighlights() {
-    if (!this.context.config.entityHighlights) {
-      this.context.config.entityHighlights = [...PREVIEW_HIGHLIGHTS].map(h => h['$enabled'] = true);
-    }
-
-    const preview = this.appService.app?.preview?.split(',')?.[0];
-    if (preview) {
-      const entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
-      const length = this.context.config.entityHighlights.length;
-
-      // add any entities from the preview that aren't contained in context.config.entityHighlights
-      entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e))
-        .forEach((e: string) => this.context.config.entityHighlights.push({ name: e, $enabled: true }));
-        if (length < this.context.config.entityHighlights.length) {
-          this.context.configChanged();
+    this.subscription = this.configService.watchConfig("global")
+      .subscribe(value => {
+        if (!this.context.config.entityHighlights) {
+          this.context.config.entityHighlights = [...(value.entityHighlights || [])].map(h => h['$enabled'] = true);
         }
-    }
+
+        const preview = this.appService.app?.preview?.split(',')?.[0];
+        if (preview) {
+          const entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
+          const length = this.context.config.entityHighlights.length;
+
+          // add any entities from the preview that aren't contained in context.config.entityHighlights
+          entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e))
+            .forEach((e: string) => this.context.config.entityHighlights.push({ name: e, $enabled: true }));
+          if (length < this.context.config.entityHighlights.length) {
+            this.context.configChanged();
+          }
+        }
+      });
   }
 }
