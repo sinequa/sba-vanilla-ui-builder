@@ -13,6 +13,7 @@ import { MetadataConfiguratorComponent } from "./metadata-configurator.component
 import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.component";
 import { PreviewConfiguratorComponent } from "./preview-configurator.component";
 import { SearchFormLegacyConfiguratorComponent } from "./search-form-legacy-configurator.component";
+import { AdvancedSearchFormConfiguratorComponent } from "./advanced-search-form-configurator.component";
 import { ChartConfiguratorComponent } from "./chart-configurator.component";
 import { TimelineConfiguratorComponent } from "./timeline-configurator.component";
 import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
@@ -41,6 +42,7 @@ import { ControlsModule } from "./controls/controls.module";
     FacetMultiConfiguratorComponent,
     MetadataConfiguratorComponent,
     SearchFormLegacyConfiguratorComponent,
+    AdvancedSearchFormConfiguratorComponent,
     PredefinedResultsLayoutComponent,
     MenuConfiguratorComponent,
     HomeFacetConfiguratorComponent,
@@ -59,6 +61,7 @@ import { ControlsModule } from "./controls/controls.module";
     FacetMultiConfiguratorComponent,
     MetadataConfiguratorComponent,
     SearchFormLegacyConfiguratorComponent,
+    AdvancedSearchFormConfiguratorComponent,
     PredefinedResultsLayoutComponent,
     MenuConfiguratorComponent,
     HomeFacetConfiguratorComponent,
