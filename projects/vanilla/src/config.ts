@@ -2,6 +2,7 @@ import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
 import { PreviewHighlightColors } from '@sinequa/components/preview';
 import { MetadataConfig } from '@sinequa/components/metadata';
+import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from "@sinequa/components/facet";
 
 
 /**
@@ -158,7 +159,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     items: []
   }
 ];
-export type FacetParams = FacetDateParams;
+export type FacetParams = FacetListParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
 export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'facets',
