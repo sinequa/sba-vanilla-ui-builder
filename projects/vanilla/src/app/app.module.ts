@@ -10,7 +10,7 @@ import { TabsModule } from "ngx-bootstrap/tabs";
 import { firstValueFrom } from "rxjs";
 
 // @sinequa/core library
-import { WebServicesModule, StartConfigWebService, StartConfig, Record } from "@sinequa/core/web-services";
+import { WebServicesModule, StartConfigWebService, StartConfig } from "@sinequa/core/web-services";
 import { LoginModule, LoginInterceptor } from "@sinequa/core/login";
 import { IntlModule } from "@sinequa/core/intl";
 import { ModalModule } from "@sinequa/core/modal";
