@@ -153,12 +153,19 @@ export class GlobalConfiguratorComponent implements OnInit {
     const preview = this.appService.app?.preview?.split(',')?.[0];
     if (preview) {
       const entities = this.appService.getWebService<any>(preview)?.highlights?.split(",") || [];
-      const length = this.context.config.entityHighlights.length;
 
       // add any entities from the preview that aren't contained in context.config.entityHighlights
-      entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e))
-        .forEach((e: string) => this.context.config.entityHighlights.push({ name: e, $enabled: true }));
-      if (length < this.context.config.entityHighlights.length) {
+      const newEntities = entities.filter((e: string) => !this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e));
+      const removedEntities = this.context.config.entityHighlights.filter((h: PreviewHighlightColors) => !entities.find((e: string) => e === h.name));
+
+      if (newEntities.length) newEntities.forEach((e: string) => this.context.config.entityHighlights.push({ name: e, $enabled: true }));
+      if (removedEntities.length) removedEntities.forEach((e: string) => {
+        const item = this.context.config.entityHighlights.find((h: PreviewHighlightColors) => h.name === e);
+        const index = this.context.config.entityHighlights.indexOf(item);
+        this.context.config.entityHighlights.splice(index, 1);
+      });
+
+      if (newEntities.length || removedEntities.length) {
         this.context.configChanged();
       }
     }
