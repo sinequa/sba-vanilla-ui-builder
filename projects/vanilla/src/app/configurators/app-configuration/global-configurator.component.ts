@@ -161,7 +161,7 @@ export class GlobalConfiguratorComponent implements OnInit, OnDestroy {
     this.subscription = this.configService.watchConfig("global")
       .subscribe(value => {
         if (!this.context.config.entityHighlights) {
-          this.context.config.entityHighlights = [...(value.entityHighlights || [])].map(h => h['$enabled'] = true);
+          this.context.config.entityHighlights = [...(value.entityHighlights || [])].map(h => {h['$enabled'] = true; return h;});
         }
 
         const preview = this.appService.app?.preview?.split(',')?.[0];
