@@ -115,8 +115,7 @@ export const routes: Routes = [
 // Search options (search service)
 export const searchOptions: SearchOptions = {
     routes: ["search"],
-    homeRoute: "home",
-    testDuplicates: (a: Record, b: Record) => a.id === b.id
+    homeRoute: "home"
 };
 
 
