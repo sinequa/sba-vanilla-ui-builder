@@ -53,7 +53,7 @@
       [previewData]="previewData"
       [preview]="preview"
       [extractsNumber]="10"
-      [highlights]="previewHighlights"
+      [highlights]="globalService.entityHighlights"
       [type]="extractsType">
     </sq-preview-extracts-panel>
 
@@ -62,7 +62,7 @@
       class="flex-scroll px-3"
       [previewData]="previewData"
       [preview]="preview"
-      [highlights]="previewHighlights">
+      [highlights]="globalService.entityHighlights">
     </sq-preview-entity-panel>
 
   </div>
@@ -95,7 +95,7 @@
     class="h-100"
     [id]="id"
     [query]="query"
-    [highlightColors]="previewHighlights"
+    [highlightColors]="globalService.entityHighlights"
     [preferenceName]="'preview-'+subpanel"
     [highlightEntities]="subpanel === 'entities'"
     (ready)="onPreviewReady()">

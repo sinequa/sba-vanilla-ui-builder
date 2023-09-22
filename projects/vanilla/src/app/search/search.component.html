@@ -271,7 +271,7 @@
                             style="height: calc(100vh - 220px);"
                             [id]="openedDoc?.id"
                             [query]="searchService.query"
-                            [highlightColors]="previewHighlights"
+                            [highlightColors]="globalService.entityHighlights"
                             [highlightEntities]="config.highlightEntities"
                             [highlightExtracts]="config.highlightExtracts"
                             [downloadablePdf]="config.downloadablePdf"

@@ -5,6 +5,7 @@ import { hexToHSL, hexToRGBA, RGBAToHexA, shadeColor, tintColor } from "./colors
 import { Subscription } from "rxjs";
 import { IntlService } from "@sinequa/core/intl";
 import { Title } from "@angular/platform-browser";
+import { PreviewHighlightColors } from "@sinequa/components/preview";
 
 type ColorVariants = "primary" | "secondary" | "brand";
 
@@ -16,6 +17,7 @@ export const configFactory = (global: GlobalService) => {
 export class GlobalService implements OnDestroy {
 
   appName = "";
+  entityHighlights: PreviewHighlightColors[] = [];
 
   private subscription: Subscription;
 
@@ -39,12 +41,16 @@ export class GlobalService implements OnDestroy {
 
   changes(changes): void {
 
-    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor } = changes;
+    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor, entityHighlights } = changes;
     const { appName } = changes;
 
     if (this.appName !== appName) {
       this.appName = appName;
       this.setTitle();
+    }
+
+    if (entityHighlights) {
+      this.entityHighlights = entityHighlights;
     }
 
     if (theme) {

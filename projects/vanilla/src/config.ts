@@ -1,6 +1,5 @@
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
-import { PreviewHighlightColors } from '@sinequa/components/preview';
 import { MetadataConfig } from '@sinequa/components/metadata';
 import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from "@sinequa/components/facet";
 
@@ -16,8 +15,35 @@ export const GLOBAL_DEFAULT_CONFIG = {
   id: "global",
   type: "global",
   appName: "msg#app.name",
-  images: { backgroundImage: { filename: '' } }
-}
+  images: { backgroundImage: { filename: '' } },
+  entityHighlights: [
+    {
+      name: 'company',
+      color: 'white',
+      bgColor: '#FF7675'
+    },
+    {
+      name: 'geo',
+      color: 'white',
+      bgColor: '#74B9FF'
+    },
+    {
+      name: 'person',
+      color: 'white',
+      bgColor: '#00ABB5'
+    },
+    {
+      name: 'extractslocations',
+      color: 'black',
+      bgColor: '#fffacd'
+    },
+    {
+      name: 'matchlocations',
+      color: 'black',
+      bgColor: '#ff0'
+    }
+  ]
+};
 
 export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
@@ -485,34 +511,6 @@ export const RESULTS_VIEWS_CONFIG = [
     config: RESULTS_VIEW_TILES_CONFIG
   }
 ];
-
-export const PREVIEW_HIGHLIGHTS: PreviewHighlightColors[] = [
-  {
-    name: 'company',
-    color: 'white',
-    bgColor: '#FF7675'
-  },
-  {
-    name: 'geo',
-    color: 'white',
-    bgColor: '#74B9FF'
-  },
-  {
-    name: 'person',
-    color: 'white',
-    bgColor: '#00ABB5'
-  },
-  {
-    name: 'extractslocations',
-    color: 'black',
-    bgColor: '#fffacd'
-  },
-  {
-    name: 'matchlocations',
-    color: 'black',
-    bgColor: '#ff0'
-  }
-]
 
 export const METADATA_CONFIG: MetadataConfig[] = [
   {
