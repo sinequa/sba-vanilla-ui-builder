@@ -90,4 +90,15 @@ export class ToolbarComponent {
     })
   }
 
+  openTranslationsConfigurator() {
+    // Simulate click on global component
+    this.configurableService.clickConfigurable({
+      id: "translations",
+      parentId: "", // parentId would be required to duplicate or remove the component, which is not applicable here
+      zone: "",
+      removeSelected: () => {}, // These callbacks do nothing because this is not a real click on a configurable component
+      removeEdited: () => {}
+    })
+  }
+
 }

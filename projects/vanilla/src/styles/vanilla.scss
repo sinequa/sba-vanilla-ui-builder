@@ -227,5 +227,9 @@ sq-facet-preview-2 {
   height: calc(100vh - 210px) !important;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 // Vanilla Dark mode
 @import "dark";

@@ -1,0 +1,19 @@
+<div [style.margin-left.px]="level*marginPx" class="d-flex align-items-center" *ngIf="isString(item.value)">
+    <label for="{{item.key}}" class="form-label me-2">{{item.key}}:</label>
+    <input type="text" class="form-control" id="{{item.key}}" [(ngModel)]="item.value" (ngModelChangeDebounced)="updatedValue($event)">
+</div>
+<div [style.margin-left.px]="level*marginPx" *ngIf="!isString(item.value)">
+    <span (click)="item.displayed=!item.displayed" class="cursor-pointer fw-bold">
+        <i class="fas" [class.fa-caret-right]="!item.displayed" [class.fa-caret-down]="item.displayed"></i>
+        {{item.key}}:
+    </span>
+    <ng-container *ngIf="item.displayed">
+        <app-translation-item
+            *ngFor="let values of item.value | keyvalue | sqStringFilter:filter"
+            [item]="values"
+            [level]="level+1"
+            [filter]="filter"
+            [path]="currentPath"
+            (updated)="updated.emit($event)"></app-translation-item>
+    </ng-container>
+</div>
