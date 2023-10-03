@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ConfiguratorContext } from '@sinequa/ngx-ui-builder';
+import { Utils } from '@sinequa/core/base';
 import enLocale from "../../../locales/en";
 import frLocale from "../../../locales/fr";
 import deLocale from "../../../locales/de";
-import { Utils } from '@sinequa/core/base';
 
 @Component({
   selector: "sq-translations-configurator",
@@ -26,7 +26,7 @@ import { Utils } from '@sinequa/core/base';
 <app-translation-item
     *ngFor="let item of messages | keyvalue | sqStringFilter:filter"
     [item]="item"
-    [level]="1"
+    [level]="0"
     [filter]="filter"
     [path]="[]"
     (updated)="updatedItem($event)">

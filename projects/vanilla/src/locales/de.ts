@@ -30,10 +30,11 @@ import {deComments} from "@sinequa/components/comments";
 import {deML} from "@sinequa/components/machine-learning";
 import { deFilters } from "@sinequa/components/filters";
 import { deSearchForm } from "@sinequa/components/search-form";
+import configMessages from "./config/de.json";
 
 const messages = Utils.merge({}, deCore, deUtils, deAdvanced, deAlerts, deBaskets, deFacet, deFeedback, deHeatmap, deLabels, deMetadata,
     deNotification, dePreview, deResult, deResultsView, deSavedQueries, deSelection, deSearch, deStatusBar, deUserSettings, deTimeline,
-    deSlideBuilder, deComments, deML, deFilters, deSearchForm, appMessages);
+    deSlideBuilder, deComments, deML, deFilters, deSearchForm, appMessages, configMessages);
 
 export default <LocaleData>{
     intl: {

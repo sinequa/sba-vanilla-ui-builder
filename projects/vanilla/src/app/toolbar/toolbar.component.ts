@@ -69,7 +69,7 @@ export class ToolbarComponent {
       const reader = new FileReader();
       reader.onload = () => {
         const config = JSON.parse(reader.result as string);
-        this.configService.set(config);
+        this.configService.init(config);
       }
       reader.readAsText(file, 'utf-8');
     }

@@ -231,5 +231,11 @@ sq-facet-preview-2 {
   cursor: pointer;
 }
 
+.sq-text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 // Vanilla Dark mode
 @import "dark";
