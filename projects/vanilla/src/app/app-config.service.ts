@@ -43,7 +43,8 @@ export class AppConfigService {
 
       this.configService.watchConfig('translations')
       .subscribe(value => {
-        this.setTranslations(messages, locale, value.translations);
+        translations = value.translations;
+        this.setTranslations(messages, locale, translations);
       });
   }
 

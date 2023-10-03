@@ -29,11 +29,10 @@ import {enComments} from "@sinequa/components/comments";
 import {enML} from "@sinequa/components/machine-learning";
 import { enFilters } from "@sinequa/components/filters";
 import { enSearchForm } from "@sinequa/components/search-form";
-import configMessages from "./config/en.json";
 
 const messages = Utils.merge({}, enCore, enUtils, enAdvanced, enAlerts, enBaskets, enFacet, enFeedback, enHeatmap, enLabels, enMetadata,
     enNotification, enPreview, enResult, enResultsView, enSavedQueries, enSelection, enSearch, enStatusBar, enUserSettings, enTimeline,
-    enSlideBuilder, enComments, enML, enFilters, enSearchForm, appMessages, configMessages);
+    enSlideBuilder, enComments, enML, enFilters, enSearchForm, appMessages);
 
 export default <LocaleData>{
     intl: {

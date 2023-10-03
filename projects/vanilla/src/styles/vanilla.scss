@@ -227,15 +227,5 @@ sq-facet-preview-2 {
   height: calc(100vh - 210px) !important;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.sq-text-ellipsis {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 // Vanilla Dark mode
 @import "dark";
