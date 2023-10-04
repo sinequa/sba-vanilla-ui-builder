@@ -204,6 +204,8 @@ export class GlobalService implements OnDestroy {
   }
 
   changeFavicon(favicon: string) {
+    if (!favicon) return;
+
     var link: any = document.querySelector("link[rel~='icon']");
     if (!link) {
       link = document.createElement('link');
