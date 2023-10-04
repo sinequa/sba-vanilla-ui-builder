@@ -66,6 +66,10 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
+  <uib-image-selector [sizeable]="false" [context]="context" param="favicon" description="Favicon" class="d-block mb-2"></uib-image-selector>
+
+  <hr/>
+
   <uib-image-selector [sizeable]="false" [context]="context" param="backgroundImage" description="Background image" class="d-block mb-2"></uib-image-selector>
 
   <label for="font">Font</label>
