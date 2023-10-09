@@ -64,6 +64,10 @@ export class GlobalService implements OnDestroy {
       document.documentElement.style.removeProperty("--bs-body-font-family");
     }
 
+    if (changes?.images?.favicon) {
+      this.changeFavicon(changes.images.favicon.filename);
+    }
+
     if(changes?.images?.backgroundImage) {
       document.body.style.backgroundImage = `url(${changes.images.backgroundImage.filename})`;
       document.body.style.backgroundRepeat = 'no-repeat';
@@ -197,5 +201,17 @@ export class GlobalService implements OnDestroy {
 
   setTitle() {
     this.titleService.setTitle(this.intlService.formatMessage(this.appName));
+  }
+
+  changeFavicon(favicon: string) {
+    if (!favicon) return;
+
+    var link: any = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = favicon;
   }
 }
