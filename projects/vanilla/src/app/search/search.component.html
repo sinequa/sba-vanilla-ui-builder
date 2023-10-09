@@ -57,11 +57,11 @@
 <sq-loading-bar></sq-loading-bar>
 
 <!-- Main interface -->
-<div class="container-xl main" *ngIf="loginService.complete">
+<div class="container-xl main" [style]="globalService.layout.fullWidth ? 'max-width: initial !important;' : ''" *ngIf="loginService.complete">
     <div class="row" *ngIf="results$ | async; let results">
 
         <!-- Left facet bar -->
-        <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2 sq-facet-bar" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
+        <div class="sq-facet-bar" [ngClass]="globalService.layout.facets" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" display="List facet" title="A component that displays a list of metadata to filter the results" let-config>
                     <sq-facet-card class="d-block" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
@@ -110,7 +110,7 @@
         </div>
 
         <!-- Results -->
-        <div class="col-sm-12 col-lg-5" [ngClass]="{'col-md-6': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
+        <div class="{{globalService.layout.results}}" [ngClass]="{'col-md-6': !showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
                 <ng-template uib-template="tabs" display="Tabs" let-config>
@@ -237,7 +237,7 @@
         </div>
 
         <!-- Right part-->
-        <div class="col-sm-12 col-lg-4 col-xl-5" [sqSticky]="{top: 80, bottom: 10}">
+        <div [ngClass]="globalService.layout.preview" [sqSticky]="{top: 80, bottom: 10}">
             <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
                 <ng-template uib-template="preview" display="Preview" title="Preview of a selected document" let-config let-record="data">
 

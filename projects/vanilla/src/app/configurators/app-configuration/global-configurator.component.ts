@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { PreviewHighlightColors } from "@sinequa/components/preview";
 import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
@@ -75,11 +75,80 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
+  <h6>Search Layout</h6>
+
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="layout-fullWidth" [(ngModel)]="context.config.layout.fullWidth" (ngModelChangeDebounced)="context.configChanged()">
+      <label class="form-check-label" for="layout-fullWidth">Full width</label>
+    </div>
+
+    <label class="form-label">Facets tab</label>
+    <div class="row mb-2">
+      <div class="col-3">
+        <label for="facets-sm" class="form-label">col-sm</label>
+        <input type="number" id="facets-sm" class="form-control" [(ngModel)]="context.config.layout.facets.sm" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="facets-md" class="form-label">col-md</label>
+        <input type="number" id="facets-md" class="form-control" [(ngModel)]="context.config.layout.facets.md" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="facets-lg" class="form-label">col-lg</label>
+        <input type="number" id="facets-lg" class="form-control" [(ngModel)]="context.config.layout.facets.lg" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="facets-xl" class="form-label">col-xl</label>
+        <input type="number" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.xl" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+    </div>
+
+    <label class="form-label">Results tab</label>
+    <div class="row mb-2">
+      <div class="col-3">
+        <label for="results-sm" class="form-label">col-sm</label>
+        <input type="number" id="results-sm" class="form-control" [(ngModel)]="context.config.layout.results.sm" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="results-md" class="form-label">col-md</label>
+        <input type="number" id="results-md" class="form-control" [(ngModel)]="context.config.layout.results.md" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="results-lg" class="form-label">col-lg</label>
+        <input type="number" id="results-lg" class="form-control" [(ngModel)]="context.config.layout.results.lg" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="results-xl" class="form-label">col-xl</label>
+        <input type="number" id="results-xl" class="form-control" [(ngModel)]="context.config.layout.results.xl" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+    </div>
+
+    <label class="form-label">Preview tab</label>
+    <div class="row mb-2">
+      <div class="col-3">
+        <label for="preview-sm" class="form-label">col-sm</label>
+        <input type="number" id="preview-sm" class="form-control" [(ngModel)]="context.config.layout.preview.sm" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="preview-md" class="form-label">col-md</label>
+        <input type="number" id="preview-md" class="form-control" [(ngModel)]="context.config.layout.preview.md" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="preview-lg" class="form-label">col-lg</label>
+        <input type="number" id="preview-lg" class="form-control" [(ngModel)]="context.config.layout.preview.lg" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-3">
+        <label for="preview-xl" class="form-label">col-xl</label>
+        <input type="number" id="preview-xl" class="form-control" [(ngModel)]="context.config.layout.preview.xl" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+    </div>
+
+  <hr/>
+
   <div class="d-flex flex-column gap-1">
     <h6>Entities Highlights</h6>
     <small class="text-muted">Entity highlights must be configured in the preview web service in the Sinequa administration UI</small>
     <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
-    <div class="form-check">
+      <div class="form-check">
         <input class="form-check-input" type="checkbox" id="{{entity}}-enabled" [(ngModel)]="entity.$enabled" (ngModelChangeDebounced)="enableHighlight(entity)">
         <label class="form-check-label" for="excludable">{{entity.name}}</label>
       </div>
@@ -95,7 +164,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
   </div>
   `
 })
-export class GlobalConfiguratorComponent implements OnInit {
+export class GlobalConfiguratorComponent implements OnInit, OnChanges {
   @Input() context: ConfiguratorContext;
 
   fonts = [
@@ -126,6 +195,15 @@ export class GlobalConfiguratorComponent implements OnInit {
     this.secondary = getComputedStyle(document.body).getPropertyValue('--secondary-300').trim();
 
     this.setupHighlights();
+  }
+
+  ngOnChanges(): void {
+    if (this.context) {
+      if (!this.context.config.layout) this.context.config.layout = {};
+      if (!this.context.config.layout.facets) this.context.config.layout.facets = {};
+      if (!this.context.config.layout.results) this.context.config.layout.results = {};
+      if (!this.context.config.layout.preview) this.context.config.layout.preview = {};
+    }
   }
 
   setTextColor(index: number) {

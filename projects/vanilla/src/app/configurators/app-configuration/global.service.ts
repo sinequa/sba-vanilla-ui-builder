@@ -18,6 +18,12 @@ export class GlobalService implements OnDestroy {
 
   appName = "";
   entityHighlights: PreviewHighlightColors[] = [];
+  layout: any = {
+    fullWidth: false,
+    facets: 'col-sm-12 col-md-4 col-lg-3 col-xl-2',
+    results: 'col-sm-12 col-md-8 col-lg-5',
+    preview: 'col-sm-12 col-lg-4 col-xl-5'
+  };
 
   private subscription: Subscription;
 
@@ -41,7 +47,7 @@ export class GlobalService implements OnDestroy {
 
   changes(changes): void {
 
-    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor, entityHighlights } = changes;
+    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor, entityHighlights, layout } = changes;
     const { appName } = changes;
 
     if (this.appName !== appName) {
@@ -151,6 +157,15 @@ export class GlobalService implements OnDestroy {
     }
     else {
       document.documentElement.style.removeProperty('--sq-text');
+    }
+
+    if (layout) {
+      this.layout = {
+        fullWidth: layout.fullWidth,
+        facets: `col-sm-${layout.facets.sm} col-md-${layout.facets.md} col-lg-${layout.facets.lg} col-xl-${layout.facets.xl}`,
+        results: `col-sm-${layout.results.sm} col-md-${layout.results.md} col-lg-${layout.results.lg} col-xl-${layout.results.xl}`,
+        preview: `col-sm-${layout.preview.sm} col-md-${layout.preview.md} col-lg-${layout.preview.lg} col-xl-${layout.preview.xl}`,
+      };
     }
   }
 
