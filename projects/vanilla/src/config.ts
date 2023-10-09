@@ -48,6 +48,18 @@ export const GLOBAL_DEFAULT_CONFIG = {
   ]
 };
 
+export const TRANSLATIONS_DEFAULT_CONFIG: ComponentConfig[] = [
+  {
+    id: "translations",
+    type: "translations",
+    translations: {
+      en: {},
+      fr: {},
+      de: {}
+    }
+  }
+];
+
 export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'home',
@@ -494,6 +506,7 @@ export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
 
 export const VANILLA_BUILDER_DEFAULT_CONFIG: ComponentConfig[] = [
   GLOBAL_DEFAULT_CONFIG,
+  ...TRANSLATIONS_DEFAULT_CONFIG,
   ...HOME_DEFAULT_CONFIG,
   ...NAVBAR_DEFAULT_CONFIG,
   ...FACETS_DEFAULT_CONFIG,

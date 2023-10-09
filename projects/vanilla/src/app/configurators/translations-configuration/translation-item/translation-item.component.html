@@ -1,0 +1,27 @@
+<div [style.margin-left.px]="level*marginPx" class="d-flex align-items-center sq-item-info mb-2" *ngIf="isString(item.value)">
+    <span class="item-key">{{item.key}}:</span>
+    <span class="flex-grow-1 text-truncate mx-2">{{item.value}}</span>
+    <i class="fas fa-edit" role="button" (click)="editValue()"></i>
+    <i class="fas fa-trash ms-2" role="button" (click)="removeItem(false)"></i>
+</div>
+<div [style.margin-left.px]="level*marginPx" *ngIf="!isString(item.value)">
+    <div class="d-flex align-items-center sq-item-info">
+        <span (click)="item.displayed=!item.displayed" role="button" class="form-label flex-grow-1">
+            <i class="fas" [class.fa-caret-right]="!item.displayed" [class.fa-caret-down]="item.displayed"></i>
+            {{item.key}}:
+        </span>
+        <i class="fas fa-plus" role="button" (click)="addKey()"></i>
+        <i class="fas fa-folder-plus ms-2" role="button" (click)="addNode()"></i>
+        <i class="fas fa-trash ms-2" role="button" *ngIf="level > 0" (click)="removeItem(true)"></i>
+    </div>
+    <ng-container *ngIf="item.displayed">
+        <app-translation-item
+            *ngFor="let values of item.value | keyvalue | sqStringFilter:filter"
+            [item]="values"
+            [level]="level+1"
+            [filter]="filter"
+            [path]="currentPath"
+            (updated)="updated.emit($event)"
+            (removed)="performRemoval($event)"></app-translation-item>
+    </ng-container>
+</div>
