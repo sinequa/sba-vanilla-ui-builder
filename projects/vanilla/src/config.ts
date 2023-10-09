@@ -15,7 +15,10 @@ export const GLOBAL_DEFAULT_CONFIG = {
   id: "global",
   type: "global",
   appName: "msg#app.name",
-  images: { backgroundImage: { filename: '' } },
+  images: {
+    backgroundImage: { filename: '' },
+    favicon: { filename: '' }
+  },
   layout: {
     fullWidth: false,
     facets: {
