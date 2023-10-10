@@ -166,9 +166,9 @@ export class GlobalService implements OnDestroy {
     if (layout) {
       this.layout = {
         fullWidth: layout.fullWidth,
-        facets: `${this.getCol('sm', layout.facets.sm)} ${this.getCol('md', layout.facets.md)} ${this.getCol('lg', layout.facets.lg)} ${this.getCol('xl', layout.facets.xl)}`,
-        results: `${this.getCol('sm', layout.results.sm)} ${this.getCol('md', layout.results.md)} ${this.getCol('lg', layout.results.lg)} ${this.getCol('xl', layout.results.xl)}`,
-        preview: `${this.getCol('sm', layout.preview.sm)} ${this.getCol('md', layout.preview.md)} ${this.getCol('lg', layout.preview.lg)} ${this.getCol('xl', layout.preview.xl)}`,
+        facets: layout.facets.customClassOnly ? layout.facets.customClass : `${this.getCol('sm', layout.facets.sm)} ${this.getCol('md', layout.facets.md)} ${this.getCol('lg', layout.facets.lg)} ${this.getCol('xl', layout.facets.xl)} ${layout.facets.customClass || ''}`,
+        results: layout.results.customClassOnly ? layout.results.customClass : `${this.getCol('sm', layout.results.sm)} ${this.getCol('md', layout.results.md)} ${this.getCol('lg', layout.results.lg)} ${this.getCol('xl', layout.results.xl)} ${layout.results.customClass || ''}`,
+        preview: layout.preview.customClassOnly ? layout.preview.customClass : `${this.getCol('sm', layout.preview.sm)} ${this.getCol('md', layout.preview.md)} ${this.getCol('lg', layout.preview.lg)} ${this.getCol('xl', layout.preview.xl)} ${layout.preview.customClass || ''}`,
       };
     }
   }
