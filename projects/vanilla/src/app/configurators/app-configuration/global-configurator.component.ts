@@ -113,7 +113,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
         <input class="form-check-input" type="checkbox" id="facets-classes" [(ngModel)]="context.config.layout.facets.customClassOnly" (ngModelChange)="context.configChanged()">
         <label class="form-check-label" for="facets-classes">Custom classes only</label>
       </div>
-      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.customClass" (ngModelChangeDebounced)="context.configChanged()">
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
     </div>
   </div>
 
@@ -142,7 +142,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
         <input class="form-check-input" type="checkbox" id="results-classes" [(ngModel)]="context.config.layout.results.customClassOnly" (ngModelChange)="context.configChanged()">
         <label class="form-check-label" for="results-classes">Custom classes only</label>
       </div>
-      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.results.customClass" (ngModelChangeDebounced)="context.configChanged()">
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.results.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
     </div>
   </div>
 
@@ -171,7 +171,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
         <input class="form-check-input" type="checkbox" id="preview-classes" [(ngModel)]="context.config.layout.preview.customClassOnly" (ngModelChange)="context.configChanged()">
         <label class="form-check-label" for="preview-classes">Custom classes only</label>
       </div>
-      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.preview.customClass" (ngModelChangeDebounced)="context.configChanged()">
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.preview.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
     </div>
   </div>
 
