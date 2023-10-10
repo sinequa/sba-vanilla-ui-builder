@@ -90,19 +90,19 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <div class="row mb-2">
       <div class="col-3">
         <label for="facets-sm" class="form-label">col-sm</label>
-        <input type="number" id="facets-sm" class="form-control" [(ngModel)]="context.config.layout.facets.sm" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="facets-sm" class="form-control" [(ngModel)]="context.config.layout.facets.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="facets-md" class="form-label">col-md</label>
-        <input type="number" id="facets-md" class="form-control" [(ngModel)]="context.config.layout.facets.md" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="facets-md" class="form-control" [(ngModel)]="context.config.layout.facets.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="facets-lg" class="form-label">col-lg</label>
-        <input type="number" id="facets-lg" class="form-control" [(ngModel)]="context.config.layout.facets.lg" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="facets-lg" class="form-control" [(ngModel)]="context.config.layout.facets.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="facets-xl" class="form-label">col-xl</label>
-        <input type="number" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.xl" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
     </div>
 
@@ -110,19 +110,19 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <div class="row mb-2">
       <div class="col-3">
         <label for="results-sm" class="form-label">col-sm</label>
-        <input type="number" id="results-sm" class="form-control" [(ngModel)]="context.config.layout.results.sm" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="results-sm" class="form-control" [(ngModel)]="context.config.layout.results.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="results-md" class="form-label">col-md</label>
-        <input type="number" id="results-md" class="form-control" [(ngModel)]="context.config.layout.results.md" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="results-md" class="form-control" [(ngModel)]="context.config.layout.results.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="results-lg" class="form-label">col-lg</label>
-        <input type="number" id="results-lg" class="form-control" [(ngModel)]="context.config.layout.results.lg" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="results-lg" class="form-control" [(ngModel)]="context.config.layout.results.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="results-xl" class="form-label">col-xl</label>
-        <input type="number" id="results-xl" class="form-control" [(ngModel)]="context.config.layout.results.xl" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="results-xl" class="form-control" [(ngModel)]="context.config.layout.results.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
     </div>
 
@@ -130,19 +130,19 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <div class="row mb-2">
       <div class="col-3">
         <label for="preview-sm" class="form-label">col-sm</label>
-        <input type="number" id="preview-sm" class="form-control" [(ngModel)]="context.config.layout.preview.sm" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="preview-sm" class="form-control" [(ngModel)]="context.config.layout.preview.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="preview-md" class="form-label">col-md</label>
-        <input type="number" id="preview-md" class="form-control" [(ngModel)]="context.config.layout.preview.md" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="preview-md" class="form-control" [(ngModel)]="context.config.layout.preview.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="preview-lg" class="form-label">col-lg</label>
-        <input type="number" id="preview-lg" class="form-control" [(ngModel)]="context.config.layout.preview.lg" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="preview-lg" class="form-control" [(ngModel)]="context.config.layout.preview.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
       <div class="col-3">
         <label for="preview-xl" class="form-label">col-xl</label>
-        <input type="number" id="preview-xl" class="form-control" [(ngModel)]="context.config.layout.preview.xl" (ngModelChangeDebounced)="context.configChanged()">
+        <input type="number" id="preview-xl" class="form-control" [(ngModel)]="context.config.layout.preview.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1">
       </div>
     </div>
 

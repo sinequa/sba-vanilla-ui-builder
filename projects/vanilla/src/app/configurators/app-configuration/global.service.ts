@@ -166,9 +166,9 @@ export class GlobalService implements OnDestroy {
     if (layout) {
       this.layout = {
         fullWidth: layout.fullWidth,
-        facets: `col-sm-${layout.facets.sm} col-md-${layout.facets.md} col-lg-${layout.facets.lg} col-xl-${layout.facets.xl}`,
-        results: `col-sm-${layout.results.sm} col-md-${layout.results.md} col-lg-${layout.results.lg} col-xl-${layout.results.xl}`,
-        preview: `col-sm-${layout.preview.sm} col-md-${layout.preview.md} col-lg-${layout.preview.lg} col-xl-${layout.preview.xl}`,
+        facets: `${this.getCol('sm', layout.facets.sm)} ${this.getCol('md', layout.facets.md)} ${this.getCol('lg', layout.facets.lg)} ${this.getCol('xl', layout.facets.xl)}`,
+        results: `${this.getCol('sm', layout.results.sm)} ${this.getCol('md', layout.results.md)} ${this.getCol('lg', layout.results.lg)} ${this.getCol('xl', layout.results.xl)}`,
+        preview: `${this.getCol('sm', layout.preview.sm)} ${this.getCol('md', layout.preview.md)} ${this.getCol('lg', layout.preview.lg)} ${this.getCol('xl', layout.preview.xl)}`,
       };
     }
   }
@@ -228,5 +228,9 @@ export class GlobalService implements OnDestroy {
       document.head.appendChild(link);
     }
     link.href = favicon;
+  }
+
+  private getCol(breakpoint: string, value: number): string {
+    return value ? `col-${breakpoint}-${value}` : `d-${breakpoint}-none`;
   }
 }
