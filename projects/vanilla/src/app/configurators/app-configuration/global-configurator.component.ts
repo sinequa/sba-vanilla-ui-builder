@@ -88,6 +88,11 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <label class="form-check-label" for="layout-fullWidth">Full width</label>
   </div>
 
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="layout-reversed" [(ngModel)]="context.config.layout.reversed" (ngModelChangeDebounced)="context.configChanged()">
+    <label class="form-check-label" for="layout-reversed">Reversed tabs</label>
+  </div>
+
   <label class="form-label">Facets tab</label>
   <div class="row mb-2">
     <div class="col-3">

@@ -58,7 +58,7 @@
 
 <!-- Main interface -->
 <div class="container-xl main" [style]="globalService.layout.fullWidth ? 'max-width: initial !important;' : ''" *ngIf="loginService.complete">
-    <div class="row" *ngIf="results$ | async; let results">
+    <div class="row" *ngIf="results$ | async; let results" [class.flex-row-reverse]="globalService.layout.reversed">
 
         <!-- Left facet bar -->
         <div class="sq-facet-bar" [ngClass]="globalService.layout.facets" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
