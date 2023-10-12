@@ -199,6 +199,8 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <h6>Global Custom CSS</h6>
 
+  <p class="small text-muted">This CSS is being injected in the head of the page. You can here define custom classes to use for the layout.</p>
+
   <textarea id="customCss" class="form-control" [(ngModel)]="context.config.customCss" (ngModelChangeDebounced)="context.configChanged()" rows="5"></textarea>
   `
 })
