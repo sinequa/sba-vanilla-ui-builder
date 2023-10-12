@@ -79,6 +79,27 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
+  <div class="d-flex flex-column gap-1">
+    <h6>Entities Highlights</h6>
+    <small class="text-muted">Entity highlights must be configured in the preview web service in the Sinequa administration UI</small>
+    <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="{{entity}}-enabled" [(ngModel)]="entity.$enabled" (ngModelChangeDebounced)="enableHighlight(entity)">
+        <label class="form-check-label" for="excludable">{{entity.name}}</label>
+      </div>
+      <div class="col-6" *ngIf="entity.$enabled">
+        <label for="{{entity}}-color" class="form-label">Color</label>
+        <input type="color" id="{{entity}}-color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+      <div class="col-6" *ngIf="entity.$enabled">
+        <label for="{{entity}}-bgColor" class="form-label">Background Color</label>
+        <input type="color" id="{{entity}}-bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
   <h6>Search Layout</h6>
 
   <p class="small text-muted">The search page has 3 columns (facets, results, preview) sized using the <a href="https://getbootstrap.com/docs/5.3/layout/grid/" target="_blank">Bootstrap grid system</a>. Use the classes below to control the width of these columns at each screen size breakpoint.</p>
@@ -176,24 +197,9 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <hr/>
 
-  <div class="d-flex flex-column gap-1">
-    <h6>Entities Highlights</h6>
-    <small class="text-muted">Entity highlights must be configured in the preview web service in the Sinequa administration UI</small>
-    <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="{{entity}}-enabled" [(ngModel)]="entity.$enabled" (ngModelChangeDebounced)="enableHighlight(entity)">
-        <label class="form-check-label" for="excludable">{{entity.name}}</label>
-      </div>
-      <div class="col-6" *ngIf="entity.$enabled">
-        <label for="{{entity}}-color" class="form-label">Color</label>
-        <input type="color" id="{{entity}}-color" class="form-control" [(ngModel)]="entity.color" (ngModelChangeDebounced)="context.configChanged()">
-      </div>
-      <div class="col-6" *ngIf="entity.$enabled">
-        <label for="{{entity}}-bgColor" class="form-label">Background Color</label>
-        <input type="color" id="{{entity}}-bgColor" class="form-control" [(ngModel)]="entity.bgColor" (ngModelChangeDebounced)="context.configChanged()">
-      </div>
-    </div>
-  </div>
+  <h6>Global Custom CSS</h6>
+
+  <textarea id="customCss" class="form-control" [(ngModel)]="context.config.customCss" (ngModelChangeDebounced)="context.configChanged()" rows="5"></textarea>
   `
 })
 export class GlobalConfiguratorComponent implements OnInit, OnChanges {

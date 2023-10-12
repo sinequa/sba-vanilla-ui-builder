@@ -50,7 +50,7 @@ export class GlobalService implements OnDestroy {
 
   changes(changes): void {
 
-    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor, entityHighlights, layout } = changes;
+    const { backgroundColor, brandingColor, primaryColor, secondaryColor, textColor, theme, fontFamily, backgroundImage, gradientColor, entityHighlights, layout, customCss } = changes;
     const { appName } = changes;
 
     if (this.appName !== appName) {
@@ -187,6 +187,10 @@ export class GlobalService implements OnDestroy {
         resultsNoPreview,
         preview: layout.preview.customClassOnly ? layout.preview.customClass : `${this.getCol('sm', layout.preview.sm)} ${this.getCol('md', layout.preview.md)} ${this.getCol('lg', layout.preview.lg)} ${this.getCol('xl', layout.preview.xl)} ${layout.preview.customClass || ''}`,
       };
+    }
+
+    if (customCss) {
+      document.head.insertAdjacentHTML("beforeend", `<style>${customCss.replace(/(\r\n|\n|\r)/gm, "")}</style>`)
     }
   }
 
