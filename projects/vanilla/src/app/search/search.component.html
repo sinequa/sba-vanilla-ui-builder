@@ -1,6 +1,6 @@
 <!-- Navbar with app icon, search form, and menus -->
 <nav class="navbar navbar-expand-sm bg-light sticky-top" [ngClass]="{'navbar-dark': ui.isDark()}">
-    <uib-zone id="navbar" class="container-xl flex-nowrap" *ngIf="loginService.complete">
+    <uib-zone id="navbar" class="container-xl flex-nowrap" [style]="globalService.layout.fullWidth ? 'max-width: initial !important;' : ''" *ngIf="loginService.complete">
         <!-- Application logo -->
         <ng-template uib-template="logo" display="App logo" let-config>
             <a [routerLink]="['/home']" title="Home">
@@ -110,7 +110,7 @@
         </div>
 
         <!-- Results -->
-        <div class="{{globalService.layout.results}}" [ngClass]="{'col-md-6': !showFilters}" *ngIf="showResults">
+        <div class="{{openedDoc || !globalService.layout.hidePreview ?  globalService.layout.results : globalService.layout.resultsNoPreview}}" [ngClass]="{'col-md-6': !showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
                 <ng-template uib-template="tabs" display="Tabs" let-config>
@@ -344,7 +344,7 @@
 
             <!-- Without selected document -->
             <!-- hidden only on md resolution -->
-            <sq-facet-card *ngIf="!openedDoc" class="d-none d-sm-block no-record" [ngClass]="{ 'd-none d-lg-block mb-3': showFilters }" [collapsible]="false" [title]="'msg#preview.documentPreview'">
+            <sq-facet-card *ngIf="!openedDoc && !globalService.layout.hidePreview" class="d-none d-sm-block no-record" [ngClass]="{ 'd-none d-lg-block mb-3': showFilters }" [collapsible]="false" [title]="'msg#preview.documentPreview'">
               <div class="text-center">
                   <img src="assets/sinequa-empty-preview.png" class="mb-3">
                   <p class="fw-bold">{{'msg#preview.documentPreviewTitle' | sqMessage}}</p>

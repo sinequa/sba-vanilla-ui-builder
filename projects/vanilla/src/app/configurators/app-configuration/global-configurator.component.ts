@@ -83,15 +83,9 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
 
   <p class="small text-muted">The search page has 3 columns (facets, results, preview) sized using the <a href="https://getbootstrap.com/docs/5.3/layout/grid/" target="_blank">Bootstrap grid system</a>. Use the classes below to control the width of these columns at each screen size breakpoint.</p>
 
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="layout-fullWidth" [(ngModel)]="context.config.layout.fullWidth" (ngModelChangeDebounced)="context.configChanged()">
-    <label class="form-check-label" for="layout-fullWidth">Full width</label>
-  </div>
-
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="layout-reversed" [(ngModel)]="context.config.layout.reversed" (ngModelChangeDebounced)="context.configChanged()">
-    <label class="form-check-label" for="layout-reversed">Reversed tabs</label>
-  </div>
+  <uib-checkbox [context]="context" property="layout.fullWidth" label="Full width"></uib-checkbox>
+  <uib-checkbox [context]="context" property="layout.reversed" label="Reversed tabs"></uib-checkbox>
+  <uib-checkbox [context]="context" property="layout.hidePreview" label="Hide preview when no selected document" uib-tooltip="It will adapt the col numbers for the results when there are no opened document"></uib-checkbox>
 
   <label class="form-label">Facets tab</label>
   <div class="row mb-2">

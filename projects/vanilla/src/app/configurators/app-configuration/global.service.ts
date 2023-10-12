@@ -21,8 +21,10 @@ export class GlobalService implements OnDestroy {
   layout: any = {
     fullWidth: false,
     reversed: false,
+    hidePreview: false,
     facets: 'col-sm-12 col-md-4 col-lg-3 col-xl-2',
     results: 'col-sm-12 col-md-8 col-lg-5',
+    resultsNoPreview: 'col-sm-12 col-md-8 col-lg-5',
     preview: 'col-sm-12 col-lg-4 col-xl-5'
   };
 
@@ -165,11 +167,24 @@ export class GlobalService implements OnDestroy {
     }
 
     if (layout) {
+      const results = layout.results.customClassOnly ? layout.results.customClass : `${this.getCol('sm', layout.results.sm)} ${this.getCol('md', layout.results.md)} ${this.getCol('lg', layout.results.lg)} ${this.getCol('xl', layout.results.xl)} ${layout.results.customClass || ''}`;
+
+      let resultsNoPreview = results;
+      if (layout.hidePreview && !layout.results.customClassOnly) {
+        const sm = this.getNoPreviewCol(layout, 'sm');
+        const md = this.getNoPreviewCol(layout, 'md');
+        const lg = this.getNoPreviewCol(layout, 'lg');
+        const xl = this.getNoPreviewCol(layout, 'xl');
+        resultsNoPreview = `${this.getCol('sm', sm)} ${this.getCol('md', md)} ${this.getCol('lg', lg)} ${this.getCol('xl', xl)} ${layout.facets.customClass || ''}`
+      }
+
       this.layout = {
         fullWidth: layout.fullWidth,
         reversed: layout.reversed,
+        hidePreview: layout.hidePreview,
         facets: layout.facets.customClassOnly ? layout.facets.customClass : `${this.getCol('sm', layout.facets.sm)} ${this.getCol('md', layout.facets.md)} ${this.getCol('lg', layout.facets.lg)} ${this.getCol('xl', layout.facets.xl)} ${layout.facets.customClass || ''}`,
-        results: layout.results.customClassOnly ? layout.results.customClass : `${this.getCol('sm', layout.results.sm)} ${this.getCol('md', layout.results.md)} ${this.getCol('lg', layout.results.lg)} ${this.getCol('xl', layout.results.xl)} ${layout.results.customClass || ''}`,
+        results,
+        resultsNoPreview,
         preview: layout.preview.customClassOnly ? layout.preview.customClass : `${this.getCol('sm', layout.preview.sm)} ${this.getCol('md', layout.preview.md)} ${this.getCol('lg', layout.preview.lg)} ${this.getCol('xl', layout.preview.xl)} ${layout.preview.customClass || ''}`,
       };
     }
@@ -232,7 +247,14 @@ export class GlobalService implements OnDestroy {
     link.href = favicon;
   }
 
+  /** Generate the col-xx-x string for a given breakpoint and value. 0 gets changed into a d-xx-none */
   private getCol(breakpoint: string, value: number): string {
     return value ? `col-${breakpoint}-${value}` : `d-${breakpoint}-none`;
+  }
+
+  /** Get the col number for the results when there are no preview, according to if the facets+results cols are not full width already */
+  private getNoPreviewCol(layout: any, breakpoint: string): number {
+    const maxCol = 12 - layout.facets[breakpoint];
+    return layout.results[breakpoint] + layout.preview[breakpoint] > maxCol && maxCol ? maxCol : layout.results[breakpoint] + layout.preview[breakpoint];
   }
 }
