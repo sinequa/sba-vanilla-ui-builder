@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { PreviewHighlightColors } from "@sinequa/components/preview";
 import { AppService } from "@sinequa/core/app-utils";
 import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
@@ -83,7 +83,7 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
     <h6>Entities Highlights</h6>
     <small class="text-muted">Entity highlights must be configured in the preview web service in the Sinequa administration UI</small>
     <div *ngFor="let entity of context.config.entityHighlights" class="row mb-2">
-    <div class="form-check">
+      <div class="form-check">
         <input class="form-check-input" type="checkbox" id="{{entity}}-enabled" [(ngModel)]="entity.$enabled" (ngModelChangeDebounced)="enableHighlight(entity)">
         <label class="form-check-label" for="excludable">{{entity.name}}</label>
       </div>
@@ -97,9 +97,114 @@ import { ConfiguratorContext } from "@sinequa/ngx-ui-builder";
       </div>
     </div>
   </div>
+
+  <hr/>
+
+  <h6>Search Layout</h6>
+
+  <p class="small text-muted">The search page has 3 columns (facets, results, preview) sized using the <a href="https://getbootstrap.com/docs/5.3/layout/grid/" target="_blank">Bootstrap grid system</a>. Use the classes below to control the width of these columns at each screen size breakpoint.</p>
+
+  <uib-checkbox [context]="context" property="layout.fullWidth" label="Full width"></uib-checkbox>
+  <uib-checkbox [context]="context" property="layout.reversed" label="Reversed tabs"></uib-checkbox>
+  <uib-checkbox [context]="context" property="layout.hidePreview" label="Hide preview when no selected document" uib-tooltip="It will adapt the col numbers for the results when there are no opened document"></uib-checkbox>
+
+  <label class="form-label">Facets tab</label>
+  <div class="row mb-2">
+    <div class="col-3">
+      <label for="facets-sm">col-sm</label>
+      <input type="number" id="facets-sm" class="form-control" [(ngModel)]="context.config.layout.facets.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.facets.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="facets-md">col-md</label>
+      <input type="number" id="facets-md" class="form-control" [(ngModel)]="context.config.layout.facets.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.facets.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="facets-lg">col-lg</label>
+      <input type="number" id="facets-lg" class="form-control" [(ngModel)]="context.config.layout.facets.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.facets.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="facets-xl">col-xl</label>
+      <input type="number" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.facets.customClassOnly">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="facets-classes" [(ngModel)]="context.config.layout.facets.customClassOnly" (ngModelChange)="context.configChanged()">
+        <label class="form-check-label" for="facets-classes">Custom classes only</label>
+      </div>
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.facets.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
+    </div>
+  </div>
+
+  <label class="form-label">Results tab</label>
+  <div class="row mb-2">
+    <div class="col-3">
+      <label for="results-sm">col-sm</label>
+      <input type="number" id="results-sm" class="form-control" [(ngModel)]="context.config.layout.results.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.results.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="results-md">col-md</label>
+      <input type="number" id="results-md" class="form-control" [(ngModel)]="context.config.layout.results.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.results.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="results-lg">col-lg</label>
+      <input type="number" id="results-lg" class="form-control" [(ngModel)]="context.config.layout.results.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.results.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="results-xl">col-xl</label>
+      <input type="number" id="results-xl" class="form-control" [(ngModel)]="context.config.layout.results.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.results.customClassOnly">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="results-classes" [(ngModel)]="context.config.layout.results.customClassOnly" (ngModelChange)="context.configChanged()">
+        <label class="form-check-label" for="results-classes">Custom classes only</label>
+      </div>
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.results.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
+    </div>
+  </div>
+
+  <label class="form-label">Preview tab</label>
+  <div class="row mb-2">
+    <div class="col-3">
+      <label for="preview-sm">col-sm</label>
+      <input type="number" id="preview-sm" class="form-control" [(ngModel)]="context.config.layout.preview.sm" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.preview.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="preview-md">col-md</label>
+      <input type="number" id="preview-md" class="form-control" [(ngModel)]="context.config.layout.preview.md" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.preview.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="preview-lg">col-lg</label>
+      <input type="number" id="preview-lg" class="form-control" [(ngModel)]="context.config.layout.preview.lg" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.preview.customClassOnly">
+    </div>
+    <div class="col-3">
+      <label for="preview-xl">col-xl</label>
+      <input type="number" id="preview-xl" class="form-control" [(ngModel)]="context.config.layout.preview.xl" (ngModelChangeDebounced)="context.configChanged()" min="0" max="12" step="1" [disabled]="context.config.layout.preview.customClassOnly">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="preview-classes" [(ngModel)]="context.config.layout.preview.customClassOnly" (ngModelChange)="context.configChanged()">
+        <label class="form-check-label" for="preview-classes">Custom classes only</label>
+      </div>
+      <input type="text" id="facets-xl" class="form-control" [(ngModel)]="context.config.layout.preview.customClass" (ngModelChangeDebounced)="context.configChanged()" placeholder="Custom classes">
+    </div>
+  </div>
+
+  <hr/>
+
+  <h6>Global Custom CSS</h6>
+
+  <p class="small text-muted">This CSS is being injected in the head of the page. You can here define custom classes to use for the layout.</p>
+
+  <textarea id="customCss" class="form-control" [(ngModel)]="context.config.customCss" (ngModelChangeDebounced)="context.configChanged()" rows="5"></textarea>
   `
 })
-export class GlobalConfiguratorComponent implements OnInit {
+export class GlobalConfiguratorComponent implements OnInit, OnChanges {
   @Input() context: ConfiguratorContext;
 
   fonts = [
@@ -130,6 +235,15 @@ export class GlobalConfiguratorComponent implements OnInit {
     this.secondary = getComputedStyle(document.body).getPropertyValue('--secondary-300').trim();
 
     this.setupHighlights();
+  }
+
+  ngOnChanges(): void {
+    if (this.context) {
+      if (!this.context.config.layout) this.context.config.layout = {};
+      if (!this.context.config.layout.facets) this.context.config.layout.facets = {};
+      if (!this.context.config.layout.results) this.context.config.layout.results = {};
+      if (!this.context.config.layout.preview) this.context.config.layout.preview = {};
+    }
   }
 
   setTextColor(index: number) {

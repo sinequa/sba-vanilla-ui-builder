@@ -19,6 +19,27 @@ export const GLOBAL_DEFAULT_CONFIG = {
     backgroundImage: { filename: '' },
     favicon: { filename: '' }
   },
+  layout: {
+    fullWidth: false,
+    facets: {
+        sm: 12,
+        md: 4,
+        lg: 3,
+        xl: 2
+    },
+    results: {
+        sm: 12,
+        md: 8,
+        lg: 5,
+        xl: 5
+    },
+    preview: {
+        sm: 12,
+        md: 12,
+        lg: 4,
+        xl: 5
+    }
+  },
   entityHighlights: [
     {
       name: 'company',
