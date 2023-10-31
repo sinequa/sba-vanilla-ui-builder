@@ -106,6 +106,28 @@
                         ></sq-facet-multi>
                     </sq-facet-card>
                 </ng-template>
+
+                <ng-template uib-template="timeline" display="Timeline" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="ui.isDark()? 'dark' : 'light'"></sq-facet-timeline>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="chart" display="Chart" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-fusion-chart #facet
+                            [results]="results"
+                            [type]="config.chartType"
+                            [types]="config.chartTypes.length? config.chartTypes : null"
+                            [aggregation]="config.aggregation"
+                            [aggregations]="config.aggregations.length? config.aggregations : null"
+                            [chart]="{theme: ui.isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"
+                            [defaultColor]="config.defaultColor"
+                            [filteredColor]="config.filteredColor"
+                            [selectedColor]="config.selectedColor">
+                        </sq-fusion-chart>
+                    </sq-facet-card>
+                </ng-template>
             </uib-zone>
         </div>
 
