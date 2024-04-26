@@ -69,7 +69,10 @@
               "vis-data",
               "date-fns/locale/_lib/buildFormatLongFn",
               "date-fns-tz",
-              "@microsoft/teams-js"
+              "@microsoft/teams-js",
+              "debug",
+              "extend",
+              "is-buffer"
             ]
           },
           "configurations": {

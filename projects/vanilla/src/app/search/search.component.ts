@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit {
   public previewCustomActions: Action[];
 
   // Whether the left facet bar is shown
-  public _showFilters = this.ui.screenSizeIsEqual('md');
+  public _showFilters = inject(UIService).screenSizeIsEqual('md');
   // Whether the menu is shown on small screens
   public _showMenu = false;
 
