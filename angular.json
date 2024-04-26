@@ -24,7 +24,9 @@
             "tsConfig": "projects/vanilla/tsconfig.json",
             "preserveSymlinks": true,
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules"]
+              "includePaths": [
+                "node_modules"
+              ]
             },
             "assets": [
               "projects/vanilla/src/assests/favicon.ico",
@@ -92,7 +94,7 @@
                 }
               ]
             },
-            "development" : {
+            "development": {
               "outputPath": "dist-debug/vanilla",
               "buildOptimizer": false,
               "optimization": false,
@@ -166,5 +168,13 @@
   },
   "cli": {
     "analytics": false
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
