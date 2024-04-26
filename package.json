@@ -77,7 +77,7 @@
     "unified": "^10.1.2",
     "unist-util-visit": "4.1.2",
     "uuid": "8.3.2",
-    "vis-data": "7.1.4",
+    "vis-data": "^7.1.5",
     "vis-network": "9.1.2",
     "vis-timeline": "7.7.0",
     "vis-util": "5.0.3",
