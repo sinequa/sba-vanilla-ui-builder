@@ -109,20 +109,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vanilla:build:development",
             "ssl": true,
-            "proxyConfig": "projects/vanilla/src/proxy.conf.json"
+            "proxyConfig": "projects/vanilla/src/proxy.conf.json",
+            "buildTarget": "vanilla:build:development"
           },
           "configurations": {
             "production": {
-              "browserTarget": "vanilla:build:production"
+              "buildTarget": "vanilla:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vanilla:build"
+            "buildTarget": "vanilla:build"
           }
         },
         "test": {
