@@ -1,6 +1,6 @@
 {
   "name": "vanilla-builder",
-  "version": "11.11.0",
+  "version": "11.12.0",
   "scripts": {
     "ng": "ng",
     "tsc": "tsc",
@@ -32,9 +32,9 @@
     "@microsoft/teams-js": "^2.4.0",
     "@ngrx/store": "^14.3.2",
     "@popperjs/core": "^2.11.5",
-    "@sinequa/analytics": "rel_11.11.0",
-    "@sinequa/components": "rel_11.11.0",
-    "@sinequa/core": "rel_11.11.0",
+    "@sinequa/analytics": "rel_11.12.0",
+    "@sinequa/components": "rel_11.12.0",
+    "@sinequa/core": "rel_11.12.0",
     "@sinequa/ngx-ui-builder": "^1.0.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "ag-grid-angular": "^25.2.0",
