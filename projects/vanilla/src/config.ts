@@ -92,8 +92,8 @@ export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
     id: 'home-logo',
     type: 'home-logo',
     images: {
-      logoLight: { filename: 'assets/vanilla-logo.png' },
-      logoDark: { filename: 'assets/vanilla-logo-dark.png' }
+      logoLight: { filename: 'assets/sinequa-logo-light-lg.png' },
+      logoDark: { filename: 'assets/sinequa-logo-dark-lg.png' }
     }
   },
   {

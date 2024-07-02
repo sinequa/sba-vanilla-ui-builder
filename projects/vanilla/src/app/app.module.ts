@@ -88,15 +88,6 @@ import { AppConfigService } from "./app-config.service";
 // standalone components
 import { SearchFormComponent } from "@sinequa/components/search-form";
 
-
-// Initialization of @sinequa/core
-export const startConfig: StartConfig = {
-    // app: "training",
-    production: environment.production,
-    // autoSAMLProvider: environment.autoSAMLProvider,
-    auditEnabled: true
-};
-
 // @sinequa/core config initializer
 export function StartConfigInitializer(startConfigWebService: StartConfigWebService): () => Promise<StartConfig> {
     const init = () => firstValueFrom(startConfigWebService.fetchPreLoginAppConfig());
@@ -155,7 +146,7 @@ export const breakpoints = {
         StoreModule.forRoot({}),
         TabsModule,
 
-        WebServicesModule.forRoot(startConfig),
+        WebServicesModule.forRoot(environment),
         IntlModule.forRoot(AppLocalesConfig),
         LoginModule,
         ModalModule,

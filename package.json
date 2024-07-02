@@ -1,6 +1,6 @@
 {
   "name": "vanilla-builder",
-  "version": "11.11.0",
+  "version": "11.12.0",
   "scripts": {
     "ng": "ng",
     "tsc": "tsc",
@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-slider/ngx-slider": "^2.0.4",
+    "@angular-slider/ngx-slider": "^17.0.2",
     "@angular/animations": "^17.3.6",
     "@angular/cdk": "^17.3.6",
     "@angular/common": "^17.3.6",
@@ -30,11 +30,11 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@microsoft/signalr": "^8.0.0",
     "@microsoft/teams-js": "^2.4.0",
-    "@ngrx/store": "^14.3.2",
+    "@ngrx/store": "^17.2.0",
     "@popperjs/core": "^2.11.5",
-    "@sinequa/analytics": "11.11.0",
-    "@sinequa/components": "11.11.0",
-    "@sinequa/core": "11.11.0",
+    "@sinequa/analytics": "rel_11.12.0",
+    "@sinequa/components": "rel_11.12.0",
+    "@sinequa/core": "rel_11.12.0",
     "@sinequa/ngx-ui-builder": "^1.0.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "ag-grid-angular": "^25.2.0",
