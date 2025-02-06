@@ -15,12 +15,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/vanilla",
+            "outputPath": {
+              "base": "dist/vanilla"
+            },
             "index": "projects/vanilla/src/index.html",
-            "main": "projects/vanilla/src/main.ts",
-            "polyfills": "projects/vanilla/src/polyfills.ts",
+            "polyfills": [
+              "projects/vanilla/src/polyfills.ts"
+            ],
             "tsConfig": "projects/vanilla/tsconfig.json",
             "preserveSymlinks": true,
             "stylePreprocessorOptions": {
@@ -73,7 +76,8 @@
               "debug",
               "extend",
               "is-buffer"
-            ]
+            ],
+            "browser": "projects/vanilla/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -83,7 +87,9 @@
                   "with": "projects/vanilla/src/environments/environment.prod.ts"
                 }
               ],
-              "outputPath": "dist/vanilla",
+              "outputPath": {
+                "base": "dist/vanilla"
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -98,10 +104,10 @@
               ]
             },
             "development": {
-              "outputPath": "dist-debug/vanilla",
-              "buildOptimizer": false,
+              "outputPath": {
+                "base": "dist-debug/vanilla"
+              },
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
