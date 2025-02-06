@@ -15,24 +15,21 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": {
-              "base": "dist/vanilla"
-            },
+            "outputPath": "dist/vanilla",
             "index": "projects/vanilla/src/index.html",
-            "polyfills": [
-              "projects/vanilla/src/polyfills.ts"
-            ],
+            "main": "projects/vanilla/src/main.ts",
+            "polyfills": "projects/vanilla/src/polyfills.ts",
             "tsConfig": "projects/vanilla/tsconfig.json",
             "preserveSymlinks": true,
+            "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": [
                 "node_modules"
               ]
             },
             "assets": [
-              "projects/vanilla/src/assests/favicon.ico",
               "projects/vanilla/src/assets",
               "projects/vanilla/src/preview/preview.js"
             ],
@@ -55,29 +52,19 @@
               "lodash",
               "element-resize-detector",
               "batch-processor",
+              "rxjs",
               "@formatjs/intl-relativetimeformat/polyfill",
               "intl-pluralrules",
               "atomicjs",
-              "vis-timeline",
-              "vis-network",
-              "component-emitter",
-              "fusioncharts",
-              "fusioncharts/fusioncharts.charts",
-              "fusioncharts/themes/fusioncharts.theme.candy",
-              "fusioncharts/themes/fusioncharts.theme.fusion",
               "fast-text-encoding",
-              "marked",
               "diacritics",
-              "keycharm",
-              "vis-data",
-              "date-fns/locale/_lib/buildFormatLongFn",
               "date-fns-tz",
+              "date-fns/locale/_lib/buildFormatLongFn",
               "@microsoft/teams-js",
               "debug",
               "extend",
               "is-buffer"
-            ],
-            "browser": "projects/vanilla/src/main.ts"
+            ]
           },
           "configurations": {
             "production": {
@@ -87,27 +74,33 @@
                   "with": "projects/vanilla/src/environments/environment.prod.ts"
                 }
               ],
-              "outputPath": {
-                "base": "dist/vanilla"
-              },
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "7mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
             },
             "development": {
-              "outputPath": {
-                "base": "dist-debug/vanilla"
-              },
+              "outputPath": "dist-debug/vanilla-search",
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
