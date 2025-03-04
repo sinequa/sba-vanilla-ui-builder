@@ -144,15 +144,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/vanilla/**/*.ts",
-              "projects/vanilla/**/*.html"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -170,13 +161,5 @@
   },
   "cli": {
     "analytics": false
-  },
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
-    },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
-    }
   }
 }
