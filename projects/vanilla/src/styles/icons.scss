@@ -112,7 +112,7 @@ $sq-icon-families: ("s", "b", "r", "l") !default;
             }
             @else {
                 .sq-icon-#{$key} {
-                    @extend .fa-#{$value};
+                    @extend .fa-#{$value} !optional;
                 }
             }
         }

@@ -1,10 +1,10 @@
-{
+[{
     "context": [
         "/api",
         "/xdownload",
-        "/saml/redirect"
+        "/auth/redirect"
     ],
     "target": "https://su-sba.demo.sinequa.com",
     "secure": true,
     "changeOrigin": true
-}
+}]
