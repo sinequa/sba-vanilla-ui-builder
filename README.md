@@ -11,8 +11,10 @@ Vanilla Builder is designed to let Sinequa administrators quickly generate and c
 Vanilla Builder can be built and deployed like any regular SBA in Sinequa:
 
 - Clone this repository
-- Run `npm install`
+- Run `npm install --legacy-peer-deps`
 - Run `npm run build` (to build the app) or `npm run start` (to serve the app locally)
+
+Note that you may also need to setup your `startConfig` variable (inside `projets/vanilla/src/app/app.module.ts`).
 
 Optionally, to enable the export of the application as a static SBA (see [below](#static-export)), deploy the attached `UiBuilderPlugin.cs` plugin on your Sinequa server.
 

@@ -9,6 +9,7 @@ import { UserPreferences } from '@sinequa/components/user-settings';
 import { SelectionService } from '@sinequa/components/selection';
 import { AppService } from '@sinequa/core/app-utils';
 import { AuditWebService } from "@sinequa/core/web-services";
+import { ConfigurableService } from "@sinequa/ngx-ui-builder";
 
 @Component({
     selector: "app",
@@ -32,6 +33,7 @@ export class AppComponent extends ComponentWithLogin {
         public labelsService: LabelsService,
         public selectionService: SelectionService,
         public appService: AppService,
+        public configurableService: ConfigurableService,
 
         public router: Router,
         public auditWebService: AuditWebService
@@ -80,6 +82,12 @@ export class AppComponent extends ComponentWithLogin {
                     });
                 }
             });
+
+            // On configurable change on the configurator
+            this.configurableService.watchEdited()
+                .subscribe(() => {
+                    this.appService.refresh();
+                });
 
         }
     }

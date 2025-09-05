@@ -46,6 +46,10 @@ body.dark {
         sq-result-missing-terms {
             color: $dark-result-missing-terms-color;
         }
+
+        sq-result-duplicates {
+            color: $dark-secondary;
+        }
     }
 
     app-preview {

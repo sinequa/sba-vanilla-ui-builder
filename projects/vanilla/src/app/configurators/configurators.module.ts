@@ -13,12 +13,16 @@ import { MetadataConfiguratorComponent } from "./metadata-configurator.component
 import { PredefinedResultsLayoutComponent } from "./predefined-results-layout.component";
 import { PreviewConfiguratorComponent } from "./preview-configurator.component";
 import { SearchFormLegacyConfiguratorComponent } from "./search-form-legacy-configurator.component";
+import { AdvancedSearchFormConfiguratorComponent } from "./advanced-search-form-configurator.component";
 import { ChartConfiguratorComponent } from "./chart-configurator.component";
 import { TimelineConfiguratorComponent } from "./timeline-configurator.component";
 import { HeatmapConfiguratorComponent } from "./heatmap-configurator.component";
 import { SlideBuilderConfiguratorComponent } from "./slide-builder-configurator.component";
 import { CommentsConfiguratorComponent } from "./comments-configurator.component";
 import { NetworkConfiguratorComponent } from "./network-configurator.component";
+import { StringFilterPipe } from "./translations-configuration/string-filter.pipe";
+import { TranslationsConfiguratorComponent } from './translations-configuration/translations-configurator.component';
+import { TranslationItemComponent } from './translations-configuration/translation-item/translation-item.component';
 import { ControlsModule } from "./controls/controls.module";
 
 @NgModule({
@@ -41,24 +45,7 @@ import { ControlsModule } from "./controls/controls.module";
     FacetMultiConfiguratorComponent,
     MetadataConfiguratorComponent,
     SearchFormLegacyConfiguratorComponent,
-    PredefinedResultsLayoutComponent,
-    MenuConfiguratorComponent,
-    HomeFacetConfiguratorComponent,
-    PreviewConfiguratorComponent,
-    GlobalConfiguratorComponent,
-    ChartConfiguratorComponent,
-    TimelineConfiguratorComponent,
-    HeatmapConfiguratorComponent,
-    SlideBuilderConfiguratorComponent,
-    CommentsConfiguratorComponent,
-    NetworkConfiguratorComponent
-  ],
-  exports: [
-    FacetHeaderConfiguratorComponent,
-    FacetConfiguratorComponent,
-    FacetMultiConfiguratorComponent,
-    MetadataConfiguratorComponent,
-    SearchFormLegacyConfiguratorComponent,
+    AdvancedSearchFormConfiguratorComponent,
     PredefinedResultsLayoutComponent,
     MenuConfiguratorComponent,
     HomeFacetConfiguratorComponent,
@@ -70,6 +57,31 @@ import { ControlsModule } from "./controls/controls.module";
     SlideBuilderConfiguratorComponent,
     CommentsConfiguratorComponent,
     NetworkConfiguratorComponent,
+    TranslationsConfiguratorComponent,
+    TranslationItemComponent,
+    StringFilterPipe
+  ],
+  exports: [
+    FacetHeaderConfiguratorComponent,
+    FacetConfiguratorComponent,
+    FacetMultiConfiguratorComponent,
+    MetadataConfiguratorComponent,
+    SearchFormLegacyConfiguratorComponent,
+    AdvancedSearchFormConfiguratorComponent,
+    PredefinedResultsLayoutComponent,
+    MenuConfiguratorComponent,
+    HomeFacetConfiguratorComponent,
+    PreviewConfiguratorComponent,
+    GlobalConfiguratorComponent,
+    ChartConfiguratorComponent,
+    TimelineConfiguratorComponent,
+    HeatmapConfiguratorComponent,
+    SlideBuilderConfiguratorComponent,
+    CommentsConfiguratorComponent,
+    NetworkConfiguratorComponent,
+    TranslationsConfiguratorComponent,
+    TranslationItemComponent,
+    StringFilterPipe,
 
     ControlsModule // Export so that controls can be used directly in the application
   ]

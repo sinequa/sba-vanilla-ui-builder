@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { debounceTime, skip, switchMap } from 'rxjs/operators';
 import { GLOBAL_CONFIG, VANILLA_BUILDER_DEFAULT_CONFIG } from '../config';
 import { GlobalService } from './configurators/app-configuration/global.service';
+import { IntlService } from '@sinequa/core/intl';
+import { Utils } from '@sinequa/core/base';
 
 @Injectable({ providedIn: 'root' })
 export class AppConfigService {
@@ -14,7 +16,8 @@ export class AppConfigService {
     private readonly userSettingsService: UserSettingsWebService,
     private readonly configService: ConfigService,
     private readonly toastService: ToastService,
-    private readonly globalService: GlobalService
+    private readonly globalService: GlobalService,
+    private intlService: IntlService
   ) {
 
     // using userSettingsService.events observable don't works when we land in the home page first
@@ -25,6 +28,23 @@ export class AppConfigService {
           this.configServiceSubscription();
           this.globalService.startListening();
         }
+      });
+
+      // Merge the overriden translations inside the currentLocale messages
+      let messages: any;
+      let locale: string;
+      let translations: any;
+
+      this.intlService.events.subscribe(() => {
+        messages = this.intlService.currentLocale.data?.messages;
+        locale = this.intlService.currentLocale.name;
+        this.setTranslations(messages, locale, translations);
+      });
+
+      this.configService.watchConfig('translations')
+      .subscribe(value => {
+        translations = value.translations;
+        this.setTranslations(messages, locale, translations);
       });
   }
 
@@ -54,6 +74,11 @@ export class AppConfigService {
       .subscribe(value => {
         this.toastService.show('UI configuration saved.', 'success');
       });
+  }
+
+  private setTranslations(messages: any, locale: string, translations: any) {
+    if (!messages || !locale || !translations) return;
+    this.intlService.currentLocale.data!.messages = Utils.merge({}, messages, translations[locale]);
   }
 
   /**

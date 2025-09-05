@@ -32,7 +32,7 @@ export class FacetMultiConfiguratorComponent implements OnChanges {
   ){
     // Watch the list of available facet configurations to display in the facet-multi
     this.facets$ = this.configService.watchAllConfig().pipe(
-      map(config => config.filter(c => c.type === 'facet-list' || c.type === 'facet-tree' || c.type === 'facet-date')
+      map(config => config.filter(c => c.type === 'facet-list' || c.type === 'facet-date')
         .map(c => Utils.extend({}, c, {type: c.type.replace("facet-", "")})) // Component configs have "facet-" prepended to the type
       )
     );

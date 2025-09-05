@@ -59,6 +59,7 @@ import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { PreviewComponent } from './preview/preview.component';
 import { AppSearchFormComponent } from './search-form/search-form.component';
+import { AdvancedSearchFormComponent } from './advanced-search-form/advanced-search-form.component';
 import { AutocompleteComponent } from './search-form/autocomplete.component';
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { NetworkPipe } from "./search/network.pipe";
@@ -203,6 +204,7 @@ export const breakpoints = {
         SearchConfiguratorComponent,
         PreviewComponent,
         AppSearchFormComponent,
+        AdvancedSearchFormComponent,
         AutocompleteComponent,
         ToolbarComponent,
         NetworkPipe

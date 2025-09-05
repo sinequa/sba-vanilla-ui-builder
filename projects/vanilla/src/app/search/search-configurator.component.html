@@ -9,10 +9,6 @@
         <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
 
-      <ng-template uib-template="facet-tree" let-context>
-        <sq-facet-configurator [context]="context"></sq-facet-configurator>
-      </ng-template>
-
       <ng-template uib-template="facet-date" let-context>
         <sq-facet-configurator [context]="context"></sq-facet-configurator>
       </ng-template>
@@ -48,6 +44,10 @@
       <ng-template uib-template="result-icon" let-context>
         <label for="size">Size</label>
         <input type="text" class="form-control mb-1" id="size" autocomplete="off" spellcheck="off" [(ngModel)]="context.config.size" (ngModelChangeDebounced)="context.configChanged()">
+      </ng-template>
+
+      <ng-template uib-template="result-missing-terms" let-context>
+        <uib-checkbox [context]="context" property="showMustInclude" label="Should show 'Must include'" (modelChanged)="context.configChanged()"></uib-checkbox>
       </ng-template>
 
       <ng-template uib-template="result-labels" let-context>
@@ -91,6 +91,10 @@
 
       <ng-template uib-template="search-form" let-context>
         <sq-search-form-legacy-configurator [context]="context"></sq-search-form-legacy-configurator>
+      </ng-template>
+
+      <ng-template uib-template="advanced-search-form" let-context>
+        <sq-advanced-search-form-configurator [context]="context"></sq-advanced-search-form-configurator>
       </ng-template>
 
       <ng-template uib-template="logo" let-context>
@@ -164,6 +168,10 @@
 
       <ng-template uib-template="global" let-context>
         <sq-global-configurator [context]="context"></sq-global-configurator>
+      </ng-template>
+
+      <ng-template uib-template="translations" let-context>
+        <sq-translations-configurator [context]="context"></sq-translations-configurator>
       </ng-template>
 
     </uib-configurator>

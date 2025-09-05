@@ -4,7 +4,55 @@
     "type": "global",
     "backgroundColor": "#f6eeee",
     "gradientColor": "#e2dfdf",
-    "fontFamily": "Georgia, serif"
+    "fontFamily": "Georgia, serif",
+    "layout": {
+      "fullWidth": false,
+      "facets": {
+        "sm": 12,
+        "md": 4,
+        "lg": 3,
+        "xl": 2
+      },
+      "results": {
+        "sm": 12,
+        "md": 8,
+        "lg": 5,
+        "xl": 5
+      },
+      "preview": {
+        "sm": 12,
+        "md": 12,
+        "lg": 4,
+        "xl": 5
+      }
+    },
+    "entityHighlights": [
+      {
+        "name": "company",
+        "color": "white",
+        "bgColor": "#FF7675"
+      },
+      {
+        "name": "geo",
+        "color": "white",
+        "bgColor": "#74B9FF"
+      },
+      {
+        "name": "person",
+        "color": "white",
+        "bgColor": "#00ABB5"
+      },
+      {
+        "name": "extractslocations",
+        "color": "black",
+        "bgColor": "#fffacd"
+      },
+      {
+        "name": "matchlocations",
+        "color": "black",
+        "bgColor": "#ff0"
+      }
+    ]
   },
   {
     "id": "home",
@@ -173,7 +221,7 @@
     "id": "facet-treepath",
     "name": "treepath",
     "title": "msg#facet.treepath.title",
-    "type": "facet-tree",
+    "type": "facet-list",
     "icon": "fas fa-sitemap",
     "parameters": {
       "aggregation": "Treepath",
@@ -182,7 +230,9 @@
       "allowExclude": true,
       "allowOr": true,
       "allowAnd": false,
-      "displayEmptyDistributionIntervals": false
+      "displayEmptyDistributionIntervals": false,
+      "acceptNonAggregationItemFilter": true,
+      "expandedLevel": 2
     }
   },
   {

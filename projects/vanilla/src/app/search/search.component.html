@@ -1,6 +1,6 @@
 <!-- Navbar with app icon, search form, and menus -->
 <nav class="navbar navbar-expand-sm bg-light sticky-top" [ngClass]="{'navbar-dark': ui.isDark()}">
-    <uib-zone id="navbar" class="container-xl flex-nowrap" *ngIf="loginService.complete">
+    <uib-zone id="navbar" class="container-xl flex-nowrap" [style]="globalService.layout.fullWidth ? 'max-width: initial !important;' : ''" *ngIf="loginService.complete">
         <!-- Application logo -->
         <ng-template uib-template="logo" display="App logo" let-config>
             <a [routerLink]="['/home']" title="Home">
@@ -14,6 +14,10 @@
         <!-- Search form -->
         <ng-template uib-template="search-form" display="Search form" let-config>
             <app-search-form class="app-search-form" [autocompleteSources]="config.autocompleteSources"></app-search-form>
+        </ng-template>
+
+        <ng-template uib-template="advanced-search-form" display="Advanced Search form" let-config>
+            <app-advanced-search-form class="app-search-form" [autocompleteSources]="config.autocompleteSources" [facets]="config.facets"></app-advanced-search-form>
         </ng-template>
 
         <ng-template uib-template="baskets-menu" display="Collections menu">
@@ -53,11 +57,11 @@
 <sq-loading-bar></sq-loading-bar>
 
 <!-- Main interface -->
-<div class="container-xl main" *ngIf="loginService.complete">
-    <div class="row" *ngIf="results$ | async; let results">
+<div class="container-xl main" [style]="globalService.layout.fullWidth ? 'max-width: initial !important;' : ''" *ngIf="loginService.complete">
+    <div class="row" *ngIf="results$ | async; let results" [class.flex-row-reverse]="globalService.layout.reversed">
 
         <!-- Left facet bar -->
-        <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2 sq-facet-bar" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
+        <div class="sq-facet-bar" [ngClass]="globalService.layout.facets" *ngIf="showFilters" [sqSticky]="{top: 96, bottom: 10}">
             <uib-zone id="facets" [conditionsData]="conditionsData">
                 <ng-template uib-template="facet-list" display="List facet" title="A component that displays a list of metadata to filter the results" let-config>
                     <sq-facet-card class="d-block" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
@@ -69,19 +73,9 @@
                             [allowOr]="config.parameters.allowOr"
                             [allowAnd]="config.parameters.allowAnd"
                             [displayEmptyDistributionIntervals]="config.parameters.displayEmptyDistributionIntervals"
-                        ></sq-facet-list>
-                    </sq-facet-card>
-                </ng-template>
-
-                <ng-template uib-template="facet-tree" display="Tree facet" title="A component that displays a tree-structured metadata to filter the results" let-config>
-                    <sq-facet-card class="d-block" [title]="config.title" [icon]="config.icon" [collapsible]="config.collapsible">
-                        <sq-facet-list #facet
-                            [results]="results"
-                            [aggregation]="config.parameters.aggregation"
-                            [showCount]="config.parameters.showCount"
-                            [searchable]="config.parameters.searchable"
-                            [allowExclude]="config.parameters.allowExclude"
-                            [allowOr]="config.parameters.allowOr"
+                            [acceptNonAggregationItemFilter]="config.parameters.acceptNonAggregationItemFilter"
+                            [replaceCurrent]="config.parameters.replaceCurrent"
+                            [expandedLevel]="config.parameters.expandedLevel"
                         ></sq-facet-list>
                     </sq-facet-card>
                 </ng-template>
@@ -112,11 +106,33 @@
                         ></sq-facet-multi>
                     </sq-facet-card>
                 </ng-template>
+
+                <ng-template uib-template="timeline" display="Timeline" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-facet-timeline #facet [results]="results" [timeseries]="config.timeseries" [events]="config.showRecords? [{field:'modified'}] : []" [theme]="ui.isDark()? 'dark' : 'light'"></sq-facet-timeline>
+                    </sq-facet-card>
+                </ng-template>
+
+                <ng-template uib-template="chart" display="Chart" let-config>
+                    <sq-facet-card [icon]="config.icon" [title]="config.title" [collapsible]="config.collapsible">
+                        <sq-fusion-chart #facet
+                            [results]="results"
+                            [type]="config.chartType"
+                            [types]="config.chartTypes.length? config.chartTypes : null"
+                            [aggregation]="config.aggregation"
+                            [aggregations]="config.aggregations.length? config.aggregations : null"
+                            [chart]="{theme: ui.isDark()?'candy':'fusion', labelDisplay:'rotate', slantLabel:'1'}"
+                            [defaultColor]="config.defaultColor"
+                            [filteredColor]="config.filteredColor"
+                            [selectedColor]="config.selectedColor">
+                        </sq-fusion-chart>
+                    </sq-facet-card>
+                </ng-template>
             </uib-zone>
         </div>
 
         <!-- Results -->
-        <div class="col-sm-12 col-lg-5" [ngClass]="{'col-md-6': !showFilters, 'col-md-8': showFilters}" *ngIf="showResults">
+        <div class="{{openedDoc || !globalService.layout.hidePreview ?  globalService.layout.results : globalService.layout.resultsNoPreview}}" [ngClass]="{'col-md-6': !showFilters}" *ngIf="showResults">
 
             <uib-zone id="results-header" [conditionsData]="conditionsData">
                 <ng-template uib-template="tabs" display="Tabs" let-config>
@@ -198,7 +214,20 @@
                 </ng-template>
 
                 <ng-template uib-template="result-missing-terms" display="Missing Terms" let-config let-record="data">
-                    <sq-result-missing-terms [record]="record"></sq-result-missing-terms>
+                    <sq-result-missing-terms [record]="record" [showMustInclude]="config.showMustInclude"></sq-result-missing-terms>
+                </ng-template>
+
+                <ng-template uib-template="result-duplicates" display="Duplicates" let-config let-record="data">
+                    <sq-result-duplicates [record]="record"></sq-result-duplicates>
+                </ng-template>
+
+                <ng-template uib-template="result-duplicates-list" display="Duplicates List" let-config let-record="data">
+                    <sq-result-duplicates-list [record]="record">
+                        <ng-template let-duplicate>
+                            <sq-result-title [record]="record" (titleClicked)="openPreviewIfNoUrl(duplicate, $event)"></sq-result-title>
+                            <sq-result-source [record]="record" [displayTreepath]="true"></sq-result-source>
+                        </ng-template>
+                    </sq-result-duplicates-list>
                 </ng-template>
 
                 <ng-template uib-template="result-labels" display="Labels" let-config let-record="data">
@@ -218,7 +247,7 @@
                 </ng-template>
 
                 <ng-template uib-template="result-metadata" display="Metadata" let-config let-record="data">
-                    <sq-metadata [record]="record" [config]="metadata" [query]="searchService.query"></sq-metadata>
+                    <sq-metadata [record]="record" [config]="config.metadataConfig" [layout]="config.layout" [query]="searchService.query"></sq-metadata>
                 </ng-template>
             </uib-zone>
 
@@ -230,7 +259,7 @@
         </div>
 
         <!-- Right part-->
-        <div class="col-sm-12 col-lg-4 col-xl-5" [sqSticky]="{top: 80, bottom: 10}">
+        <div [ngClass]="globalService.layout.preview" [sqSticky]="{top: 80, bottom: 10}">
             <uib-zone id="panel-right" [data]="[openedDoc]" [conditionsData]="conditionsData">
                 <ng-template uib-template="preview" display="Preview" title="Preview of a selected document" let-config let-record="data">
 
@@ -252,7 +281,7 @@
                         </ng-template>
 
                         <ng-template #subHeaderTpl>
-                            <sq-metadata [record]="record" [config]="getMetadata(config.metadata.items)" [layout]="config.metadata.layout" [query]="searchService.query"></sq-metadata>
+                            <sq-metadata [record]="record" [config]="config.metadataConfig" [layout]="config.layout" [query]="searchService.query"></sq-metadata>
                         </ng-template>
 
                         <ng-template [sqFacetView]="{text: 'msg#preview.viewPassages'}" [default]="true" *ngIf="openedDoc?.$hasPassages" #passagesList>
@@ -264,7 +293,7 @@
                             style="height: calc(100vh - 220px);"
                             [id]="openedDoc?.id"
                             [query]="searchService.query"
-                            [highlightColors]="previewHighlights"
+                            [highlightColors]="globalService.entityHighlights"
                             [highlightEntities]="config.highlightEntities"
                             [highlightExtracts]="config.highlightExtracts"
                             [downloadablePdf]="config.downloadablePdf"
@@ -337,7 +366,7 @@
 
             <!-- Without selected document -->
             <!-- hidden only on md resolution -->
-            <sq-facet-card *ngIf="!openedDoc" class="d-none d-sm-block no-record" [ngClass]="{ 'd-none d-lg-block mb-3': showFilters }" [collapsible]="false" [title]="'msg#preview.documentPreview'">
+            <sq-facet-card *ngIf="!openedDoc && !globalService.layout.hidePreview" class="d-none d-sm-block no-record" [ngClass]="{ 'd-none d-lg-block mb-3': showFilters }" [collapsible]="false" [title]="'msg#preview.documentPreview'">
               <div class="text-center">
                   <img src="assets/sinequa-empty-preview.png" class="mb-3">
                   <p class="fw-bold">{{'msg#preview.documentPreviewTitle' | sqMessage}}</p>

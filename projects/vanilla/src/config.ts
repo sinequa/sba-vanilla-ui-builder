@@ -1,7 +1,7 @@
 import { FacetDateParams } from "@sinequa/analytics/timeline";
 import { ComponentConfig } from '@sinequa/ngx-ui-builder';
-import { PreviewHighlightColors } from '@sinequa/components/preview';
 import { MetadataConfig } from '@sinequa/components/metadata';
+import { FacetListParams, FacetRangeParams, FacetRefineParams, FacetTagCloudParams } from "@sinequa/components/facet";
 
 
 /**
@@ -15,8 +15,71 @@ export const GLOBAL_DEFAULT_CONFIG = {
   id: "global",
   type: "global",
   appName: "msg#app.name",
-  images: { backgroundImage: { filename: '' } }
-}
+  images: {
+    backgroundImage: { filename: '' },
+    favicon: { filename: '' }
+  },
+  layout: {
+    fullWidth: false,
+    facets: {
+        sm: 12,
+        md: 4,
+        lg: 3,
+        xl: 2
+    },
+    results: {
+        sm: 12,
+        md: 8,
+        lg: 5,
+        xl: 5
+    },
+    preview: {
+        sm: 12,
+        md: 12,
+        lg: 4,
+        xl: 5
+    }
+  },
+  entityHighlights: [
+    {
+      name: 'company',
+      color: 'white',
+      bgColor: '#FF7675'
+    },
+    {
+      name: 'geo',
+      color: 'white',
+      bgColor: '#74B9FF'
+    },
+    {
+      name: 'person',
+      color: 'white',
+      bgColor: '#00ABB5'
+    },
+    {
+      name: 'extractslocations',
+      color: 'black',
+      bgColor: '#fffacd'
+    },
+    {
+      name: 'matchlocations',
+      color: 'black',
+      bgColor: '#ff0'
+    }
+  ]
+};
+
+export const TRANSLATIONS_DEFAULT_CONFIG: ComponentConfig[] = [
+  {
+    id: "translations",
+    type: "translations",
+    translations: {
+      en: {},
+      fr: {},
+      de: {}
+    }
+  }
+];
 
 export const HOME_DEFAULT_CONFIG: ComponentConfig[] = [
   {
@@ -158,7 +221,7 @@ export const NAVBAR_DEFAULT_CONFIG: ComponentConfig[] = [
     items: []
   }
 ];
-export type FacetParams = FacetDateParams;
+export type FacetParams = FacetListParams | FacetRangeParams | FacetRefineParams | FacetTagCloudParams | FacetDateParams;
 export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
   {
     id: 'facets',
@@ -170,7 +233,7 @@ export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
     id: "facet-treepath",
     name: "treepath",
     title: "msg#facet.treepath.title",
-    type: "facet-tree",
+    type: "facet-list",
     icon: "fas fa-sitemap",
     parameters: {
       aggregation: "Treepath",
@@ -180,6 +243,8 @@ export const FACETS_DEFAULT_CONFIG: ComponentConfig[] = [
       allowOr: true,
       allowAnd: false,
       displayEmptyDistributionIntervals: false,
+      acceptNonAggregationItemFilter: true,
+      expandedLevel: 2
     }
   },
   {
@@ -462,6 +527,7 @@ export const PANEL_RIGHT_DEFAULT_CONFIG: ComponentConfig[] = [
 
 export const VANILLA_BUILDER_DEFAULT_CONFIG: ComponentConfig[] = [
   GLOBAL_DEFAULT_CONFIG,
+  ...TRANSLATIONS_DEFAULT_CONFIG,
   ...HOME_DEFAULT_CONFIG,
   ...NAVBAR_DEFAULT_CONFIG,
   ...FACETS_DEFAULT_CONFIG,
@@ -482,34 +548,6 @@ export const RESULTS_VIEWS_CONFIG = [
     config: RESULTS_VIEW_TILES_CONFIG
   }
 ];
-
-export const PREVIEW_HIGHLIGHTS: PreviewHighlightColors[] = [
-  {
-    name: 'company',
-    color: 'white',
-    bgColor: '#FF7675'
-  },
-  {
-    name: 'geo',
-    color: 'white',
-    bgColor: '#74B9FF'
-  },
-  {
-    name: 'person',
-    color: 'white',
-    bgColor: '#00ABB5'
-  },
-  {
-    name: 'extractslocations',
-    color: 'black',
-    bgColor: '#fffacd'
-  },
-  {
-    name: 'matchlocations',
-    color: 'black',
-    bgColor: '#ff0'
-  }
-]
 
 export const METADATA_CONFIG: MetadataConfig[] = [
   {

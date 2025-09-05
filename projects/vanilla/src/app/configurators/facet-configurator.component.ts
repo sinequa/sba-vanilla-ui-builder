@@ -25,8 +25,16 @@ import { ConfiguratorContext, ComponentConfig } from "@sinequa/ngx-ui-builder";
   <ng-container *ngIf="config.type !== 'facet-date'">
     <uib-checkbox [context]="context" property="parameters.searchable" label="Searchable"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.allowOr" label="Allow Multi-selecting with OR"></uib-checkbox>
-    <uib-checkbox [context]="context" property="parameters.allowAnd" label="Allow Multi-selecting with AND" *ngIf="config.type !== 'facet-tree'"></uib-checkbox>
+    <uib-checkbox [context]="context" property="parameters.allowAnd" label="Allow Multi-selecting with AND"></uib-checkbox>
     <uib-checkbox [context]="context" property="parameters.allowExclude" label="Allow Excluding Items"></uib-checkbox>
+    <uib-checkbox [context]="context" property="parameters.displayEmptyDistributionIntervals" label="Display empty distribution intervals"></uib-checkbox>
+    <uib-checkbox [context]="context" property="parameters.acceptNonAggregationItemFilter" label="Accept non aggregation item filters"></uib-checkbox>
+    <uib-checkbox [context]="context" property="parameters.replaceCurrent" label="Replace the previous select"></uib-checkbox>
+
+    <div *ngIf="isTree">
+      <label for="title">Expanded level</label>
+      <input type="number" class="form-control" id="expandedLevel" [(ngModel)]="config.parameters.expandedLevel" min="0" (ngModelChangeDebounced)="configChanged()">
+    </div>
   </ng-container>
 
   <ng-container *ngIf="config.type === 'facet-date'">
@@ -50,6 +58,7 @@ export class FacetConfiguratorComponent implements OnChanges {
   }
 
   aggregations: string[];
+  isTree: boolean;
 
   constructor(
     public searchService: SearchService
@@ -67,7 +76,9 @@ export class FacetConfiguratorComponent implements OnChanges {
           allowCustomRange: true,
           showCustomRange: true,
           replaceCurrent: true,
-          displayEmptyDistributionIntervals: true
+          displayEmptyDistributionIntervals: true,
+          acceptNonAggregationItemFilter: true,
+          expandedLevel: 2
         };
       }
       else {
@@ -81,9 +92,9 @@ export class FacetConfiguratorComponent implements OnChanges {
       }
     }
     // Update the list of available aggregations
-    this.aggregations = this.searchService.results?.aggregations
-      .filter(agg => !!agg.isTree === (this.config.type === 'facet-tree'))
-      .map(agg => agg.name) || [];
+    const aggregations = this.searchService.results?.aggregations;
+    this.aggregations = aggregations?.map(agg => agg.name) || [];
+    this.isTree = !!aggregations?.find(a => a.name === this.config.parameters?.aggregation)?.isTree;
   }
 
   configChanged() {

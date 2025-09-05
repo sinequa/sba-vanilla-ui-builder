@@ -69,7 +69,7 @@ export class ToolbarComponent {
       const reader = new FileReader();
       reader.onload = () => {
         const config = JSON.parse(reader.result as string);
-        this.configService.set(config);
+        this.configService.init(config);
       }
       reader.readAsText(file, 'utf-8');
     }
@@ -83,6 +83,17 @@ export class ToolbarComponent {
     // Simulate click on global component
     this.configurableService.clickConfigurable({
       id: "global",
+      parentId: "", // parentId would be required to duplicate or remove the component, which is not applicable here
+      zone: "",
+      removeSelected: () => {}, // These callbacks do nothing because this is not a real click on a configurable component
+      removeEdited: () => {}
+    })
+  }
+
+  openTranslationsConfigurator() {
+    // Simulate click on global component
+    this.configurableService.clickConfigurable({
+      id: "translations",
       parentId: "", // parentId would be required to duplicate or remove the component, which is not applicable here
       zone: "",
       removeSelected: () => {}, // These callbacks do nothing because this is not a real click on a configurable component

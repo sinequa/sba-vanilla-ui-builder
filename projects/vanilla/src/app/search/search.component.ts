@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Action } from '@sinequa/components/action';
 import { BsFacetCard, DEFAULT_FACET_COMPONENTS, FacetConfig, FacetViewDirective } from '@sinequa/components/facet';
-import { PreviewHighlightColors, PreviewService } from '@sinequa/components/preview';
+import { PreviewService } from '@sinequa/components/preview';
 import { SearchService } from '@sinequa/components/search';
 import { SelectionService } from '@sinequa/components/selection';
 import { UIService } from '@sinequa/components/utils';
@@ -12,9 +12,10 @@ import { AppService, ValueItem } from '@sinequa/core/app-utils';
 import { IntlService } from '@sinequa/core/intl';
 import { LoginService } from '@sinequa/core/login';
 import { Answer, AuditEventType, AuditWebService, Record, Results, TopPassage } from '@sinequa/core/web-services';
-import { FacetParams, METADATA_CONFIG, PREVIEW_HIGHLIGHTS } from '../../config';
+import { FacetParams, METADATA_CONFIG } from '../../config';
 import { BsFacetDate } from '@sinequa/analytics/timeline';
 import { MetadataConfig } from '@sinequa/components/metadata';
+import { GlobalService } from '../configurators/app-configuration/global.service';
 
 @Component({
   selector: 'app-search',
@@ -75,6 +76,7 @@ export class SearchComponent implements OnInit {
     public loginService: LoginService,
     public auditService: AuditWebService,
     public ui: UIService,
+    public globalService: GlobalService
   ) {
 
     const expandAction = new Action({
@@ -181,10 +183,6 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  public get previewHighlights(): PreviewHighlightColors[] {
-    return this.appService.app?.data?.previewHighlights as any || PREVIEW_HIGHLIGHTS;
-  }
-
   /**
    * Responds to a click on a document (setting openedDoc will open the preview facet)
    * @param record
@@ -273,17 +271,5 @@ export class SearchComponent implements OnInit {
     if (value.item.$record) {
       this.openPreviewIfNoUrl(value.item.$record, value.isLink);
     }
-  }
-
-  getMetadata(metadata: string[]): MetadataConfig[] {
-    // we need to respect the metadata order set
-    const list = metadata.reduce((acc, meta) => {
-      const m = this.metadata.find(m => m.field === meta);
-      if (m) {
-        acc.push(m)
-      }
-      return acc;
-    }, [] as MetadataConfig[]);
-    return list;
   }
 }
