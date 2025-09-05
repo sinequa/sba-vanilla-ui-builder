@@ -1,10 +1,12 @@
-{
-    "context": [
-        "/api",
-        "/xdownload",
-        "/saml/redirect"
-    ],
-    "target": "https://vm-su-sba.sinequa.com:13343",
-    "secure": true,
-    "changeOrigin": true
-}
+[
+    {
+        "context": [
+            "/api",
+            "/xdownload",
+            "/saml/redirect"
+        ],
+        "target": "https://su-sba.demo.sinequa.com",
+        "secure": true,
+        "changeOrigin": true
+    }
+]
